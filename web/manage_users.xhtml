@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/template_1.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+
+
+    <!--  testing  -->
+
+    <ui:define name="content">
+        <p:growl autoUpdate="true" />
+        <h:outputStylesheet library="css" name="pdhscss1.css"   />
+        <p:panel header="Mange Users" rendered="#{sessionController.admin}" >
+            <h:form >
+                <h:panelGrid columns="1">
+                    <h:outputLabel class="pdPageTitle" value="Manage User Accounts" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" >
+
+                    <h:panelGrid id="gpSelect" columns="1" >
+                        <h:outputLabel class="pdPageText" value="Users"  />
+                        <h:selectOneListbox class="pdDropDownList" value="#{userApproveController.selectedUser}" size="5" >
+                            <f:selectItems value="#{userApproveController.users}" var="users" itemValue="#{users}" itemLabel="#{users.webUserPerson.name}" />
+                            <f:ajax event="change" render="gpDetail" execute="gpSelect"/>
+                        </h:selectOneListbox>
+                    </h:panelGrid>
+
+                    <h:panelGroup id="gpDetail" >
+                        <h:panelGrid columns="2" >
+                            <h:outputLabel value="Role" />
+                            <h:selectOneListbox id="cmnSysAdminList" rendered="#{sessionController.sysAdmin}"  value="#{userApproveController.role}" >
+                                <f:selectItems value="#{webUserRoleController.items}" var="adminRole" itemLabel="#{adminRole.name}" itemValue="#{adminRole}"  />
+                            </h:selectOneListbox>
+
+                            <h:selectOneListbox rendered="#{sessionController.insAdmin}"  id="cmnInsAdminList" value="#{userApproveController.role}" >
+                                <f:selectItems value="#{webUserRoleController.lstInsAdminRoles}" var="insRole" itemLabel="#{insRole.name}" itemValue="#{insRole}" />
+                            </h:selectOneListbox>
+
+                            <h:outputLabel value="Previleges Restricted to" />
+                            <h:outputLabel rendered="#{sessionController.loggedUser.restrictedInstitution!=null}"  value="#{sessionController.loggedUser.restrictedInstitution.name}" />
+                            <h:selectOneListbox id="cmbIns" rendered="#{sessionController.loggedUser.restrictedInstitution==null}" value="#{userApproveController.institution}"  size="5">
+                                <f:selectItems value="#{institutionController.payCentres}" var="ri" itemValue="#{ri}" itemLabel="#{ri.name}" />
+                            </h:selectOneListbox>
+
+                            <h:outputLabel rendered="#{sessionController.sysAdmin}"  value="&nbsp;"/>
+                            <h:commandButton rendered="#{sessionController.sysAdmin}" value="Remove Institution Restriction" action="#{userApproveController.removeInsRes}" />
+
+
+                        </h:panelGrid>
+
+
+                        <h:panelGroup>
+                            <h:commandButton value="Save" action="#{userApproveController.saveUser}"></h:commandButton>
+                        </h:panelGroup>
+
+
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:panel header="You are not authrerized to view this page" rendered="#{!sessionController.sysAdmin and !sessionController.insAdmin}" >
+        </p:panel>
+    </ui:define>
+</ui:composition>

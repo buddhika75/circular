@@ -45,6 +45,65 @@ public class SessionController  implements Serializable {
     boolean circularAdder;
     boolean circularViewer;
 
+    public boolean isAdmin() {
+        if (loggedUser == null) {
+            return false;
+        }
+        if (loggedUser.getRole().getName().equalsIgnoreCase("admin")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
+    
+    public boolean isCircularEditor() {
+    if (loggedUser == null) {
+            return false;
+        }
+        if (loggedUser.getRole().getName().equalsIgnoreCase("circular_editor")||loggedUser.getRole().getName().equalsIgnoreCase("admin")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setCircularEditor(boolean circularEditor) {
+        this.circularEditor = circularEditor;
+    }
+
+    public boolean isCircularAdder() {
+        if (loggedUser == null) {
+            return false;
+        }
+        if (loggedUser.getRole().getName().equalsIgnoreCase("circular_adder")||loggedUser.getRole().getName().equalsIgnoreCase("circular_editor")||loggedUser.getRole().getName().equalsIgnoreCase("admin")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setCircularAdder(boolean circularAdder) {
+        this.circularAdder = circularAdder;
+    }
+
+    public boolean isCircularViewer() {
+        if (loggedUser == null) {
+            return false;
+        }
+        if (loggedUser.getRole().getName().equalsIgnoreCase("circular_viewer")||loggedUser.getRole().getName().equalsIgnoreCase("circular_editor")||loggedUser.getRole().getName().equalsIgnoreCase("admin")||loggedUser.getRole().getName().equalsIgnoreCase("circular_adder")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setCircularViewer(boolean circularViewer) {
+        this.circularViewer = circularViewer;
+    }
+
+    
     
      @EJB
     WebUserFacade uFacade;
@@ -511,38 +570,6 @@ public class SessionController  implements Serializable {
 
     public void setSuperUser(boolean circular_editor) {
         this.circularEditor = circular_editor;
-    }
-
-    public boolean isInsUser() {
-        if (loggedUser == null) {
-            return false;
-        }
-        if (loggedUser.getRole().getName().equalsIgnoreCase("circular_adder")) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public void setInsUser(boolean circular_adder) {
-        this.circularAdder = circular_adder;
-    }
-
-    public boolean iscircular_viewer() {
-        if (getLoggedUser() == null) {
-            return false;
-        }
-        if (loggedUser.getRole().getName().equalsIgnoreCase("circular_viewer")) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public void setcircular_viewer(boolean circular_viewer) {
-        this.circularViewer = circular_viewer;
     }
 
     public String getDefLocale() {

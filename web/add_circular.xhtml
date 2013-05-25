@@ -45,8 +45,14 @@
                             <f:selectItem itemLabel="English" itemValue="English" />
                         </p:selectOneListbox>
 
+                        <h:outputLabel value="Keywords" ></h:outputLabel>
+                        <h:inputText value="#{circularController.circular.keywords}" maxlength="255" ></h:inputText>
+                        
+                        <h:outputLabel value="Contents" ></h:outputLabel>
+                        <h:inputTextarea value="#{circularController.circular.contents}" />
                         
 
+                        
 
 
                         <p:fileUpload value="#{circularController.file}" mode="simple"/>

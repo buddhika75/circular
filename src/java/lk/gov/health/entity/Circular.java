@@ -52,11 +52,22 @@ public class Circular implements Serializable {
     Date circularDate;
     CircularLanguage circularLanguage;
     @ManyToOne
-    SiginingAuthority signingAuthority;
+    SigningAuthority signingAuthority;
     @Lob
     byte[] baImage;
     String fileName;
     String fileType;
+    String keywords;
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+    
+    
 
     public String getCircularNumber() {
         return circularNumber;
@@ -122,11 +133,11 @@ public class Circular implements Serializable {
         this.circularLanguage = circularLanguage;
     }
 
-    public SiginingAuthority getSigningAuthority() {
+    public SigningAuthority getSigningAuthority() {
         return signingAuthority;
     }
 
-    public void setSigningAuthority(SiginingAuthority signingAuthority) {
+    public void setSigningAuthority(SigningAuthority signingAuthority) {
         this.signingAuthority = signingAuthority;
     }
     

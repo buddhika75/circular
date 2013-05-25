@@ -8,8 +8,8 @@
  */
 package lk.gov.health.bean;
 
-import lk.gov.health.facade.SiginingAuthorityFacade;
-import lk.gov.health.entity.SiginingAuthority;
+import lk.gov.health.facade.SigningAuthorityFacade;
+import lk.gov.health.entity.SigningAuthority;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
@@ -29,21 +29,21 @@ import javax.faces.convert.FacesConverter;
  */
 @ManagedBean
 @SessionScoped
-public final class SiginingAuthorityController implements Serializable {
+public final class SigningAuthorityController implements Serializable {
 
     @EJB
-    private SiginingAuthorityFacade ejbFacade;
+    private SigningAuthorityFacade ejbFacade;
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
-    private SiginingAuthority current;
-    private List<SiginingAuthority> items = null;
-    List<SiginingAuthority> selectedItems = null;
+    private SigningAuthority current;
+    private List<SigningAuthority> items = null;
+    List<SigningAuthority> selectedItems = null;
     String selectText = "";
 
-    public SiginingAuthorityController() {
+    public SigningAuthorityController() {
     }
 
-    public List<SiginingAuthority> getSelectedItems() {
+    public List<SigningAuthority> getSelectedItems() {
         if (getSelectText().trim().equals("") ){
             selectedItems = getFacade().findBySQL("Select d From SiginingAuthority d where d.retired=false  order by d.name");
         }else{
@@ -52,45 +52,45 @@ public final class SiginingAuthorityController implements Serializable {
         return selectedItems;
     }
 
-    public void setSelectedItems(List<SiginingAuthority> selectedItems) {
+    public void setSelectedItems(List<SigningAuthority> selectedItems) {
         this.selectedItems = selectedItems;
     }
 
-    public List<SiginingAuthority> getItems() {
+    public List<SigningAuthority> getItems() {
         if (items == null) {
             items = getFacade().findBySQL("Select d From SiginingAuthority d where d.retired=false order by d.name");
         }
         return items;
     }
 
-    public void setItems(List<SiginingAuthority> items) {
+    public void setItems(List<SigningAuthority> items) {
         this.items = items;
     }
 
-    public SiginingAuthority getCurrent() {
+    public SigningAuthority getCurrent() {
         System.out.println("getting current");
         if (current == null) {
-            current = new SiginingAuthority();
+            current = new SigningAuthority();
         }
         System.out.println("current is " + current.toString());
         return current;
     }
 
-    public void setCurrent(SiginingAuthority current) {
+    public void setCurrent(SigningAuthority current) {
         this.current = current;
     }
 
-    private SiginingAuthorityFacade getFacade() {
+    private SigningAuthorityFacade getFacade() {
         return ejbFacade;
     }
 
-    public SiginingAuthority searchItem(String itemName, boolean createNewIfNotPresent) {
-        SiginingAuthority temItem;
+    public SigningAuthority searchItem(String itemName, boolean createNewIfNotPresent) {
+        SigningAuthority temItem;
         temItem = getFacade().findFirstBySQL("select i from SiginingAuthority i where i.retired=false and upper(i.name) = '" + itemName.toUpperCase() + "'");
         if (temItem != null) {
             return temItem;
         } else if (createNewIfNotPresent) {
-            temItem = new SiginingAuthority();
+            temItem = new SigningAuthority();
             temItem.setName(itemName);
             temItem.setCreatedAt(Calendar.getInstance().getTime());
             temItem.setCreater(sessionController.loggedUser);
@@ -107,7 +107,7 @@ public final class SiginingAuthorityController implements Serializable {
 
     public void prepareAdd() {
         System.out.println("prepairing to add");
-        current = new SiginingAuthority();
+        current = new SigningAuthority();
         System.out.println("current is " + getCurrent().toString());
     }
 
@@ -151,11 +151,11 @@ public final class SiginingAuthorityController implements Serializable {
         this.selectText = selectText;
     }
 
-    public SiginingAuthorityFacade getEjbFacade() {
+    public SigningAuthorityFacade getEjbFacade() {
         return ejbFacade;
     }
 
-    public void setEjbFacade(SiginingAuthorityFacade ejbFacade) {
+    public void setEjbFacade(SigningAuthorityFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
     }
 
@@ -167,7 +167,7 @@ public final class SiginingAuthorityController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    @FacesConverter(forClass = SiginingAuthority.class)
+    @FacesConverter(forClass = SigningAuthority.class)
     public static class SiginingAuthorityControllerConverter implements Converter {
 
         @Override
@@ -175,7 +175,7 @@ public final class SiginingAuthorityController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SiginingAuthorityController controller = (SiginingAuthorityController) facesContext.getApplication().getELResolver().
+            SigningAuthorityController controller = (SigningAuthorityController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "siginingAuthorityController");
             return controller.ejbFacade.find(getKey(value));
         }
@@ -197,12 +197,12 @@ public final class SiginingAuthorityController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof SiginingAuthority) {
-                SiginingAuthority o = (SiginingAuthority) object;
+            if (object instanceof SigningAuthority) {
+                SigningAuthority o = (SigningAuthority) object;
                 return getStringKey(o.getId());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type "
-                        + object.getClass().getName() + "; expected type: " + SiginingAuthorityController.class.getName());
+                        + object.getClass().getName() + "; expected type: " + SigningAuthorityController.class.getName());
             }
         }
     }

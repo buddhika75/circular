@@ -7,14 +7,14 @@ package lk.gov.health.facade;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import lk.gov.health.entity.SiginingAuthority;
+import lk.gov.health.entity.SigningAuthority;
 
 /**
  *
  * @author Dr. M H B Ariyaratne <buddhika.ari at gmail.com>
  */
 @Stateless
-public class SiginingAuthorityFacade extends AbstractFacade<SiginingAuthority> {
+public class SigningAuthorityFacade extends AbstractFacade<SigningAuthority> {
     @PersistenceContext(unitName = "circularsPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class SiginingAuthorityFacade extends AbstractFacade<SiginingAuthority> {
         return em;
     }
 
-    public SiginingAuthorityFacade() {
-        super(SiginingAuthority.class);
+    public SigningAuthorityFacade() {
+        super(SigningAuthority.class);
     }
     
 }

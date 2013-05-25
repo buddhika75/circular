@@ -14,7 +14,7 @@ import javax.persistence.Inheritance;
  */
 @Entity
 @Inheritance
-public class SiginingAuthority extends Category implements Serializable {
+public class SigningAuthority extends Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
 }
