@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="maincss.css" />
+        <title>#{labels.topic}</title>
+    </h:head>
+
+    <h:body >
+        <p:growl autoUpdate="true"/>
+
+        <div id="container">
+            <h:form>
+
+                <div id="nav-main">
+                    <ul>
+                        <li><h:commandLink action="index" value ="Home" ></h:commandLink>  </li>
+                        <li><h:commandLink value="Add"  action ="#{circularController.toAddNewCircular()}" ></h:commandLink>  </li>
+                        <li><h:commandLink  value ="/webehr/faces/nurseview/nurse_index.xhtml" >Nurse</h:commandLink>  </li>
+                        <li><h:commandLink  value ="/webehr/faces/adminview/admin_index.xhtml" >Administrator</h:commandLink>  </li>
+                    </ul>
+                    <br />
+                </div>
+
+
+            </h:form>
+
+            <div id="content">
+
+                <ui:insert name="content"   >
+
+                    <h:panelGroup rendered ="#{sessionController.logged}" >
+
+
+
+                    </h:panelGroup>
+                </ui:insert>
+                <ui:insert name="login"   >
+                    <h:panelGroup rendered ="#{!sessionController.logged}" >
+
+                        <p:panel header="Please login" id="loginbox">
+                            <h:panelGrid columns="2" >
+                                <h:panelGroup >
+                                    <h:graphicImage  library="image" name="lock.png" />
+                                </h:panelGroup>
+                                <h:panelGroup >
+                                    <h:form>
+                                        <h:panelGrid columns="2">
+
+                                            <h:outputLabel value="Username" ></h:outputLabel>
+                                            <h:inputText autocomplete="off"  value="#{sessionController.userName}" ></h:inputText>
+                                            <h:outputLabel value="Password" ></h:outputLabel>
+                                            <h:inputSecret value="#{sessionController.passord }" ></h:inputSecret>
+                                            <h:outputLabel value="Password" ></h:outputLabel>
+                                            <h:commandButton value="Login" action="#{sessionController.loginAction}" ></h:commandButton>
+
+                                        </h:panelGrid>
+                                    </h:form>
+                                </h:panelGroup>
+
+
+                            </h:panelGrid>
+
+                        </p:panel>
+
+
+                    </h:panelGroup>
+
+                </ui:insert>
+
+            </div>
+
+            <div id="nav-supp">
+                <h:form>
+                    <h:outputLabel  value="You are logged as #{sessionController.loggedUser.webUserPerson.name}&nbsp;(#{sessionController.loggedUser.role.name})."  rendered ="#{sessionController.logged}" ></h:outputLabel><h:commandLink value="Logout" action="#{connectionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
+                    <h:outputLabel  value="Please login to continue."  rendered ="#{!sessionController.logged}" ></h:outputLabel>
+                </h:form>
+
+                Copyright © 2013 | All Rights Reserved  
+            </div>
+        </div>
+
+
+
+    </h:body>
+
+</html>
