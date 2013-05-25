@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-<!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
+    <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
     <body>
 
         <ui:composition template="./resources/template/template_1.xhtml">
@@ -15,10 +15,43 @@
                     <p:growl ></p:growl>
                     <h:outputLabel value="Patient Images" ></h:outputLabel>
                     <h:panelGrid columns="2" >
+
+                        <h:outputText value="Circular Number"/>
+                        <h:inputText  value="#{circularController.circular.name}" />
+
+                        <h:outputText value="Topic"/>
+                        <h:inputText  value="#{circularController.circular.topic}" />
+
+                        <h:outputText value="Internal"/>
+                        <h:selectBooleanCheckbox value="#{circularController.circular.internal}" >
+                        </h:selectBooleanCheckbox>
+
+                        <h:outputText value="Administrative Division"/>
+                        <h:selectOneListbox value="#{circularController.circular.administrativeDivision}" >
+                            <f:selectItem itemLabel="Please select an administrative division"/>
+                        </h:selectOneListbox>
+                        
+                        <h:outputText value="Originating File Number"/>
+                        <h:inputText  value="#{circularController.circular.originatingFileNo}" />
+                        
+                        <h:outputLabel value="Circular Date" ></h:outputLabel>
+                        <p:calendar value="#{circularController.circular.circularDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                        
+                        <h:outputLabel value="Language" ></h:outputLabel>
+                        <p:selectOneListbox value="#{circularController.circular.circularLanguage}" >
+                            <f:selectItem itemLabel="Please select the language" />
+                            <f:selectItem itemLabel="Sinhala" itemValue="Sinhala" />
+                            <f:selectItem itemLabel="Tamil" itemValue="Tamil" />
+                            <f:selectItem itemLabel="English" itemValue="English" />
+                        </p:selectOneListbox>
+
+                        
+
+
+
                         <p:fileUpload value="#{circularController.file}" mode="simple"/>
                         <h:commandButton value="Save" action="#{circularController.saveCircular()}"/>
-                        <h:outputText value="Topic"/>
-                        <h:inputText  value="#{circularController.circular.name}" />
+
                         <h:commandButton value="Save Without Image" action="#{circularController.saveWithoutCircular()}"/>
                     </h:panelGrid>
                 </h:form>
