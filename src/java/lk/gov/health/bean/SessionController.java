@@ -40,33 +40,39 @@ public class SessionController  implements Serializable {
     boolean activated = false;
     String primeTheme;
     String defLocale;
-    boolean admin;
-    boolean circularEditor;
-    boolean circularAdder;
-    boolean circularViewer;
+    private boolean admin;
+    private boolean circularEditor;
+    private boolean circularAdder;
+    private boolean circularViewer;
 
     public boolean isAdmin() {
+        System.out.println("checking admin");
         if (loggedUser == null) {
-            return false;
+            System.out.println("admin null");
+            admin= false;
         }
         if (loggedUser.getRole().getName().equalsIgnoreCase("admin")) {
-            return true;
+            System.out.println("admin");
+            admin= true;
         } else {
-            return false;
+            System.out.println("not admin");
+            admin = false;
         }
+        return admin;
     }
 
     
     
     public boolean isCircularEditor() {
     if (loggedUser == null) {
-            return false;
+            circularEditor= false;
         }
         if (loggedUser.getRole().getName().equalsIgnoreCase("circular_editor")||loggedUser.getRole().getName().equalsIgnoreCase("admin")) {
-            return true;
+            circularEditor=  true;
         } else {
-            return false;
+            circularEditor=  false;
         }
+        return circularEditor;
     }
 
     public void setCircularEditor(boolean circularEditor) {
@@ -75,13 +81,14 @@ public class SessionController  implements Serializable {
 
     public boolean isCircularAdder() {
         if (loggedUser == null) {
-            return false;
+            circularAdder= false;
         }
         if (loggedUser.getRole().getName().equalsIgnoreCase("circular_adder")||loggedUser.getRole().getName().equalsIgnoreCase("circular_editor")||loggedUser.getRole().getName().equalsIgnoreCase("admin")) {
-            return true;
+            circularAdder=  true;
         } else {
-            return false;
+            circularAdder=  false;
         }
+        return circularAdder;
     }
 
     public void setCircularAdder(boolean circularAdder) {
@@ -90,13 +97,14 @@ public class SessionController  implements Serializable {
 
     public boolean isCircularViewer() {
         if (loggedUser == null) {
-            return false;
+            circularViewer= false;
         }
         if (loggedUser.getRole().getName().equalsIgnoreCase("circular_viewer")||loggedUser.getRole().getName().equalsIgnoreCase("circular_editor")||loggedUser.getRole().getName().equalsIgnoreCase("admin")||loggedUser.getRole().getName().equalsIgnoreCase("circular_adder")) {
-            return true;
+            circularViewer= true;
         } else {
-            return false;
+            circularViewer= false;
         }
+        return circularViewer;
     }
 
     public void setCircularViewer(boolean circularViewer) {
@@ -111,9 +119,6 @@ public class SessionController  implements Serializable {
     PersonFacade pFacade;
     @EJB
     WebUserRoleFacade rFacade;
-    @ManagedProperty(value = "#{menu}")
-    private MenuController menu;
-    @ManagedProperty(value = "#{imageController}")
         //
     WebUser current;
     String userName;
@@ -160,24 +165,23 @@ public class SessionController  implements Serializable {
     }
 
     public String loginAction() {
-
-        HttpServletRequest request;
-        request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        Enumeration headerIter = request.getHeaderNames();
-        String userAgent = request.getHeader("User-Agent");
-
-        while (headerIter.hasMoreElements()) {
-            String headername = (String) headerIter.nextElement();
-            System.out.println("headername + : " + request.getHeader(headername));
-        }
-
-        String clientAddr = request.getRemoteAddr();
-        String clientPc = request.getRemoteHost();
-        System.out.println("Client : " + clientPc + " & client address : " + clientAddr + " & Browser : " + userAgent);
-
+//
+//        HttpServletRequest request;
+//        request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        Enumeration headerIter = request.getHeaderNames();
+//        String userAgent = request.getHeader("User-Agent");
+//
+//        while (headerIter.hasMoreElements()) {
+//            String headername = (String) headerIter.nextElement();
+//            System.out.println("headername + : " + request.getHeader(headername));
+//        }
+//
+//        String clientAddr = request.getRemoteAddr();
+//        String clientPc = request.getRemoteHost();
+//        System.out.println("Client : " + clientPc + " & client address : " + clientAddr + " & Browser : " + userAgent);
+//
 
         if (login()) {
-            menu.createMenu();
             return "";
         } else {
             UtilityController.addErrorMessage("Login Failure. Please try again");
@@ -374,6 +378,7 @@ public class SessionController  implements Serializable {
                     setLoggedUser(u);
                     setLogged(Boolean.TRUE);
                     setActivated(u.isActivated());
+                    setRole(u.getRole());
                     UtilityController.addSuccessMessage("Logged successfully");
                     return true;
                 }
@@ -511,7 +516,6 @@ public class SessionController  implements Serializable {
     }
 
     public void setLogged(boolean logged) {
-        setLogged(logged);
         this.logged = logged;
     }
 
@@ -527,13 +531,6 @@ public class SessionController  implements Serializable {
         return SecurityController.decrypt(getLoggedUser().getName());
     }
 
-    public MenuController getMenu() {
-        return menu;
-    }
-
-    public void setMenu(MenuController menu) {
-        this.menu = menu;
-    }
     
     /**
      * Creates a new instance of SessionController

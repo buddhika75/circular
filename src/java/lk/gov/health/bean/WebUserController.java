@@ -17,13 +17,12 @@ import java.util.Calendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 
 /**
  *
@@ -34,8 +33,8 @@ import javax.faces.model.ListDataModel;
 @SessionScoped
 public final class WebUserController implements Serializable {
 
-    @EJB
-    private SessionController sessionController;
+    @ManagedProperty(value = "#{sessionController}")
+    SessionController sessionController;
     @EJB
     private WebUserFacade ejbFacade;
     @EJB
@@ -49,7 +48,9 @@ public final class WebUserController implements Serializable {
     }
 
     public List<WebUser> getItems() {
-        items= getFacade().findBySQL("Select d From WebUser d");
+        if (items == null) {
+            items = getFacade().findBySQL("Select d From WebUser d");
+        }
         return items;
     }
 
@@ -76,33 +77,12 @@ public final class WebUserController implements Serializable {
         return ejbFacade;
     }
 
-    public List searchItems() {
-        
-        if (searchItems == null) {
-            if (selectText.equals("")) {
-                searchItems = getFacade().findAll("name", true);
-            } else {
-                searchItems = getFacade().findAll("name", "%" + selectText + "%",
-                        true);
-                if (searchItems.getRowCount() > 0) {
-                    searchItems.setRowIndex(0);
-                    current = (WebUser) searchItems.getRowData();
-                    Long temLong = current.getId();
-                } else {
-                    current = null;
-                }
-            }
-        }
-        return searchItems;
-
-    }
-
     public WebUser searchItem(String itemName, boolean createNewIfNotPresent) {
         WebUser searchedItem = null;
-        items = new ListDataModel(getFacade().findAll("name", itemName, true));
-        if (items.getRowCount() > 0) {
-            items.setRowIndex(0);
-            searchedItem = (WebUser) items.getRowData();
+        List<WebUser> temItems;
+        temItems = getFacade().findAll("name", itemName, true);
+        if (temItems.size() > 0) {
+            searchedItem = (WebUser) temItems.get(0);
         } else if (createNewIfNotPresent) {
             searchedItem = new WebUser();
             searchedItem.setName(itemName);
@@ -117,94 +97,94 @@ public final class WebUserController implements Serializable {
         items = null;
     }
 
-    public void prepareSelect() {
-        this.prepareModifyControlDisable();
-    }
-
-    public void prepareEdit() {
-        if (current != null) {
-            selectedItemIndex = intValue(current.getId());
-            this.prepareSelectControlDisable();
-        } else {
-            JsfUtil.addErrorMessage(new MessageProvider().getValue("nothingToEdit"));
-        }
-    }
-
     public void prepareAdd() {
-        selectedItemIndex = -1;
         current = new WebUser();
-        this.prepareSelectControlDisable();
     }
 
     public void saveSelected() {
-        if (selectedItemIndex > 0) {
+        if(current==null){
+            UtilityController.addErrorMessage("Nothing to save");
+            return;
+        }
+        if (current.getId()==null || current.getId()== 0) {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(new MessageProvider().getValue("savedOldSuccessfully"));
+            UtilityController.addSuccessMessage(new MessageController().getValue("savedOldSuccessfully"));
         } else {
             current.setCreatedAt(Calendar.getInstance().getTime());
             current.setCreater(sessionController.loggedUser);
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(new MessageProvider().getValue("savedNewSuccessfully"));
+            UtilityController.addSuccessMessage(new MessageController().getValue("savedNewSuccessfully"));
         }
-        this.prepareSelect();
         recreateModel();
-        getItems();
         selectText = "";
-        selectedItemIndex = intValue(current.getId());
     }
 
-    public void addDirectly() {
-        JsfUtil.addSuccessMessage("1");
-        try {
+        public List<WebUser> getToApproveUsers() {
+        String temSQL;
+        temSQL = "SELECT u FROM WebUser u WHERE u.retired=false AND u.activated=false";
+        return getEjbFacade().findBySQL(temSQL);
+    }
 
-            current.setCreatedAt(Calendar.getInstance().getTime());
-            current.setCreater(sessionController.loggedUser);
+    public SessionController getSessionController() {
+        return sessionController;
+    }
 
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(new MessageProvider().getValue("savedNewSuccessfully"));
-            current = new WebUser();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, "Error");
+    public void setSessionController(SessionController sessionController) {
+        this.sessionController = sessionController;
+    }
+
+    public WebUserFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(WebUserFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public WebUserRoleFacade getRoleFacade() {
+        return roleFacade;
+    }
+
+    public void setRoleFacade(WebUserRoleFacade roleFacade) {
+        this.roleFacade = roleFacade;
+    }
+
+    public List<WebUser> getSearchItems() {
+        if (searchItems == null) {
+            if (selectText.equals("")) {
+                searchItems = getFacade().findAll("name", true);
+            } else {
+                searchItems = getFacade().findAll("name", "%" + selectText + "%",
+                        true);
+                if (searchItems.size() > 0) {
+                    current = (WebUser) searchItems.get(0);
+                } else {
+                    current = null;
+                }
+            }
         }
-
+        return searchItems;
     }
 
-    public void cancelSelect() {
-        this.prepareSelect();
+    public void setSearchItems(List<WebUser> searchItems) {
+        this.searchItems = searchItems;
     }
 
+        
+    
     public void delete() {
         if (current != null) {
             current.setRetired(true);
             current.setRetiredAt(Calendar.getInstance().getTime());
             current.setRetirer(sessionController.loggedUser);
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(new MessageProvider().getValue("deleteSuccessful"));
+            UtilityController.addSuccessMessage(new MessageController().getValue("deleteSuccessful"));
         } else {
-            JsfUtil.addErrorMessage(new MessageProvider().getValue("nothingToDelete"));
+            UtilityController.addErrorMessage(new MessageController().getValue("nothingToDelete"));
         }
         recreateModel();
         getItems();
-        selectText = "";
-        selectedItemIndex = -1;
         current = null;
-        this.prepareSelect();
-    }
-
-    public boolean isModifyControlDisable() {
-        return modifyControlDisable;
-    }
-
-    public void setModifyControlDisable(boolean modifyControlDisable) {
-        this.modifyControlDisable = modifyControlDisable;
-    }
-
-    public boolean isSelectControlDisable() {
-        return selectControlDisable;
-    }
-
-    public void setSelectControlDisable(boolean selectControlDisable) {
-        this.selectControlDisable = selectControlDisable;
     }
 
     public String getSelectText() {
@@ -213,18 +193,8 @@ public final class WebUserController implements Serializable {
 
     public void setSelectText(String selectText) {
         this.selectText = selectText;
-        searchItems();
     }
 
-    public void prepareSelectControlDisable() {
-        selectControlDisable = true;
-        modifyControlDisable = false;
-    }
-
-    public void prepareModifyControlDisable() {
-        selectControlDisable = false;
-        modifyControlDisable = true;
-    }
 
     @FacesConverter(forClass = WebUser.class)
     public static class WebUserControllerConverter implements Converter {

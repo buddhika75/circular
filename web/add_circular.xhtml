@@ -27,23 +27,30 @@
                         </h:selectBooleanCheckbox>
 
                         <h:outputText value="Administrative Division"/>
-                        <h:selectOneListbox value="#{circularController.circular.administrativeDivision}" >
+                        <h:selectOneListbox size="1" value="#{circularController.circular.administrativeDivision}" >
                             <f:selectItem itemLabel="Please select an administrative division"/>
+                            <f:selectItems value="#{administrativeDivisionController.items}" var="ad" itemLabel="#{ad.name}" itemValue="#{ad}" />
                         </h:selectOneListbox>
                         
                         <h:outputText value="Originating File Number"/>
                         <h:inputText  value="#{circularController.circular.originatingFileNo}" />
                         
+                        <h:outputText value="Signing Authority"/>
+                        <h:selectOneListbox value="#{circularController.circular.signingAuthority}" size="1" >
+                            <f:selectItem itemLabel="Please select the signing authority"/>
+                            <f:selectItems value="#{signingAuthorityController.items}" var="sa" itemLabel="#{sa.name}" itemValue="#{sa}" />
+                        </h:selectOneListbox>
+                        
                         <h:outputLabel value="Circular Date" ></h:outputLabel>
                         <p:calendar value="#{circularController.circular.circularDate}" pattern="dd MMMM yyyy" ></p:calendar>
                         
                         <h:outputLabel value="Language" ></h:outputLabel>
-                        <p:selectOneListbox value="#{circularController.circular.circularLanguage}" >
+                        <h:selectOneListbox size="1"  value="#{circularController.circular.circularLanguage}"  >
                             <f:selectItem itemLabel="Please select the language" />
                             <f:selectItem itemLabel="Sinhala" itemValue="Sinhala" />
                             <f:selectItem itemLabel="Tamil" itemValue="Tamil" />
                             <f:selectItem itemLabel="English" itemValue="English" />
-                        </p:selectOneListbox>
+                        </h:selectOneListbox>
 
                         <h:outputLabel value="Keywords" ></h:outputLabel>
                         <h:inputText value="#{circularController.circular.keywords}" maxlength="255" ></h:inputText>
@@ -58,7 +65,6 @@
                         <p:fileUpload value="#{circularController.file}" mode="simple"/>
                         <h:commandButton value="Save" action="#{circularController.saveCircular()}"/>
 
-                        <h:commandButton value="Save Without Image" action="#{circularController.saveWithoutCircular()}"/>
                     </h:panelGrid>
                 </h:form>
             </ui:define>

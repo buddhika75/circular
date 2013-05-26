@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import lk.gov.health.entity.AdministrativeDivision;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.Person;
 import lk.gov.health.facade.CategoryFacade;
@@ -39,8 +40,35 @@ public class CircularController implements Serializable {
     Person person;
     Circular circular;
     List<Circular> circulars;
+    List<Circular> divCirculars;
+    AdministrativeDivision division;
     String strSearch;
 
+    public List<Circular> getDivCirculars() {
+        String sql;
+        if (strSearch == null || strSearch.trim().equals("")) {
+            sql = "select DISTINCT c from Circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() +  " order by c.name";
+        } else {
+            sql = "select DISTINCT c from CircularKeyword k join join k.circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() +  "  and k.retired = false and " + searchStringFromText() + " order by c.name";
+        }
+        circulars = getCircularFacade().findBySQL(sql);
+        return divCirculars;
+    }
+
+    public void setDivCirculars(List<Circular> divCirculars) {
+        this.divCirculars = divCirculars;
+    }
+
+    public AdministrativeDivision getDivision() {
+        return division;
+    }
+
+    public void setDivision(AdministrativeDivision division) {
+        this.division = division;
+    }
+    
+    
+    
     public StreamedContent getCircularById() {
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getRenderResponse()) {

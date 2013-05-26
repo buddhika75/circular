@@ -45,9 +45,9 @@ public final class SigningAuthorityController implements Serializable {
 
     public List<SigningAuthority> getSelectedItems() {
         if (getSelectText().trim().equals("") ){
-            selectedItems = getFacade().findBySQL("Select d From SiginingAuthority d where d.retired=false  order by d.name");
+            selectedItems = getFacade().findBySQL("Select d From SigningAuthority d where d.retired=false  order by d.name");
         }else{
-        selectedItems = getFacade().findBySQL("Select d From SiginingAuthority d where d.retired=false  and upper(d.name) like '%" +  getSelectText().toUpperCase() + "%' order by d.name");
+        selectedItems = getFacade().findBySQL("Select d From SigningAuthority d where d.retired=false  and upper(d.name) like '%" +  getSelectText().toUpperCase() + "%' order by d.name");
         }
         return selectedItems;
     }
@@ -58,7 +58,7 @@ public final class SigningAuthorityController implements Serializable {
 
     public List<SigningAuthority> getItems() {
         if (items == null) {
-            items = getFacade().findBySQL("Select d From SiginingAuthority d where d.retired=false order by d.name");
+            items = getFacade().findBySQL("Select d From SigningAuthority d where d.retired=false order by d.name");
         }
         return items;
     }
@@ -86,7 +86,7 @@ public final class SigningAuthorityController implements Serializable {
 
     public SigningAuthority searchItem(String itemName, boolean createNewIfNotPresent) {
         SigningAuthority temItem;
-        temItem = getFacade().findFirstBySQL("select i from SiginingAuthority i where i.retired=false and upper(i.name) = '" + itemName.toUpperCase() + "'");
+        temItem = getFacade().findFirstBySQL("select i from SigningAuthority i where i.retired=false and upper(i.name) = '" + itemName.toUpperCase() + "'");
         if (temItem != null) {
             return temItem;
         } else if (createNewIfNotPresent) {
@@ -168,7 +168,7 @@ public final class SigningAuthorityController implements Serializable {
     }
 
     @FacesConverter(forClass = SigningAuthority.class)
-    public static class SiginingAuthorityControllerConverter implements Converter {
+    public static class SigningAuthorityControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -176,7 +176,7 @@ public final class SigningAuthorityController implements Serializable {
                 return null;
             }
             SigningAuthorityController controller = (SigningAuthorityController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "siginingAuthorityController");
+                    getValue(facesContext.getELContext(), null, "signingAuthorityController");
             return controller.ejbFacade.find(getKey(value));
         }
 

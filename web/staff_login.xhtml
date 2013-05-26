@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./resources/template/template_1.xhtml">
+
+            <ui:define name="content">
+                <table>
+                    <tr>
+                        <td width="300px" >
+                            <h:form>
+                                <p:panelGrid columns="1" style="padding: 10px;" >
+
+                                    <p:commandButton  rendered="#{sessionController.admin}"  value="Register New User" ajax="false" action="register_user" ></p:commandButton>
+                                    <p:commandButton  rendered="#{sessionController.admin}" value="Manage Users" ajax="false" action="manage_users" ></p:commandButton>
+                                    <p:commandButton rendered="#{sessionController.admin}" value="Manage Administrative Divisions" ajax="false" action="administrative_division" ></p:commandButton>
+                                    <p:commandButton rendered="#{sessionController.admin}"  value="Manage Signing Authorities" ajax="false" action="signing_authority" ></p:commandButton>
+                                    <p:commandButton  rendered="#{sessionController.circularAdder}"  value="Add Circulars" ajax="false" action="#{circularController.toAddNewCircular()}" ></p:commandButton>
+                                    <p:commandButton   rendered="#{sessionController.circularEditor}"   value="Edit Circulars" ajax="false" action="manage_users" ></p:commandButton>
+
+                                </p:panelGrid>
+                            </h:form>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

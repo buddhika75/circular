@@ -32,7 +32,7 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+       public void create(T entity) {
         getEntityManager().persist(entity);
     }
 
@@ -48,19 +48,27 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().find(entityClass, id);
     }
 
+    public List<T> findAll(boolean withoutRetired) {
+        return findAll(null, null, withoutRetired);
+    }
+
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
+        javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        javax.persistence.criteria.CriteriaQuery<T> cq = cb.createQuery(entityClass);
+        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
         return getEntityManager().createQuery(cq).getResultList();
     }
 
-    public List<T> findRange(int[] range) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0]);
-        q.setFirstResult(range[0]);
-        return q.getResultList();
+    public List<T> findAll(String fieldName) {
+        return findAll(fieldName, "", false);
+    }
+
+    public List<T> findAll(String fieldName, boolean withoutRetired) {
+        return findAll(fieldName, "", withoutRetired);
+    }
+
+    public List<T> findAll(String fieldName, String fieldValue) {
+        return findAll(fieldName, fieldValue, false);
     }
 
     public List<T> findBySQL(String temSQL) {
@@ -216,7 +224,7 @@ public abstract class AbstractFacade<T> {
             return 0.0;
         }
     }
-
+    
     public List<String> findString(String strJQL) {
         Query q = getEntityManager().createQuery(strJQL);
         try {
@@ -226,7 +234,7 @@ public abstract class AbstractFacade<T> {
             return null;
         }
     }
-
+    
     public Double findAggregateDbl(String temSQL, Map<String, Date> parameters) {
         TypedQuery<Double> qry = getEntityManager().createQuery(temSQL, Double.class);
         Set s = parameters.entrySet();
@@ -245,4 +253,7 @@ public abstract class AbstractFacade<T> {
             return 0.0;
         }
     }
+    
+    
+
 }
