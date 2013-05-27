@@ -24,7 +24,7 @@
                     <div>
 
 
-                        <p:dataTable id="tblCir" value="#{circularController.divCirculars}" var="cir"  >
+                        <p:dataTable id="tblCir" value="#{circularController.circulars}" var="cir"  >
                             <f:facet name="header" >
                                 Circulars of  #{circularController.division.name}
                             </f:facet>
@@ -34,6 +34,7 @@
                                 </f:facet>
                                 <h:outputLabel value="#{cir.circularDate}" >
                                     <f:convertDateTime pattern="yyyy MMMM dd" />
+                                
                                 </h:outputLabel>
                             </p:column>
 
@@ -57,7 +58,7 @@
                                 <f:facet name="header" >
                                     Action
                                 </f:facet>
-                                <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
+                                <h:commandLink value="Edit" action="edit_circular" >
                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
                                 </h:commandLink>
                             </p:column>
