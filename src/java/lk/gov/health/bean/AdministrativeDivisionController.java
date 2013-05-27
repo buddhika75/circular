@@ -43,6 +43,9 @@ public final class AdministrativeDivisionController implements Serializable {
     public AdministrativeDivisionController() {
     }
 
+
+   
+    
     public List<AdministrativeDivision> getSelectedItems() {
         if (getSelectText().trim().equals("") ){
             selectedItems = getFacade().findBySQL("Select d From AdministrativeDivision d where d.retired=false  order by d.name");
@@ -57,7 +60,7 @@ public final class AdministrativeDivisionController implements Serializable {
     }
 
     public List<AdministrativeDivision> getItems() {
-        if (items == null) {
+        if (items == null|| items.isEmpty()) {
             items = getFacade().findBySQL("Select d From AdministrativeDivision d where d.retired=false order by d.name");
         }
         return items;

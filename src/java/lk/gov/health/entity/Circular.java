@@ -44,6 +44,7 @@ public class Circular implements Serializable {
     String topic;
     Boolean internal;
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     String contents;
     @ManyToOne
     AdministrativeDivision administrativeDivision;
@@ -54,6 +55,7 @@ public class Circular implements Serializable {
     @ManyToOne
     SigningAuthority signingAuthority;
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     byte[] baImage;
     String fileName;
     String fileType;
