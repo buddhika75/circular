@@ -16,7 +16,6 @@
                 <h:outputLabel value="Patient Images" ></h:outputLabel>
 
                 <h:form>
-
                     <h:panelGrid columns="2" >
                         <h:outputText value="Circular Number"/>
                         <h:inputText  id="txtNo" value="#{circularController.circular.name}" >
@@ -48,37 +47,37 @@
                         </h:selectOneListbox>
                         <h:outputLabel value="Circular Date" ></h:outputLabel>
                         <p:calendar id="calDate" value="#{circularController.circular.circularDate}" pattern="dd MMMM yyyy" >
-                            <f:ajax event="blur" execute="calDate" render="calDate" />
+                            <f:ajax event="select" execute="calDate" render="calDate" />
                         </p:calendar>
                         <h:outputLabel value="Language" ></h:outputLabel>
                         <h:selectOneListbox  id="cmbLan"  size="1"  value="#{circularController.circular.circularLanguage}"  >
                             <f:selectItem itemLabel="Please select the language" />
                             <f:selectItem itemLabel="Sinhala" itemValue="Sinhala" />
-                            <f:ajax event="blur" execute="cmbLan" render="cmbLan" />
+                            <f:ajax event="blur" execute="cmbLan calDate" render="cmbLan" />
                             <f:selectItem itemLabel="Tamil" itemValue="Tamil" />
                             <f:selectItem itemLabel="English" itemValue="English" />
                         </h:selectOneListbox>
                         <h:outputLabel value="Keywords" ></h:outputLabel>
                         <h:inputText  id="txtKeys"  value="#{circularController.circular.keywords}" maxlength="255" >
-                            <f:ajax event="blur" execute="txtKeys" render="txtKeys" />
+                            <f:ajax event="blur" execute="txtKeys calDate" render="txtKeys" />
                         </h:inputText>
                         <h:outputLabel value="Contents" ></h:outputLabel>
                         <h:inputTextarea id="txtContents" value="#{circularController.circular.contents}" >
-                            <f:ajax event="blur" execute="txtContents" render="txtContents" />
+                            <f:ajax event="blur" execute="txtContents calDate" render="txtContents" />
                         </h:inputTextarea>
                     </h:panelGrid>
                 </h:form>
 
                 <h:form enctype="multipart/form-data">
                     <h:panelGrid columns="2" >
-                        <p:fileUpload value="#{circularController.file}" mode="simple"/>
+                        <p:fileUpload value="#{circularController.file}" mode="simple" />
                         <h:commandButton value="Save" action="#{circularController.saveCircular()}"/>
                     </h:panelGrid>
                 </h:form>
 
 
                 <p:media value="#{circularController.scCircular}" width="100%" height="900px" player="pdf">  
-                    Your browser can't display pdf, <h:outputLink value="#{circularController.scCircular}">click</h:outputLink> to download pdf instead.  
+                    Your browser can't display pdf, Please update browser or plug-in.
                 </p:media>  
 
             </ui:define>

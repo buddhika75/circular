@@ -40,7 +40,7 @@
 
                                 <h:selectOneListbox id="lstSelect"  size="10" value="#{signingAuthorityController.current}" style="min-width: 223px">
                                     <f:selectItems value="#{signingAuthorityController.selectedItems}" var="myItem" itemValue="#{myItem}" itemLabel="#{myItem.name}" ></f:selectItems>
-                                    <f:ajax render="txtName" execute="lstSelect" >                                
+                                    <f:ajax render="txtName txtNameS txtNameT" execute="lstSelect" >                                
                                     </f:ajax>
                                 </h:selectOneListbox>
 
@@ -62,10 +62,17 @@
                             <h:panelGrid id="gpDetailText" columns="2">
                                 <h:outputText id="lblName" value="#{labels.signingAuthority}" ></h:outputText>
                                 <h:inputText id="txtName" value="#{signingAuthorityController.current.name}" ></h:inputText>
+                                <h:outputText id="lblNameS" value="#{labels.signingAuthorityS}" ></h:outputText>
+                                <h:inputText id="txtNameS" value="#{signingAuthorityController.current.sname}" ></h:inputText>
+                                <h:outputText id="lblNameT" value="#{labels.signingAuthorityT}" ></h:outputText>
+                                <h:inputText id="txtNameT" value="#{signingAuthorityController.current.tname}" ></h:inputText>
+                            
+                            
+                            
                             </h:panelGrid>
                             <h:panelGrid id="gpDetailButtons" columns="2">
                                 <h:commandButton id="btnSave" value="#{labels.save}" action="#{signingAuthorityController.saveSelected()}" styleClass="buttons">
-                                    <f:ajax render="btnAdd  btnDelete btnSave  txtSelect lstSelect txtName selectFocus"  execute="txtName    " >
+                                    <f:ajax render="btnAdd  btnDelete btnSave  txtSelect lstSelect txtName txtNameS txtNameT selectFocus"  execute="txtName  txtNameS txtNameT  " >
                                     </f:ajax>
                                 </h:commandButton>
                             </h:panelGrid>

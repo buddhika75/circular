@@ -246,11 +246,17 @@ public class CircularController implements Serializable {
         this.person = person;
     }
 
-    public void saveCircular() {
+    public String saveCircular() {
         InputStream in;
         if (file == null) {
-            UtilityController.addErrorMessage("Please upload an image");
-            return;
+            if (circular.getId() == null || circular.getId() == 0) {
+                UtilityController.addErrorMessage("Please upload an image");
+                return "";
+            }else{
+                circularFacade.edit(circular);
+                UtilityController.addSuccessMessage("Changes Saved");
+               return "";
+            }
         }
         System.out.println("file name is not null");
         System.out.println(file.getFileName());
@@ -267,8 +273,11 @@ public class CircularController implements Serializable {
                 UtilityController.addSuccessMessage("Changes Saved");
             }
             addKeyWords();
+            setCircular(new Circular());
+            return "";
         } catch (Exception e) {
             System.out.println("Error " + e.getMessage());
+            return "";
         }
 
     }

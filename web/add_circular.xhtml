@@ -48,23 +48,23 @@
                         </h:selectOneListbox>
                         <h:outputLabel value="Circular Date" ></h:outputLabel>
                         <p:calendar id="calDate" value="#{circularController.circular.circularDate}" pattern="dd MMMM yyyy" >
-                            <f:ajax event="blur" execute="calDate" render="calDate" />
+                            <f:ajax event="select" execute="calDate" render="calDate" />
                         </p:calendar>
                         <h:outputLabel value="Language" ></h:outputLabel>
                         <h:selectOneListbox  id="cmbLan"  size="1"  value="#{circularController.circular.circularLanguage}"  >
                             <f:selectItem itemLabel="Please select the language" />
                             <f:selectItem itemLabel="Sinhala" itemValue="Sinhala" />
-                            <f:ajax event="blur" execute="cmbLan" render="cmbLan" />
+                            <f:ajax event="blur" execute="cmbLan calDate" render="cmbLan" />
                             <f:selectItem itemLabel="Tamil" itemValue="Tamil" />
                             <f:selectItem itemLabel="English" itemValue="English" />
                         </h:selectOneListbox>
                         <h:outputLabel value="Keywords" ></h:outputLabel>
                         <h:inputText  id="txtKeys"  value="#{circularController.circular.keywords}" maxlength="255" >
-                            <f:ajax event="blur" execute="txtKeys" render="txtKeys" />
+                            <f:ajax event="blur" execute="txtKeys calDate" render="txtKeys" />
                         </h:inputText>
                         <h:outputLabel value="Contents" ></h:outputLabel>
                         <h:inputTextarea id="txtContents" value="#{circularController.circular.contents}" >
-                            <f:ajax event="blur" execute="txtContents" render="txtContents" />
+                            <f:ajax event="blur" execute="txtContents calDate" render="txtContents" />
                         </h:inputTextarea>
                     </h:panelGrid>
                 </h:form>

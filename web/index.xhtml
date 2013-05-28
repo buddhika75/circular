@@ -12,6 +12,60 @@
 
             <ui:define name="content">
 
+                <h:form>
+                    <p:panel header="Circulars" >
+
+                        <h:outputLabel value="Search" ></h:outputLabel>
+                        <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
+                            <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
+                        </h:inputText>
+
+                        <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
+                            <p:column >
+                                <f:facet name="header" >
+                                    Circular Date
+                                </f:facet>
+                                <h:outputLabel value="#{c.circularDate}" >
+                                    <f:convertDateTime pattern="yyyy MMMM dd" />
+                                </h:outputLabel>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header" >
+                                    Circular Number
+                                </f:facet>
+                                #{c.name}
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header" >
+                                    Topic
+                                </f:facet>
+                                #{c.topic}
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header" >
+                                    Administrative Division
+                                </f:facet>
+                                #{c.administrativeDivision.name}
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header" >
+                                    Singing Authority
+                                </f:facet>
+                                #{c.signingAuthority.name}
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header" >
+                                    Action
+                                </f:facet>
+                                <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
+                                    <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
+                                </h:commandLink>
+                            </p:column>
+                        </p:dataTable>
+
+
+                    </p:panel>
+                </h:form>
             </ui:define>
 
 
@@ -20,17 +74,17 @@
             <ui:define name="login">
 
                 <h:form>
-                    
-                    
-                    
+
+
+
                     <p:panel header="Circulars" >
 
                         <h:outputLabel value="Search" ></h:outputLabel>
-                        <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
-                            <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
+                        <h:inputText id="txtSearchP" value="#{circularController.strSearch}" >
+                            <f:ajax execute="txtSearchP" render="tblCirP" event="keydown" />
                         </h:inputText>
-                        
-                        <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
+
+                        <p:dataTable id="tblCirP" value="#{circularController.circulars}" var="c">
                             <p:column >
                                 <f:facet name="header" >
                                     Circular Date
