@@ -13,6 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javassist.compiler.ast.Keyword;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -21,9 +22,11 @@ import lk.gov.health.entity.AdministrativeDivision;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.entity.Person;
+import lk.gov.health.entity.SingleKeyWord;
 import lk.gov.health.facade.CategoryFacade;
 import lk.gov.health.facade.CircularFacade;
 import lk.gov.health.facade.CircularKeywordFacade;
+import lk.gov.health.facade.SingleKeyWordFacade;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -43,6 +46,8 @@ public class CircularController implements Serializable {
     CategoryFacade catFacade;
     @EJB
     CircularKeywordFacade ckFacade;
+    @EJB
+    SingleKeyWordFacade skFacade;
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
     Person person;
@@ -52,6 +57,16 @@ public class CircularController implements Serializable {
     AdministrativeDivision division;
     String strSearch;
 
+    public SingleKeyWordFacade getSkFacade() {
+        return skFacade;
+    }
+
+    public void setSkFacade(SingleKeyWordFacade skFacade) {
+        this.skFacade = skFacade;
+    }
+
+    
+    
     public SessionController getSessionController() {
         return sessionController;
     }
@@ -200,7 +215,16 @@ public class CircularController implements Serializable {
         System.out.println("type is " + circular.getFileType());
         this.circular = circular;
     }
-
+    
+    public void recordSearchcount(String str){
+        SingleKeyWord newSk;
+        String sql;
+        sql = "select kw from SingleKeyword kw where upper(kw.name) = '" + str + "'";
+        newSk = getSkFacade().findFirstBySQL(sql);
+        newSk.setSearchCount(newSk.getSearchCount() + 1);
+        getSkFacade().edit(newSk);
+    }
+    
     public String searchStringFromText() {
         String temStr = " (";
         String[] splited = strSearch.split("\\s+");
