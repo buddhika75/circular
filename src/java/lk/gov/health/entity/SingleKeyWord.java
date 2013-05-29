@@ -42,6 +42,9 @@ public class SingleKeyWord implements Serializable {
     @ManyToOne
     private Circular circular;
 
+    
+    
+    
     public Long getId() {
         return id;
     }

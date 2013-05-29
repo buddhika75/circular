@@ -22,9 +22,11 @@ import lk.gov.health.entity.AdministrativeDivision;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.entity.Person;
+import lk.gov.health.entity.SingleKeyWord;
 import lk.gov.health.facade.CategoryFacade;
 import lk.gov.health.facade.CircularFacade;
 import lk.gov.health.facade.CircularKeywordFacade;
+import lk.gov.health.facade.SingleKeyWordFacade;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -44,6 +46,8 @@ public class CircularController implements Serializable {
     CategoryFacade catFacade;
     @EJB
     CircularKeywordFacade ckFacade;
+    @EJB
+    SingleKeyWordFacade skFacade;
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
     Person person;
@@ -53,6 +57,16 @@ public class CircularController implements Serializable {
     AdministrativeDivision division;
     String strSearch;
 
+    public SingleKeyWordFacade getSkFacade() {
+        return skFacade;
+    }
+
+    public void setSkFacade(SingleKeyWordFacade skFacade) {
+        this.skFacade = skFacade;
+    }
+
+    
+    
     public SessionController getSessionController() {
         return sessionController;
     }
@@ -203,12 +217,12 @@ public class CircularController implements Serializable {
     }
     
     public void recordSearchcount(String str){
-        Keyword myKeyword;
+        SingleKeyWord newSk;
         String sql;
-        sql = "select kw from CircularKeyword kw where upper(kw.name) = '" + str + "'";
-        myKeyword = getS
-        
-        
+        sql = "select kw from SingleKeyword kw where upper(kw.name) = '" + str + "'";
+        newSk = getSkFacade().findFirstBySQL(sql);
+        newSk.setSearchCount(newSk.getSearchCount() + 1);
+        getSkFacade().edit(newSk);
     }
     
     public String searchStringFromText() {
