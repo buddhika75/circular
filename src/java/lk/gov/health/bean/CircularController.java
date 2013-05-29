@@ -13,6 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javassist.compiler.ast.Keyword;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -200,7 +201,16 @@ public class CircularController implements Serializable {
         System.out.println("type is " + circular.getFileType());
         this.circular = circular;
     }
-
+    
+    public void recordSearchcount(String str){
+        Keyword myKeyword;
+        String sql;
+        sql = "select kw from CircularKeyword kw where upper(kw.name) = '" + str + "'";
+        myKeyword = getS
+        
+        
+    }
+    
     public String searchStringFromText() {
         String temStr = " (";
         String[] splited = strSearch.split("\\s+");
