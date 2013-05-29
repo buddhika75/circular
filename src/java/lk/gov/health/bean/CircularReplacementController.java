@@ -13,20 +13,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javassist.compiler.ast.Keyword;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import lk.gov.health.entity.AdministrativeDivision;
-import lk.gov.health.entity.Circular;
+import lk.gov.health.entity.CircularReplacement;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.entity.Person;
-import lk.gov.health.entity.SingleKeyWord;
 import lk.gov.health.facade.CategoryFacade;
-import lk.gov.health.facade.CircularFacade;
+import lk.gov.health.facade.CircularReplacementFacade;
 import lk.gov.health.facade.CircularKeywordFacade;
-import lk.gov.health.facade.SingleKeyWordFacade;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -35,38 +32,26 @@ import org.apache.commons.io.IOUtils;
  */
 @ManagedBean
 @SessionScoped
-public class CircularController implements Serializable {
+public class CircularReplacementController implements Serializable {
 
     StreamedContent scCircular;
     StreamedContent scCircularById;
     private UploadedFile file;
     @EJB
-    CircularFacade circularFacade;
+    CircularReplacementFacade circularFacade;
     @EJB
     CategoryFacade catFacade;
     @EJB
     CircularKeywordFacade ckFacade;
-    @EJB
-    SingleKeyWordFacade skFacade;
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
     Person person;
-    Circular circular;
-    List<Circular> circulars;
-    List<Circular> divCirculars;
+    CircularReplacement circular;
+    List<CircularReplacement> circulars;
+    List<CircularReplacement> divCirculars;
     AdministrativeDivision division;
     String strSearch;
 
-    public SingleKeyWordFacade getSkFacade() {
-        return skFacade;
-    }
-
-    public void setSkFacade(SingleKeyWordFacade skFacade) {
-        this.skFacade = skFacade;
-    }
-
-    
-    
     public SessionController getSessionController() {
         return sessionController;
     }
@@ -83,19 +68,19 @@ public class CircularController implements Serializable {
         this.ckFacade = ckFacade;
     }
 
-    public List<Circular> getDivCirculars() {
+    public List<CircularReplacement> getDivCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
-            sql = "select c from Circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + " order by c.name";
+            sql = "select c from CircularReplacement c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + " order by c.name";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
+            sql = "select c1 from CircularReplacement c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
         }
         System.out.println("SQL is " + sql);
         divCirculars = getCircularFacade().findBySQL(sql);
         return divCirculars;
     }
 
-    public void setDivCirculars(List<Circular> divCirculars) {
+    public void setDivCirculars(List<CircularReplacement> divCirculars) {
         this.divCirculars = divCirculars;
     }
 
@@ -121,7 +106,7 @@ public class CircularController implements Serializable {
             return new DefaultStreamedContent();
         } else {
             String id = context.getExternalContext().getRequestParameterMap().get("id");
-            Circular temCir = getCircularFacade().find(Long.valueOf(id));
+            CircularReplacement temCir = getCircularFacade().find(Long.valueOf(id));
             return new DefaultStreamedContent(new ByteArrayInputStream(temCir.getBaImage()), temCir.getFileType());
         }
     }
@@ -137,7 +122,7 @@ public class CircularController implements Serializable {
         } else if (circular == null) {
             return new DefaultStreamedContent();
         } else {
-            Circular temCir = circular;
+            CircularReplacement temCir = circular;
             System.out.println(temCir.getFileType());
             System.out.println(temCir.getFileName());
             return new DefaultStreamedContent(new ByteArrayInputStream(temCir.getBaImage()), temCir.getFileType(), temCir.getFileName());
@@ -152,7 +137,7 @@ public class CircularController implements Serializable {
             return new DefaultStreamedContent();
         } else {
             System.out.println("circular is not null");
-            Circular temCir = circular;
+            CircularReplacement temCir = circular;
             System.out.println(temCir.getFileType());
             System.out.println(temCir.getFileName());
             return new DefaultStreamedContent(new ByteArrayInputStream(temCir.getBaImage()), temCir.getFileType(), temCir.getFileName());
@@ -163,7 +148,7 @@ public class CircularController implements Serializable {
         return "circular";
     }
 
-    public CircularController() {
+    public CircularReplacementController() {
         System.out.println("circular controller constructor called");
     }
 
@@ -183,48 +168,38 @@ public class CircularController implements Serializable {
         this.file = file;
     }
 
-    public CircularFacade getCircularFacade() {
+    public CircularReplacementFacade getCircularFacade() {
         return circularFacade;
     }
 
-    public void setCircularFacade(CircularFacade circularFacade) {
+    public void setCircularFacade(CircularReplacementFacade circularFacade) {
 
         this.circularFacade = circularFacade;
     }
 
-    public Circular getCircular() {
+    public CircularReplacement getCircular() {
         System.out.println("getting circular");
         if (circular == null) {
             System.out.println("new circular");
-            circular = new Circular();
+            circular = new CircularReplacement();
         }
         System.out.println("return circular " + circular.getFileName() + " of " + circular.getFileType());
         return circular;
     }
 
     public String toAddNewCircular() {
-        circular = new Circular();
+        circular = new CircularReplacement();
         return "add_circular";
     }
 
-    public void setCircular(Circular circular) {
+    public void setCircular(CircularReplacement circular) {
         System.out.println("setting circular");
         System.out.println("id is " + circular.getId());
-        System.out.println("name is " + circular.getName());
         System.out.println("filename is " + circular.getFileName());
         System.out.println("type is " + circular.getFileType());
         this.circular = circular;
     }
-    
-    public void recordSearchcount(String str){
-        SingleKeyWord newSk;
-        String sql;
-        sql = "select kw from SingleKeyword kw where upper(kw.name) = '" + str + "'";
-        newSk = getSkFacade().findFirstBySQL(sql);
-        newSk.setSearchCount(newSk.getSearchCount() + 1);
-        getSkFacade().edit(newSk);
-    }
-    
+
     public String searchStringFromText() {
         String temStr = " (";
         String[] splited = strSearch.split("\\s+");
@@ -238,19 +213,19 @@ public class CircularController implements Serializable {
         return temStr;
     }
 
-    public List<Circular> getCirculars() {
+    public List<CircularReplacement> getCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
-            sql = "select c from Circular c where c.retired = false order by c.id desc";
+            sql = "select c from CircularReplacement c where c.retired = false order by c.id desc";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
+            sql = "select c1 from CircularReplacement c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
         }
         System.out.println("SQL is " + sql);
         circulars = getCircularFacade().findBySQL(sql);
         return circulars;
     }
 
-    public void setCirculars(List<Circular> circulars) {
+    public void setCirculars(List<CircularReplacement> circulars) {
         this.circulars = circulars;
     }
 
@@ -296,8 +271,7 @@ public class CircularController implements Serializable {
                 circularFacade.edit(circular);
                 UtilityController.addSuccessMessage("Changes Saved");
             }
-            addKeyWords();
-            setCircular(new Circular());
+            setCircular(new CircularReplacement());
             return "";
         } catch (Exception e) {
             System.out.println("Error " + e.getMessage());
@@ -306,17 +280,5 @@ public class CircularController implements Serializable {
 
     }
 
-    private void addKeyWords() {
-        if (circular == null || circular.getId() == null || circular.getId() == 0 || circular.getKeywords().trim().equals("")) {
-            return;
-        }
-        List<String> kws = Arrays.asList(circular.getKeywords().split("\\s+"));
-        for (String kw : kws) {
-            CircularKeyword ck = new CircularKeyword();
-            ck.setCircular(circular);
-            ck.setName(kw);
-            ckFacade.create(ck);
-        }
-
-    }
+   
 }
