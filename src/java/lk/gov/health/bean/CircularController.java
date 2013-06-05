@@ -10,10 +10,8 @@ import org.primefaces.model.UploadedFile;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javassist.compiler.ast.Keyword;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -22,10 +20,11 @@ import lk.gov.health.entity.AdministrativeDivision;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.entity.Person;
-import lk.gov.health.entity.SingleKeyWord;
+import lk.gov.health.entity.KeyWord;
 import lk.gov.health.facade.CategoryFacade;
 import lk.gov.health.facade.CircularFacade;
 import lk.gov.health.facade.CircularKeywordFacade;
+import lk.gov.health.facade.KeyWordFacade;
 import lk.gov.health.facade.SingleKeyWordFacade;
 import org.apache.commons.io.IOUtils;
 
@@ -48,6 +47,8 @@ public class CircularController implements Serializable {
     CircularKeywordFacade ckFacade;
     @EJB
     SingleKeyWordFacade skFacade;
+    @EJB
+    private KeyWordFacade keyFacade;
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
     Person person;
@@ -217,7 +218,7 @@ public class CircularController implements Serializable {
     }
     
     public void recordSearchcount(String str){
-        SingleKeyWord newSk;
+        KeyWord newSk;
         String sql;
         sql = "select kw from SingleKeyword kw where upper(kw.name) = '" + str + "'";
         newSk = getSkFacade().findFirstBySQL(sql);
@@ -313,10 +314,27 @@ public class CircularController implements Serializable {
         List<String> kws = Arrays.asList(circular.getKeywords().split("\\s+"));
         for (String kw : kws) {
             CircularKeyword ck = new CircularKeyword();
+            KeyWord keyWord;
+            keyWord=getKeyFacade().findFirstBySQL("select k from KeyWord k where lower(k.name)='" + kw.toLowerCase() + "'" );
+            if(keyWord==null){
+            keyWord=new KeyWord();
+            keyWord.setName(kw.toLowerCase());
+            getKeyFacade().create(keyWord);
+            
+            }
+            ck.setKeyWord(keyWord);
             ck.setCircular(circular);
-            ck.setName(kw);
+            ck.setName(kw.toLowerCase());
             ckFacade.create(ck);
         }
 
+    }
+
+    public KeyWordFacade getKeyFacade() {
+        return keyFacade;
+    }
+
+    public void setKeyFacade(KeyWordFacade keyFacade) {
+        this.keyFacade = keyFacade;
     }
 }
