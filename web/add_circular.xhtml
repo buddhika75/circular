@@ -26,10 +26,18 @@
                         <h:inputText id="txtTopic" value="#{circularController.circular.topic}" >
                             <f:ajax event="blur" execute="txtTopic" render="txtTopic" />
                         </h:inputText>
+                        
+                        
                         <h:outputText value="Internal"/>
                         <h:selectBooleanCheckbox id="chkIn" value="#{circularController.circular.internal}" >
                             <f:ajax event="blur" execute="chkIn" render="chkIn" />
                         </h:selectBooleanCheckbox>
+                        
+                        <h:inputText value="Circular Letter"/>
+                        <h:selectBooleanCheckbox id="chkCl" value="#{circularController.circular.circularLetter}">
+                            <f:ajax event="blur" execute="chkCl" render="chkCl"></f:ajax>
+                        </h:selectBooleanCheckbox>
+                        
                         <h:outputText value="Administrative Division"/>
                         <h:selectOneListbox id="cmbAd" size="1" value="#{circularController.circular.administrativeDivision}" >
                             <f:selectItem itemLabel="Please select an administrative division"/>

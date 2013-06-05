@@ -24,6 +24,7 @@ public class Circular implements Serializable {
     String name;
     String code;
     String description;
+    private boolean circularLetter;
     //Created Properties
     @ManyToOne
     WebUser creater;
@@ -288,5 +289,14 @@ public class Circular implements Serializable {
     @Override
     public String toString() {
         return "gov.sp.health.entity.UnitImage[ id=" + id + " ]";
+    }
+
+
+    public boolean isCircularLetter() {
+        return circularLetter;
+    }
+
+    public void setCircularLetter(boolean circularLetter) {
+        this.circularLetter = circularLetter;
     }
 }
