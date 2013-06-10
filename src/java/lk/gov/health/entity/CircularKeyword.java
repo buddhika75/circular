@@ -24,6 +24,8 @@ public class CircularKeyword implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long searchCount;
+    @ManyToOne
+    private KeyWord keyWord;
 
     //Main Properties
     String name;
@@ -139,6 +141,14 @@ public class CircularKeyword implements Serializable {
 
     public void setSearchCount(Long searchCount) {
         this.searchCount = searchCount;
+    }
+
+    public KeyWord getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(KeyWord keyWord) {
+        this.keyWord = keyWord;
     }
     
 }

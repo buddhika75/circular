@@ -14,7 +14,7 @@ import lk.gov.health.entity.KeyWord;
  * @author Neo
  */
 @Stateless
-public class SingleKeyWordFacade extends AbstractFacade<KeyWord> {
+public class KeyWordFacade extends AbstractFacade<KeyWord> {
     @PersistenceContext(unitName = "circularsPU")
     private EntityManager em;
 
@@ -23,7 +23,7 @@ public class SingleKeyWordFacade extends AbstractFacade<KeyWord> {
         return em;
     }
 
-    public SingleKeyWordFacade() {
+    public KeyWordFacade() {
         super(KeyWord.class);
     }
     
