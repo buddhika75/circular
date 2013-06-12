@@ -22,7 +22,8 @@
                                     <p:commandButton rendered="#{sessionController.admin}"  value="Manage Signing Authorities" ajax="false" action="signing_authority" ></p:commandButton>
                                     <p:commandButton  rendered="#{sessionController.circularAdder}"  value="Add Circulars" ajax="false" action="#{circularController.toAddNewCircular()}" ></p:commandButton>
                                     <p:commandButton   rendered="#{sessionController.circularEditor}"   value="Edit Circulars" ajax="false" action="select_circulars" ></p:commandButton>
-
+                                   <p:commandButton  rendered="#{sessionController.admin}"  value="Add Keyword" ajax="false" action="addKeyword" ></p:commandButton>
+                                    
                                 </p:panelGrid>
                             </h:form>
                         </td>
