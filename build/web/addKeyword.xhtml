@@ -28,13 +28,13 @@
                 </tr>
                 <tr>
                     <td>
-                        <h:inputTextarea style="height: 100px; width: 250px;"></h:inputTextarea>  
+                        <h:inputTextarea style="height: 100px; width: 250px;" value="#{keyWordController.bulkKeyword}"></h:inputTextarea>  
                     </td>
                     
                 </tr>
                 <tr>
                     <td align="right">
-                        <h:commandButton value="Save Data" ></h:commandButton>
+                        <h:commandButton value="Save Data" action="#{keyWordController.saveBulkKeyWord()}" ></h:commandButton>
                     </td>
                 </tr>
                 

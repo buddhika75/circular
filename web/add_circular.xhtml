@@ -22,6 +22,7 @@
                         <h:inputText  id="txtNo" value="#{circularController.circular.name}" >
                             <f:ajax event="blur" execute="txtNo" render="txtNo" />
                         </h:inputText>
+                        
                         <h:outputText value="Topic"/>
                         <h:inputText id="txtTopic" value="#{circularController.circular.topic}" >
                             <f:ajax event="blur" execute="txtTopic" render="txtTopic" />
@@ -70,9 +71,7 @@
                         
                         <h:outputLabel value="Keywords" ></h:outputLabel>
                         <p:autoComplete completeMethod="#{keyWordController.completePlayer}" var="kw" itemLabel="#{kw.name}" multiple="true"/>
-                        <h:inputText  id="txtKeys"  value="#{circularController.circular.keywords}" maxlength="255" >
-                            <f:ajax event="blur" execute="txtKeys calDate" render="txtKeys" />
-                        </h:inputText>
+                        
                         <h:outputLabel value="Contents" ></h:outputLabel>
                         <h:inputTextarea id="txtContents" value="#{circularController.circular.contents}" >
                             <f:ajax event="blur" execute="txtContents calDate" render="txtContents" />

@@ -49,7 +49,7 @@ public final class KeyWordController implements Serializable {
     private CircularKeywordFacade ckFacade;
     @EJB
     private KeyWordFacade keyFacade;
-    Circular circular;
+    private Circular circular;
     
         
     public KeyWordController() {
@@ -191,34 +191,7 @@ public final class KeyWordController implements Serializable {
         this.sessionController = sessionController;
     }
 
-    public String getBulkKeyword() {
-       if (bulkKeyword == null) {
-            return bulkKeyword;
-        }
-        List<String> kws = Arrays.asList(bulkKeyword.split(selectText));
-        for (String kw : kws) {
-            CircularKeyword ck = new CircularKeyword();
-            KeyWord keyWord;
-            keyWord=getKeyFacade().findFirstBySQL("select k from KeyWord k where lower(k.name)='" + kw.toLowerCase() + "'" );
-            if(keyWord==null){
-            keyWord=new KeyWord();
-            keyWord.setName(kw.toLowerCase());
-            getKeyFacade().create(keyWord);
-            
-            }
-            ck.setKeyWord(keyWord);
-            ck.setCircular(circular);
-            ck.setName(kw.toLowerCase());
-            ckFacade.create(ck);
-        }
-        return bulkKeyword;
-    }
-
-    public void setBulkKeyword(String bulkKeyword) {
-        this.bulkKeyword = bulkKeyword;
-    }
-
-    public CircularKeywordFacade getCkFacade() {
+   public CircularKeywordFacade getCkFacade() {
         return ckFacade;
     }
 
@@ -234,6 +207,36 @@ public final class KeyWordController implements Serializable {
         this.keyFacade = keyFacade;
     }
 
+    public Circular getCircular() {
+        return circular;
+    }
+
+    public void setCircular(Circular circular) {
+        this.circular = circular;
+    }
+
+    public String getBulkKeyword() {
+        return bulkKeyword;
+    }
+
+    public void setBulkKeyword(String bulkKeyword) {
+        this.bulkKeyword = bulkKeyword;
+    }
+
+    public void saveBulkKeyWord(){
+        List<String> kws = Arrays.asList(bulkKeyword.split("\\s+"));
+        for (String kw : kws) {
+            KeyWord keyWord;
+            keyWord=getKeyFacade().findFirstBySQL("select k from KeyWord k where lower(k.name)='" + kw.toLowerCase() + "'" );
+            if(keyWord==null){
+            keyWord=new KeyWord();
+            keyWord.setName(kw.toLowerCase());
+            getKeyFacade().create(keyWord);
+            
+            }
+            setBulkKeyword(" ");
+        }
+    }
     @FacesConverter(forClass = KeyWord.class)
     public static class KeyWordControllerConverter implements Converter {
 
