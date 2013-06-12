@@ -1,6 +1,6 @@
 /*
- * Author
- * Dr. M H B Ariyaratne, MO(Health Information), email : buddhika.ari@gmail.com
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package lk.gov.health.entity;
 
@@ -15,33 +15,34 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Dr. M H B Ariyaratne <buddhika.ari at gmail.com>
+ * @author Neo
  */
 @Entity
-public class CircularKeyword implements Serializable {
+public class KeyWord implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private Long searchCount;
-    @ManyToOne
-    private KeyWord keyWord;
 
     //Main Properties
-    String name;
+    private String name;
     //Created Properties
     @ManyToOne
-    WebUser creater;
+    private WebUser creater;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    Date createdAt;
+    private Date createdAt;
     //Retairing properties
-    boolean retired;
+    private boolean retired;
     @ManyToOne
-    WebUser retirer;
+    private WebUser retirer;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    Date retiredAt;
+    private Date retiredAt;
     @ManyToOne
-    Circular circular;
+    private Circular circular;
+
+    
     
     
     public Long getId() {
@@ -50,6 +51,31 @@ public class CircularKeyword implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof KeyWord)) {
+            return false;
+        }
+        KeyWord other = (KeyWord) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "lk.gov.health.entity.SingleKeyWord[ id=" + id + " ]";
     }
 
     public String getName() {
@@ -108,47 +134,12 @@ public class CircularKeyword implements Serializable {
         this.circular = circular;
     }
 
-    
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CircularKeyword)) {
-            return false;
-        }
-        CircularKeyword other = (CircularKeyword) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "lk.gov.health.entity.CircularKeyword[ id=" + id + " ]";
-    }
-
     public Long getSearchCount() {
         return searchCount;
     }
 
     public void setSearchCount(Long searchCount) {
         this.searchCount = searchCount;
-    }
-
-    public KeyWord getKeyWord() {
-        return keyWord;
-    }
-
-    public void setKeyWord(KeyWord keyWord) {
-        this.keyWord = keyWord;
     }
     
 }

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Add Keywords</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./resources/template/template_1.xhtml">
+
+            <ui:define name="content">
+                <p:panel header="Add Keyword" >
+        <h:form>
+            
+            <table>
+                <tr>
+                    <th align="left">
+                   Keyword
+                    </th>
+                <th>
+                    counter
+                </th> 
+                    <th >
+                        <h:outputLabel></h:outputLabel>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <h:inputTextarea style="height: 100px; width: 250px;"></h:inputTextarea>  
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td align="right">
+                        <h:commandButton value="Save Data" ></h:commandButton>
+                    </td>
+                </tr>
+                
+            </table>
+
+                
+                
+        </h:form>
+                </p:panel>
+                     </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

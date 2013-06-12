@@ -26,10 +26,18 @@
                         <h:inputText id="txtTopic" value="#{circularController.circular.topic}" >
                             <f:ajax event="blur" execute="txtTopic" render="txtTopic" />
                         </h:inputText>
+                        
+                        
                         <h:outputText value="Internal"/>
                         <h:selectBooleanCheckbox id="chkIn" value="#{circularController.circular.internal}" >
                             <f:ajax event="blur" execute="chkIn" render="chkIn" />
                         </h:selectBooleanCheckbox>
+                        
+                        <h:outputText value="Circular Letter"/>
+                        <h:selectBooleanCheckbox id="chkCl" value="#{circularController.circular.circularLetter}">
+                            <f:ajax event="blur" execute="chkCl" render="chkCl"></f:ajax>
+                        </h:selectBooleanCheckbox>
+                        
                         <h:outputText value="Administrative Division"/>
                         <h:selectOneListbox id="cmbAd" size="1" value="#{circularController.circular.administrativeDivision}" >
                             <f:selectItem itemLabel="Please select an administrative division"/>
@@ -58,7 +66,10 @@
                             <f:selectItem itemLabel="Tamil" itemValue="Tamil" />
                             <f:selectItem itemLabel="English" itemValue="English" />
                         </h:selectOneListbox>
+                        
+                        
                         <h:outputLabel value="Keywords" ></h:outputLabel>
+                        <p:autoComplete completeMethod="#{keyWordController.completePlayer}" var="kw" itemLabel="#{kw.name}" multiple="true"/>
                         <h:inputText  id="txtKeys"  value="#{circularController.circular.keywords}" maxlength="255" >
                             <f:ajax event="blur" execute="txtKeys calDate" render="txtKeys" />
                         </h:inputText>
