@@ -53,6 +53,13 @@ public class CircularController implements Serializable {
     SessionController sessionController;
     Person person;
     Circular circular;
+   
+    private String txtOldCircilar;
+    private List<Circular> lstOldCirculars;
+    private String txtNewCircular;
+    private List<Circular> lstNewCirculars;
+    
+
     
     List<Circular> circulars;
     List<Circular> popularCircular;
@@ -358,16 +365,52 @@ public class CircularController implements Serializable {
     }
 
     public List<Circular> getResentCirculars() {
-        System.out.println("getting circular");
-        if (circular == null) {
-            System.out.println("new circular");
-            circular = new Circular();
-        }
-        System.out.println("return circular " + circular.getFileName() + " of " + circular.getFileType());
+      String sql;
+            sql = "select c from Circular c where c.retired = false order by c.id desc";
+        System.out.println("SQL is " + sql);
+        resentCirculars = getCircularFacade().findBySQL(sql, 1);
         return resentCirculars;
     }
 
     public void setResentCirculars(List<Circular> resentCirculars) {
         this.resentCirculars = resentCirculars;
+    }
+
+    private boolean circulars() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getTxtOldCircilar() {
+        return txtOldCircilar;
+    }
+
+    public void setTxtOldCircilar(String txtOldCircilar) {
+        this.txtOldCircilar = txtOldCircilar;
+    }
+
+    public List<Circular> getLstOldCirculars() {
+        String sql;
+        sql="Select c from Circular c where c.retired=false and ( upper(c.name) like '%" + getTxtOldCircilar().toUpperCase() + "%' or upper(c.code) like '%" + getTxtOldCircilar().toUpperCase() + "%'  )  order by c.id desc";
+        return lstOldCirculars;
+    }
+
+    public void setLstOldCirculars(List<Circular> lstOldCirculars) {
+        this.lstOldCirculars = lstOldCirculars;
+    }
+
+    public String getTxtNewCircular() {
+        return txtNewCircular;
+    }
+
+    public void setTxtNewCircular(String txtNewCircular) {
+        this.txtNewCircular = txtNewCircular;
+    }
+
+    public List<Circular> getLstNewCirculars() {
+        return lstNewCirculars;
+    }
+
+    public void setLstNewCirculars(List<Circular> lstNewCirculars) {
+        this.lstNewCirculars = lstNewCirculars;
     }
 }
