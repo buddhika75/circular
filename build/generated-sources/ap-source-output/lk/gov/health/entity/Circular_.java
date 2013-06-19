@@ -7,15 +7,17 @@ import javax.persistence.metamodel.StaticMetamodel;
 import lk.gov.health.data.CircularLanguage;
 import lk.gov.health.entity.AdministrativeDivision;
 import lk.gov.health.entity.Category;
+import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.Person;
 import lk.gov.health.entity.SigningAuthority;
 import lk.gov.health.entity.WebUser;
 
-@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-05-28T09:49:45")
+@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-06-19T14:48:08")
 @StaticMetamodel(Circular.class)
 public class Circular_ { 
 
     public static volatile SingularAttribute<Circular, Person> person;
+    public static volatile SingularAttribute<Circular, Date> replacedAt;
     public static volatile SingularAttribute<Circular, Boolean> retired;
     public static volatile SingularAttribute<Circular, WebUser> creater;
     public static volatile SingularAttribute<Circular, String> circularNumber;
@@ -32,13 +34,17 @@ public class Circular_ {
     public static volatile SingularAttribute<Circular, String> topic;
     public static volatile SingularAttribute<Circular, String> fileType;
     public static volatile SingularAttribute<Circular, String> keywords;
+    public static volatile SingularAttribute<Circular, WebUser> replacedUser;
     public static volatile SingularAttribute<Circular, String> contents;
     public static volatile SingularAttribute<Circular, AdministrativeDivision> administrativeDivision;
     public static volatile SingularAttribute<Circular, SigningAuthority> signingAuthority;
     public static volatile SingularAttribute<Circular, String> code;
     public static volatile SingularAttribute<Circular, String> originatingFileNo;
+    public static volatile SingularAttribute<Circular, Circular> replaceBy;
+    public static volatile SingularAttribute<Circular, Boolean> replaced;
     public static volatile SingularAttribute<Circular, Category> category;
     public static volatile SingularAttribute<Circular, String> fileName;
     public static volatile SingularAttribute<Circular, Date> retiredAt;
+    public static volatile SingularAttribute<Circular, Boolean> circularLetter;
 
 }
