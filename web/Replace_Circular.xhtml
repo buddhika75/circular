@@ -27,7 +27,12 @@
                         </h:panelGrid>                    
 
                         <h:panelGrid columns="1" >
-
+                            <h:selectOneListbox id="cmbNewCircular" value="#{circularController.newCircular}">
+                                <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.name}" itemValue="#{nc}"/>
+                                <f:ajax execute="cmbNewCircular" render="lblNewC" event="click"/>
+                            </h:selectOneListbox>
+                            
+                            <h:outputLabel id="lblNewC" value="Selected new circular is #{circularController.newCircular.name}" />
                         </h:panelGrid>                    
 
                         <h:panelGrid columns="1" >

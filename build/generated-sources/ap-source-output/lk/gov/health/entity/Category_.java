@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import lk.gov.health.entity.Category;
 import lk.gov.health.entity.WebUser;
 
-@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-06-19T14:48:08")
+@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-06-19T15:38:16")
 @StaticMetamodel(Category.class)
 public class Category_ { 
 
