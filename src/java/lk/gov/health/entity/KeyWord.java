@@ -139,6 +139,7 @@ public class KeyWord implements Serializable {
     }
 
     public void setSearchCount(Long searchCount) {
+        
         this.searchCount = searchCount;
     }
     

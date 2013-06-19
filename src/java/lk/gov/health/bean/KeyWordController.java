@@ -25,7 +25,7 @@ import javax.faces.convert.FacesConverter;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.facade.CircularKeywordFacade;
-
+import lk.gov.health.facade.SingleKeyWordFacade;
 
 /**
  *
@@ -49,21 +49,19 @@ public final class KeyWordController implements Serializable {
     private CircularKeywordFacade ckFacade;
     @EJB
     private KeyWordFacade keyFacade;
+    @EJB
+    SingleKeyWordFacade skFacade;
     private Circular circular;
-    
-        
+    private List<KeyWord> popularKeyword;
+
     public KeyWordController() {
-        
     }
 
-   
-   
-    
     public List<KeyWord> getSelectedItems() {
-        if (getSelectText().trim().equals("") ){
+        if (getSelectText().trim().equals("")) {
             selectedItems = getFacade().findBySQL("Select d From KeyWord d where d.retired=false  order by d.name");
-        }else{
-        selectedItems = getFacade().findBySQL("Select d From KeyWord d where d.retired=false  and upper(d.name) like '%" +  getSelectText().toUpperCase() + "%' order by d.name");
+        } else {
+            selectedItems = getFacade().findBySQL("Select d From KeyWord d where d.retired=false  and upper(d.name) like '%" + getSelectText().toUpperCase() + "%' order by d.name");
         }
         return selectedItems;
     }
@@ -73,7 +71,7 @@ public final class KeyWordController implements Serializable {
     }
 
     public List<KeyWord> getItems() {
-        if (items == null|| items.isEmpty()) {
+        if (items == null || items.isEmpty()) {
             items = getFacade().findBySQL("Select d From KeyWord d where d.retired=false order by d.name");
         }
         return items;
@@ -144,14 +142,14 @@ public final class KeyWordController implements Serializable {
         getItems();
     }
 
-    public List<KeyWord> completePlayer(String query) {  
-        List<KeyWord> suggestions = getKeyWordFacade().findBySQL("select k from KeyWord k where k.name like '%"+query+"'");
-          
-       
-          
-        return suggestions;  
-    }  
-    
+    public List<KeyWord> completePlayer(String query) {
+        List<KeyWord> suggestions = getKeyWordFacade().findBySQL("select k from KeyWord k where lower(k.name) like '%" + query.toLowerCase() + "%'");
+
+
+
+        return suggestions;
+    }
+
     public void delete() {
         if (current != null) {
             current.setRetired(true);
@@ -191,7 +189,7 @@ public final class KeyWordController implements Serializable {
         this.sessionController = sessionController;
     }
 
-   public CircularKeywordFacade getCkFacade() {
+    public CircularKeywordFacade getCkFacade() {
         return ckFacade;
     }
 
@@ -223,21 +221,36 @@ public final class KeyWordController implements Serializable {
         this.bulkKeyword = bulkKeyword;
     }
 
-    public void saveBulkKeyWord(){
+    public void saveBulkKeyWord() {
         List<String> kws = Arrays.asList(bulkKeyword.split("\\s+"));
         for (String kw : kws) {
             KeyWord keyWord;
-            keyWord=getKeyFacade().findFirstBySQL("select k from KeyWord k where lower(k.name)='" + kw.toLowerCase() + "'" );
-            if(keyWord==null){
-            keyWord=new KeyWord();
-            keyWord.setName(kw.toLowerCase());
-            getKeyFacade().create(keyWord);
-            
+            keyWord = getKeyFacade().findFirstBySQL("select k from KeyWord k where lower(k.name)='" + kw.toLowerCase() + "'");
+            if (keyWord == null) {
+                keyWord = new KeyWord();
+                keyWord.setName(kw.toLowerCase());
+                getKeyFacade().create(keyWord);
+
             }
             setBulkKeyword(" ");
         }
     }
-    @FacesConverter(forClass = KeyWord.class)
+
+    public List<KeyWord> getPopularKeyword() {
+
+        String sql;
+        sql = ("select k from KeyWord k");
+        popularKeyword = skFacade.findBySQL(sql);
+
+        return popularKeyword;
+    }
+
+    public void setPopularKeyword(List<KeyWord> popularKeyword) {
+        this.popularKeyword = popularKeyword;
+    }
+
+    @ManagedBean
+    @FacesConverter(forClass = KeyWord.class, value = "keyWordControllerConverter")
     public static class KeyWordControllerConverter implements Converter {
 
         @Override
@@ -252,7 +265,14 @@ public final class KeyWordController implements Serializable {
 
         java.lang.Long getKey(String value) {
             java.lang.Long key;
-            key = Long.valueOf(value);
+            if(value==null || value.trim().equals("null")){
+                value="";
+            }
+            try {
+                key = Long.valueOf(value);
+            } catch (Exception e) {
+                key = 0l;
+            }
             return key;
         }
 
