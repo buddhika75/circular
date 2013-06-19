@@ -249,8 +249,7 @@ public final class KeyWordController implements Serializable {
         this.popularKeyword = popularKeyword;
     }
 
-    @ManagedBean
-    @FacesConverter(forClass = KeyWord.class, value = "keyWordControllerConverter")
+    @FacesConverter("keyWordControllerConverter")
     public static class KeyWordControllerConverter implements Converter {
 
         @Override

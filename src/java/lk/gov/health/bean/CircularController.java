@@ -166,6 +166,11 @@ public class CircularController implements Serializable {
         }
     }
 
+    public String toAddNewCircular(){
+        setCircular(new Circular());
+        return "add_circular";
+    }
+    
     public String toViewCircular() {
         return "circular";
     }
@@ -209,10 +214,7 @@ public class CircularController implements Serializable {
         return circular;
     }
 
-    public String toAddNewCircular() {
-        circular = new Circular();
-        return "add_circular";
-    }
+    
 
     public void setCircular(Circular circular) {
         System.out.println("setting circular");
@@ -238,7 +240,7 @@ public class CircularController implements Serializable {
         for (String s : splited) {
             temStr = temStr + " upper(c.circularNumber) like '%" + s.trim().toUpperCase() + "%' or ";
             temStr = temStr + " upper(c.topic) like '%" + s.trim().toUpperCase() + "%' or ";
-            temStr = temStr + " upper(k.name) like '%" + s.trim().toUpperCase() + "%'   or ";
+            temStr = temStr + " upper(w.name) like '%" + s.trim().toUpperCase() + "%'   or ";
         }
         temStr = temStr.substring(0, temStr.length() - 4);
         temStr = temStr + " ) ";
@@ -250,13 +252,16 @@ public class CircularController implements Serializable {
         if (strSearch == null || strSearch.trim().equals("")) {
             sql = "select c from Circular c where c.retired = false order by c.id desc";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyword w where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
+            
         }
         System.out.println("SQL is " + sql);
         circulars = getCircularFacade().findBySQL(sql);
         return circulars;
     }
 
+    
+    
     public void setCirculars(List<Circular> circulars) {
         this.circulars = circulars;
     }
