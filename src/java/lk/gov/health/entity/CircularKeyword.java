@@ -6,6 +6,7 @@ package lk.gov.health.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -150,5 +151,7 @@ public class CircularKeyword implements Serializable {
     public void setKeyWord(KeyWord keyWord) {
         this.keyWord = keyWord;
     }
+
+    
     
 }

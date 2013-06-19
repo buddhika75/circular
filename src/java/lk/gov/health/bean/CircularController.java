@@ -10,6 +10,7 @@ import org.primefaces.model.UploadedFile;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
@@ -55,6 +56,7 @@ public class CircularController implements Serializable {
     Circular circular;
     List<Circular> circulars;
     List<Circular> divCirculars;
+    private List<KeyWord> keyWords;
     AdministrativeDivision division;
     String strSearch;
 
@@ -66,8 +68,6 @@ public class CircularController implements Serializable {
         this.skFacade = skFacade;
     }
 
-    
-    
     public SessionController getSessionController() {
         return sessionController;
     }
@@ -216,8 +216,8 @@ public class CircularController implements Serializable {
         System.out.println("type is " + circular.getFileType());
         this.circular = circular;
     }
-    
-    public void recordSearchcount(String str){
+
+    public void recordSearchcount(String str) {
         KeyWord newSk;
         String sql;
         sql = "select kw from SingleKeyword kw where upper(kw.name) = '" + str + "'";
@@ -225,7 +225,7 @@ public class CircularController implements Serializable {
         newSk.setSearchCount(newSk.getSearchCount() + 1);
         getSkFacade().edit(newSk);
     }
-    
+
     public String searchStringFromText() {
         String temStr = " (";
         String[] splited = strSearch.split("\\s+");
@@ -277,10 +277,10 @@ public class CircularController implements Serializable {
             if (circular.getId() == null || circular.getId() == 0) {
                 UtilityController.addErrorMessage("Please upload an image");
                 return "";
-            }else{
+            } else {
                 circularFacade.edit(circular);
                 UtilityController.addSuccessMessage("Changes Saved");
-               return "";
+                return "";
             }
         }
         System.out.println("file name is not null");
@@ -308,26 +308,14 @@ public class CircularController implements Serializable {
     }
 
     private void addKeyWords() {
-        if (circular == null || circular.getId() == null || circular.getId() == 0 || circular.getKeywords().trim().equals("")) {
-            return;
-        }
-        List<String> kws = Arrays.asList(circular.getKeywords().split("\\s+"));
-        for (String kw : kws) {
+        System.out.println("adding keywords" + getKeyWords().size());
+        for (KeyWord keyWord : getKeyWords()) {
             CircularKeyword ck = new CircularKeyword();
-            KeyWord keyWord;
-            keyWord=getKeyFacade().findFirstBySQL("select k from KeyWord k where lower(k.name)='" + kw.toLowerCase() + "'" );
-            if(keyWord==null){
-            keyWord=new KeyWord();
-            keyWord.setName(kw.toLowerCase());
-            getKeyFacade().create(keyWord);
-            
-            }
             ck.setKeyWord(keyWord);
             ck.setCircular(circular);
-            ck.setName(kw.toLowerCase());
             ckFacade.create(ck);
         }
-
+        setKeyWords(new ArrayList<KeyWord>());
     }
 
     public KeyWordFacade getKeyFacade() {
@@ -336,5 +324,15 @@ public class CircularController implements Serializable {
 
     public void setKeyFacade(KeyWordFacade keyFacade) {
         this.keyFacade = keyFacade;
+    }
+
+    public List<KeyWord> getKeyWords() {
+        System.out.println("getting keywords");
+        return keyWords;
+    }
+
+    public void setKeyWords(List<KeyWord> keyWords) {
+        System.out.println("setting keywords");
+        this.keyWords = keyWords;
     }
 }

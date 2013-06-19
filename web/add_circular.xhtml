@@ -93,7 +93,7 @@
                         
                         <tr>
                             <td><h:outputLabel value="Keywords" ></h:outputLabel></td>
-                            <td><p:autoComplete completeMethod="#{keyWordController.completePlayer}" var="kw" itemLabel="#{kw.name}" multiple="true"/></td>
+                            <td><p:autoComplete converter="keyWordControllerConverter"  value="#{circularController.keyWords}" completeMethod="#{keyWordController.completePlayer}" var="kv" itemLabel="#{kv.name}"  multiple="true"/></td>
                         </tr>
                         
                         <tr>
