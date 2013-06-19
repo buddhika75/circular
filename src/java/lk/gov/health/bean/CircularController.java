@@ -16,8 +16,11 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import lk.gov.health.entity.AdministrativeDivision;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.entity.Person;
@@ -55,6 +58,8 @@ public class CircularController implements Serializable {
     Person person;
     Circular circular;
     private String txtOldCircilar;
+    Circular oldCircular;
+    Circular newCircular;
     private List<Circular> lstOldCirculars;
     private String txtNewCircular;
     private List<Circular> lstNewCirculars;
@@ -63,8 +68,26 @@ public class CircularController implements Serializable {
     List<Circular> resentCirculars;
     List<Circular> divCirculars;
     private List<KeyWord> keyWords;
-    AdministrativeDivision division;
+    Circular division;
     String strSearch;
+
+    public Circular getOldCircular() {
+        return oldCircular;
+    }
+
+    public void setOldCircular(Circular oldCircular) {
+        this.oldCircular = oldCircular;
+    }
+
+    public Circular getNewCircular() {
+        return newCircular;
+    }
+
+    public void setNewCircular(Circular newCircular) {
+        this.newCircular = newCircular;
+    }
+    
+    
 
     public SingleKeyWordFacade getSkFacade() {
         return skFacade;
@@ -93,9 +116,9 @@ public class CircularController implements Serializable {
     public List<Circular> getDivCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
-            sql = "select c from Circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + " order by c.name";
+            sql = "select c from Circular c where c.retired = false and c.circular.id = " + getDivision().getId() + " order by c.name";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and c.circular.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
         }
         System.out.println("SQL is " + sql);
         divCirculars = getCircularFacade().findBySQL(sql);
@@ -106,11 +129,11 @@ public class CircularController implements Serializable {
         this.divCirculars = divCirculars;
     }
 
-    public AdministrativeDivision getDivision() {
+    public Circular getDivision() {
         return division;
     }
 
-    public void setDivision(AdministrativeDivision division) {
+    public void setDivision(Circular division) {
         this.division = division;
     }
 
@@ -377,7 +400,9 @@ public class CircularController implements Serializable {
 
     public List<Circular> getLstOldCirculars() {
         String sql;
-        sql = "Select c from Circular c where c.retired=false and ( upper(c.name) like '%" + getTxtOldCircilar().toUpperCase() + "%' or upper(c.code) like '%" + getTxtOldCircilar().toUpperCase() + "%'  )  order by c.id desc";
+        //sql = "Select c from Circular c where c.retired=false and ( upper(c.name) like '%" + getTxtOldCircilar().toUpperCase() + "%' or upper(c.code) like '%" + getTxtOldCircilar().toUpperCase() + "%'  )  order by c.id desc";
+        sql = "select c from Circular c" ;
+        lstOldCirculars = getCircularFacade().findBySQL(sql);
         return lstOldCirculars;
     }
 
@@ -411,4 +436,48 @@ public class CircularController implements Serializable {
         this.keyWords = keyWords;
 
     }
+    
+    
+    
+    
+    @FacesConverter(forClass = Circular.class)
+    public static class CircularControllerConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            CircularController controller = (CircularController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "circularController");
+            return controller.getCircularFacade().find(getKey(value));
+        }
+
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
+            return key;
+        }
+
+        String getStringKey(java.lang.Long value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof Circular) {
+                Circular o = (Circular) object;
+                return getStringKey(o.getId());
+            } else {
+                throw new IllegalArgumentException("object " + object + " is of type "
+                        + object.getClass().getName() + "; expected type: " + CircularController.class.getName());
+            }
+        }
+    }
+    
 }
