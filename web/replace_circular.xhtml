@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./resources/template/template_1.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+
+                    <h:panelGrid columns="3" >
+
+                        <h:panelGrid columns="1" >
+
+                            <h:selectOneListbox id="cmbOldCircular"  value="#{circularController.oldCircular}" >
+                                <f:selectItems value="#{circularController.lstOldCirculars}" var="oc" itemLabel="#{oc.name}" itemValue="#{oc}" />
+                                <f:ajax execute="cmbOldCircular" render="lblOldC" event="click" />
+                            </h:selectOneListbox>
+
+                            <h:outputLabel id="lblOldC" value="Selected old circular is #{circularController.oldCircular.name}" />
+
+
+                        </h:panelGrid>                    
+
+                        <h:panelGrid columns="1" >
+
+                        </h:panelGrid>                    
+
+                        <h:panelGrid columns="1" >
+
+                        </h:panelGrid>                    
+
+                    </h:panelGrid>
+
+                </h:form>
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
