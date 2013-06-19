@@ -53,10 +53,15 @@ public class CircularController implements Serializable {
     SessionController sessionController;
     Person person;
     Circular circular;
+    
     List<Circular> circulars;
+    List<Circular> popularCircular;
+    List<Circular> resentCirculars;
+    
     List<Circular> divCirculars;
     AdministrativeDivision division;
     String strSearch;
+    
 
     public SingleKeyWordFacade getSkFacade() {
         return skFacade;
@@ -336,5 +341,33 @@ public class CircularController implements Serializable {
 
     public void setKeyFacade(KeyWordFacade keyFacade) {
         this.keyFacade = keyFacade;
+    }
+
+    public List<Circular> getPopularCircular() {
+        System.out.println("getting circular");
+        if (circular == null) {
+            System.out.println("new circular");
+            circular = new Circular();
+        }
+        System.out.println("return circular " + circular.getFileName() + " of " + circular.getFileType());
+        return popularCircular;
+    }
+
+    public void setPopularCircular(List<Circular> popularCircular) {
+        this.popularCircular = popularCircular;
+    }
+
+    public List<Circular> getResentCirculars() {
+        System.out.println("getting circular");
+        if (circular == null) {
+            System.out.println("new circular");
+            circular = new Circular();
+        }
+        System.out.println("return circular " + circular.getFileName() + " of " + circular.getFileType());
+        return resentCirculars;
+    }
+
+    public void setResentCirculars(List<Circular> resentCirculars) {
+        this.resentCirculars = resentCirculars;
     }
 }

@@ -1,3 +1,4 @@
+
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -7,133 +8,121 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
     <body>
-
         <ui:composition template="./resources/template/template_1.xhtml">
-
             <ui:define name="content">
-
                 <h:form>
-                    <p:panel header="Circulars" >
+                    <table>
+                        <tr valign="top">
+                            <td rowspan="2" style="width:70%;">
+                                <p:panel header="Circulars" >
 
-                        <h:outputLabel value="Search" ></h:outputLabel>
-                        <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
-                            <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
-                        </h:inputText>
+                                    <h:outputLabel value="Search" ></h:outputLabel>
+                                    <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
+                                        <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
+                                    </h:inputText>
 
-                        <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
-                            <p:column >
-                                <f:facet name="header" >
-                                    Circular Date
-                                </f:facet>
-                                <h:outputLabel value="#{c.circularDate}" >
-                                    <f:convertDateTime pattern="yyyy MMMM dd" />
-                                </h:outputLabel>
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Circular Number
-                                </f:facet>
-                                #{c.name}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Topic
-                                </f:facet>
-                                #{c.topic}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Administrative Division
-                                </f:facet>
-                                #{c.administrativeDivision.name}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Singing Authority
-                                </f:facet>
-                                #{c.signingAuthority.name}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Action
-                                </f:facet>
-                                <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
-                                    <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
-                                </h:commandLink>
-                            </p:column>
-                        </p:dataTable>
-
-
-                    </p:panel>
-                </h:form>
+                                    <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Circular Date
+                                            </f:facet>
+                                            <h:outputLabel value="#{c.circularDate}" >
+                                                <f:convertDateTime pattern="yyyy MMMM dd" />
+                                            </h:outputLabel>
+                                        </p:column>
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Circular Number
+                                            </f:facet>
+                                            #{c.name}
+                                        </p:column>
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Topic
+                                            </f:facet>
+                                            #{c.topic}
+                                        </p:column>
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Administrative Division
+                                            </f:facet>
+                                            #{c.administrativeDivision.name}
+                                        </p:column>
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Singing Authority
+                                            </f:facet>
+                                            #{c.signingAuthority.name}
+                                        </p:column>
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Action
+                                            </f:facet>
+                                            <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
+                                                <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
+                                            </h:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </td>                  
+                            <td style="width: 30%">
+                                <p:panel header="Popular Circulars" >
+                                    <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
+                                        <p:column style="width: 50px">
+                                            <f:facet name="header" >
+                                                Circular Date
+                                            </f:facet>
+                                            <h:outputLabel value="#{c1.circularDate}" >
+                                                <f:convertDateTime pattern="yyyy MMMM dd" />
+                                            </h:outputLabel>
+                                        </p:column>
+                                        <p:column style="width: 50px">
+                                            <f:facet name="header" >
+                                                Circular Number
+                                            </f:facet>
+                                            #{c1.name}
+                                        </p:column>
+                                        <p:column style="width: 50px">
+                                            <f:facet name="header" >
+                                                Topic
+                                            </f:facet>
+                                            #{c1.topic}
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </td>
+                         </tr>                           
+                        <tr>
+                            <td style="width: 30%">
+                                    <p:panel header="Resent Circula">
+                                    <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
+                                        <p:column style="width: 50px">
+                                            <f:facet name="header" >
+                                                Circular Date
+                                            </f:facet>
+                                            <h:outputLabel value="#{c.circularDate}" >
+                                                <f:convertDateTime pattern="yyyy MMMM dd" />
+                                            </h:outputLabel>
+                                        </p:column>
+                                        <p:column style="width: 50px">
+                                            <f:facet name="header" >
+                                                Circular Number
+                                            </f:facet>
+                                            #{c.name}
+                                        </p:column>
+                                        <p:column style="width: 50px">
+                                            <f:facet name="header" >
+                                                Topic
+                                            </f:facet>
+                                            #{c.topic}
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                                </td>
+                            </tr>
+                    </table>
+                 </h:form>
             </ui:define>
-
-
-
-
-            <ui:define name="login">
-
-                <h:form>
-
-
-
-                    <p:panel header="Circulars" >
-
-                        <h:outputLabel value="Search" ></h:outputLabel>
-                        <h:inputText id="txtSearchP" value="#{circularController.strSearch}" >
-                            <f:ajax execute="txtSearchP" render="tblCirP" event="keydown" />
-                        </h:inputText>
-
-                        <p:dataTable id="tblCirP" value="#{circularController.circulars}" var="c">
-                            <p:column >
-                                <f:facet name="header" >
-                                    Circular Date
-                                </f:facet>
-                                <h:outputLabel value="#{c.circularDate}" >
-                                    <f:convertDateTime pattern="yyyy MMMM dd" />
-                                </h:outputLabel>
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Circular Number
-                                </f:facet>
-                                #{c.name}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Topic
-                                </f:facet>
-                                #{c.topic}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Administrative Division
-                                </f:facet>
-                                #{c.administrativeDivision.name}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Singing Authority
-                                </f:facet>
-                                #{c.signingAuthority.name}
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header" >
-                                    Action
-                                </f:facet>
-                                <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
-                                    <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
-                                </h:commandLink>
-                            </p:column>
-                        </p:dataTable>
-
-
-                    </p:panel>
-
-                </h:form>
-            </ui:define>
-
         </ui:composition>
-
-    </body>
+   </body>
 </html>
