@@ -270,12 +270,27 @@ public class CircularController implements Serializable {
         return temStr;
     }
 
+    
+    public String searchStringFromOldText() {
+        String temStr = " (";
+        String[] splited = txtOldCircilar.split("\\s+");
+        for (String s : splited) {
+            temStr = temStr + " upper(c.circularNumber) like '%" + s.trim().toUpperCase() + "%' or ";
+            temStr = temStr + " upper(c.topic) like '%" + s.trim().toUpperCase() + "%' or ";
+            temStr = temStr + " upper(w.name) like '%" + s.trim().toUpperCase() + "%'   or ";
+        }
+        temStr = temStr.substring(0, temStr.length() - 4);
+        temStr = temStr + " ) ";
+        return temStr;
+    }
+
+    
     public List<Circular> getCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
             sql = "select c from Circular c where c.retired = false order by c.id desc";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyword w where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyWord w where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
             
         }
         System.out.println("SQL is " + sql);
@@ -342,7 +357,7 @@ public class CircularController implements Serializable {
     }
 
     private void addKeyWords() {
-        System.out.println("adding keywords" + getKeyWords().size());
+        System.out.println("adding keyWords" + getKeyWords().size());
         for (KeyWord keyWord : getKeyWords()) {
             CircularKeyword ck = new CircularKeyword();
             ck.setKeyWord(keyWord);
@@ -399,8 +414,20 @@ public class CircularController implements Serializable {
     }
 
     public List<Circular> getLstOldCirculars() {
+        
         String sql;
+        if (getTxtOldCircilar() == null || getTxtOldCircilar().trim().equals("")) {
+            sql = "select c from Circular c where c.retired = false order by c.id desc";
+        } else {
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyWord w where c.retired = false and k.retired = false and " + searchStringFromOldText() + " ) order by c1.id desc";
+            
+        }
+        System.out.println("SQL is " + sql);
+        circulars = getCircularFacade().findBySQL(sql);
+        
         //sql = "Select c from Circular c where c.retired=false and ( upper(c.name) like '%" + getTxtOldCircilar().toUpperCase() + "%' or upper(c.code) like '%" + getTxtOldCircilar().toUpperCase() + "%'  )  order by c.id desc";
+        
+        
         sql = "select c from Circular c" ;
         lstOldCirculars = getCircularFacade().findBySQL(sql);
         return lstOldCirculars;
@@ -411,6 +438,7 @@ public class CircularController implements Serializable {
     }
 
     public String getTxtNewCircular() {
+       
         return txtNewCircular;
     }
 
@@ -419,6 +447,9 @@ public class CircularController implements Serializable {
     }
 
     public List<Circular> getLstNewCirculars() {
+        String sql;
+        sql = "Select c from Circular c";
+        lstNewCirculars = getCircularFacade().findBySQL(sql);
         return lstNewCirculars;
     }
 
@@ -427,12 +458,12 @@ public class CircularController implements Serializable {
     }
 
     public List<KeyWord> getKeyWords() {
-        System.out.println("getting keywords");
+        System.out.println("getting keyWords");
         return keyWords;
     }
 
     public void setKeyWords(List<KeyWord> keyWords) {
-        System.out.println("setting keywords");
+        System.out.println("setting keyWords");
         this.keyWords = keyWords;
 
     }
