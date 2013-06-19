@@ -424,11 +424,6 @@ public class CircularController implements Serializable {
         }
         System.out.println("SQL is " + sql);
         circulars = getCircularFacade().findBySQL(sql);
-        
-        //sql = "Select c from Circular c where c.retired=false and ( upper(c.name) like '%" + getTxtOldCircilar().toUpperCase() + "%' or upper(c.code) like '%" + getTxtOldCircilar().toUpperCase() + "%'  )  order by c.id desc";
-        
-        
-        sql = "select c from Circular c" ;
         lstOldCirculars = getCircularFacade().findBySQL(sql);
         return lstOldCirculars;
     }
