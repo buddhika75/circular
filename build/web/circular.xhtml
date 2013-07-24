@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/template/template_1.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
+    <ui:define name="content">
+
+        <p:media value="#{circularController.scCircular}" width="100%" height="900px" player="pdf">  
+            Your browser can't display pdf, <h:outputLink value="#{circularController.scCircular}">click</h:outputLink> to download pdf instead.  
+        </p:media>  
+
+    </ui:define>
+
+    <ui:define name="login">
+        <h:form>
+
+            <p:media value="#{circularController.scCircular}" width="100%" height="900px" player="pdf">  
+                Your browser can't display pdf, <h:outputLink value="#{circularController.scCircular}">click</h:outputLink> to download pdf instead.  
+            </p:media>  
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

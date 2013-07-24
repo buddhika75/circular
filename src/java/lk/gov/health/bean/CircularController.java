@@ -16,14 +16,20 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import lk.gov.health.entity.AdministrativeDivision;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.entity.Person;
+import lk.gov.health.entity.KeyWord;
 import lk.gov.health.facade.CategoryFacade;
 import lk.gov.health.facade.CircularFacade;
 import lk.gov.health.facade.CircularKeywordFacade;
+import lk.gov.health.facade.KeyWordFacade;
+import lk.gov.health.facade.SingleKeyWordFacade;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -43,14 +49,53 @@ public class CircularController implements Serializable {
     CategoryFacade catFacade;
     @EJB
     CircularKeywordFacade ckFacade;
+    @EJB
+    SingleKeyWordFacade skFacade;
+    @EJB
+    private KeyWordFacade keyFacade;
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
     Person person;
     Circular circular;
+    private String txtOldCircilar;
+    Circular oldCircular;
+    Circular newCircular;
+    private List<Circular> lstOldCirculars;
+    private String txtNewCircular;
+    private List<Circular> lstNewCirculars;
     List<Circular> circulars;
+    List<Circular> popularCircular;
+    List<Circular> resentCirculars;
     List<Circular> divCirculars;
-    AdministrativeDivision division;
+    private List<KeyWord> keyWords;
+    Circular division;
     String strSearch;
+
+    public Circular getOldCircular() {
+        return oldCircular;
+    }
+
+    public void setOldCircular(Circular oldCircular) {
+        this.oldCircular = oldCircular;
+    }
+
+    public Circular getNewCircular() {
+        return newCircular;
+    }
+
+    public void setNewCircular(Circular newCircular) {
+        this.newCircular = newCircular;
+    }
+    
+    
+
+    public SingleKeyWordFacade getSkFacade() {
+        return skFacade;
+    }
+
+    public void setSkFacade(SingleKeyWordFacade skFacade) {
+        this.skFacade = skFacade;
+    }
 
     public SessionController getSessionController() {
         return sessionController;
@@ -71,9 +116,9 @@ public class CircularController implements Serializable {
     public List<Circular> getDivCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
-            sql = "select c from Circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + " order by c.name";
+            sql = "select c from Circular c where c.retired = false and c.circular.id = " + getDivision().getId() + " order by c.name";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and c.circular.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
         }
         System.out.println("SQL is " + sql);
         divCirculars = getCircularFacade().findBySQL(sql);
@@ -84,11 +129,11 @@ public class CircularController implements Serializable {
         this.divCirculars = divCirculars;
     }
 
-    public AdministrativeDivision getDivision() {
+    public Circular getDivision() {
         return division;
     }
 
-    public void setDivision(AdministrativeDivision division) {
+    public void setDivision(Circular division) {
         this.division = division;
     }
 
@@ -144,6 +189,11 @@ public class CircularController implements Serializable {
         }
     }
 
+    public String toAddNewCircular(){
+        setCircular(new Circular());
+        return "add_circular";
+    }
+    
     public String toViewCircular() {
         return "circular";
     }
@@ -187,10 +237,7 @@ public class CircularController implements Serializable {
         return circular;
     }
 
-    public String toAddNewCircular() {
-        circular = new Circular();
-        return "add_circular";
-    }
+    
 
     public void setCircular(Circular circular) {
         System.out.println("setting circular");
@@ -201,31 +248,58 @@ public class CircularController implements Serializable {
         this.circular = circular;
     }
 
+    public void recordSearchcount(String str) {
+        KeyWord newSk;
+        String sql;
+        sql = "select kw from SingleKeyword kw where upper(kw.name) = '" + str + "'";
+        newSk = getSkFacade().findFirstBySQL(sql);
+        newSk.setSearchCount(newSk.getSearchCount() + 1);
+        getSkFacade().edit(newSk);
+    }
+
     public String searchStringFromText() {
         String temStr = " (";
         String[] splited = strSearch.split("\\s+");
         for (String s : splited) {
             temStr = temStr + " upper(c.circularNumber) like '%" + s.trim().toUpperCase() + "%' or ";
             temStr = temStr + " upper(c.topic) like '%" + s.trim().toUpperCase() + "%' or ";
-            temStr = temStr + " upper(k.name) like '%" + s.trim().toUpperCase() + "%'   or ";
+            temStr = temStr + " upper(w.name) like '%" + s.trim().toUpperCase() + "%'   or ";
         }
         temStr = temStr.substring(0, temStr.length() - 4);
         temStr = temStr + " ) ";
         return temStr;
     }
 
+    
+    public String searchStringFromOldText() {
+        String temStr = " (";
+        String[] splited = txtOldCircilar.split("\\s+");
+        for (String s : splited) {
+            temStr = temStr + " upper(c.circularNumber) like '%" + s.trim().toUpperCase() + "%' or ";
+            temStr = temStr + " upper(c.topic) like '%" + s.trim().toUpperCase() + "%' or ";
+            temStr = temStr + " upper(w.name) like '%" + s.trim().toUpperCase() + "%'   or ";
+        }
+        temStr = temStr.substring(0, temStr.length() - 4);
+        temStr = temStr + " ) ";
+        return temStr;
+    }
+
+    
     public List<Circular> getCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
             sql = "select c from Circular c where c.retired = false order by c.id desc";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyWord w where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
+            
         }
         System.out.println("SQL is " + sql);
         circulars = getCircularFacade().findBySQL(sql);
         return circulars;
     }
 
+    
+    
     public void setCirculars(List<Circular> circulars) {
         this.circulars = circulars;
     }
@@ -252,10 +326,10 @@ public class CircularController implements Serializable {
             if (circular.getId() == null || circular.getId() == 0) {
                 UtilityController.addErrorMessage("Please upload an image");
                 return "";
-            }else{
+            } else {
                 circularFacade.edit(circular);
                 UtilityController.addSuccessMessage("Changes Saved");
-               return "";
+                return "";
             }
         }
         System.out.println("file name is not null");
@@ -283,16 +357,153 @@ public class CircularController implements Serializable {
     }
 
     private void addKeyWords() {
-        if (circular == null || circular.getId() == null || circular.getId() == 0 || circular.getKeywords().trim().equals("")) {
-            return;
-        }
-        List<String> kws = Arrays.asList(circular.getKeywords().split("\\s+"));
-        for (String kw : kws) {
+        System.out.println("adding keyWords" + getKeyWords().size());
+        for (KeyWord keyWord : getKeyWords()) {
             CircularKeyword ck = new CircularKeyword();
+            ck.setKeyWord(keyWord);
             ck.setCircular(circular);
-            ck.setName(kw);
             ckFacade.create(ck);
         }
+        setKeyWords(new ArrayList<KeyWord>());
+    }
+
+    public KeyWordFacade getKeyFacade() {
+        return keyFacade;
+    }
+
+    public void setKeyFacade(KeyWordFacade keyFacade) {
+        this.keyFacade = keyFacade;
+    }
+
+    public List<Circular> getPopularCircular() {
+        System.out.println("getting circular");
+        if (circular == null) {
+            System.out.println("new circular");
+            circular = new Circular();
+        }
+        System.out.println("return circular " + circular.getFileName() + " of " + circular.getFileType());
+        return popularCircular;
+    }
+
+    public void setPopularCircular(List<Circular> popularCircular) {
+        this.popularCircular = popularCircular;
+    }
+
+    public List<Circular> getResentCirculars() {
+        String sql;
+        sql = "select c from Circular c where c.retired = false order by c.id desc";
+        System.out.println("SQL is " + sql);
+        resentCirculars = getCircularFacade().findBySQL(sql, 1);
+        return resentCirculars;
+    }
+
+    public void setResentCirculars(List<Circular> resentCirculars) {
+        this.resentCirculars = resentCirculars;
+    }
+
+    private boolean circulars() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getTxtOldCircilar() {
+        return txtOldCircilar;
+    }
+
+    public void setTxtOldCircilar(String txtOldCircilar) {
+        this.txtOldCircilar = txtOldCircilar;
+    }
+
+    public List<Circular> getLstOldCirculars() {
+        
+        String sql;
+        if (getTxtOldCircilar() == null || getTxtOldCircilar().trim().equals("")) {
+            sql = "select c from Circular c where c.retired = false order by c.id desc";
+        } else {
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyWord w where c.retired = false and k.retired = false and " + searchStringFromOldText() + " ) order by c1.id desc";
+            
+        }
+        System.out.println("SQL is " + sql);
+        circulars = getCircularFacade().findBySQL(sql);
+        lstOldCirculars = getCircularFacade().findBySQL(sql);
+        return lstOldCirculars;
+    }
+
+    public void setLstOldCirculars(List<Circular> lstOldCirculars) {
+        this.lstOldCirculars = lstOldCirculars;
+    }
+
+    public String getTxtNewCircular() {
+       
+        return txtNewCircular;
+    }
+
+    public void setTxtNewCircular(String txtNewCircular) {
+        this.txtNewCircular = txtNewCircular;
+    }
+
+    public List<Circular> getLstNewCirculars() {
+        String sql;
+        sql = "Select c from Circular c";
+        lstNewCirculars = getCircularFacade().findBySQL(sql);
+        return lstNewCirculars;
+    }
+
+    public void setLstNewCirculars(List<Circular> lstNewCirculars) {
+        this.lstNewCirculars = lstNewCirculars;
+    }
+
+    public List<KeyWord> getKeyWords() {
+        System.out.println("getting keyWords");
+        return keyWords;
+    }
+
+    public void setKeyWords(List<KeyWord> keyWords) {
+        System.out.println("setting keyWords");
+        this.keyWords = keyWords;
 
     }
+    
+    
+    
+    
+    @FacesConverter(forClass = Circular.class)
+    public static class CircularControllerConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            CircularController controller = (CircularController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "circularController");
+            return controller.getCircularFacade().find(getKey(value));
+        }
+
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
+            return key;
+        }
+
+        String getStringKey(java.lang.Long value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof Circular) {
+                Circular o = (Circular) object;
+                return getStringKey(o.getId());
+            } else {
+                throw new IllegalArgumentException("object " + object + " is of type "
+                        + object.getClass().getName() + "; expected type: " + CircularController.class.getName());
+            }
+        }
+    }
+    
 }

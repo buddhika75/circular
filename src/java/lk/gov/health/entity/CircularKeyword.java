@@ -6,6 +6,7 @@ package lk.gov.health.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,9 @@ public class CircularKeyword implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long searchCount;
+    @ManyToOne
+    private KeyWord keyWord;
 
     //Main Properties
     String name;
@@ -131,5 +135,23 @@ public class CircularKeyword implements Serializable {
     public String toString() {
         return "lk.gov.health.entity.CircularKeyword[ id=" + id + " ]";
     }
+
+    public Long getSearchCount() {
+        return searchCount;
+    }
+
+    public void setSearchCount(Long searchCount) {
+        this.searchCount = searchCount;
+    }
+
+    public KeyWord getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(KeyWord keyWord) {
+        this.keyWord = keyWord;
+    }
+
+    
     
 }

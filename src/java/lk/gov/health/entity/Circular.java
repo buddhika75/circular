@@ -6,6 +6,7 @@ package lk.gov.health.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import lk.gov.health.data.CircularLanguage;
 
@@ -24,6 +25,7 @@ public class Circular implements Serializable {
     String name;
     String code;
     String description;
+    private boolean circularLetter;
     //Created Properties
     @ManyToOne
     WebUser creater;
@@ -60,7 +62,17 @@ public class Circular implements Serializable {
     String fileName;
     String fileType;
     String keywords;
-
+    
+    
+    private Boolean replaced;
+    @ManyToOne
+    private Circular replaceBy;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date replacedAt;
+    @ManyToOne
+    private WebUser replacedUser;
+    
+   
     public String getKeywords() {
         return keywords;
     }
@@ -288,5 +300,46 @@ public class Circular implements Serializable {
     @Override
     public String toString() {
         return "gov.sp.health.entity.UnitImage[ id=" + id + " ]";
+    }
+
+
+    public boolean isCircularLetter() {
+        return circularLetter;
+    }
+
+    public void setCircularLetter(boolean circularLetter) {
+        this.circularLetter = circularLetter;
+    }
+
+    public Boolean getReplaced() {
+        return replaced;
+    }
+
+    public void setReplaced(Boolean replaced) {
+        this.replaced = replaced;
+    }
+
+    public Circular getReplaceBy() {
+        return replaceBy;
+    }
+
+    public void setReplaceBy(Circular replaceBy) {
+        this.replaceBy = replaceBy;
+    }
+
+    public Date getReplacedAt() {
+        return replacedAt;
+    }
+
+    public void setReplacedAt(Date replacedAt) {
+        this.replacedAt = replacedAt;
+    }
+
+    public WebUser getReplacedUser() {
+        return replacedUser;
+    }
+
+    public void setReplacedUser(WebUser replacedUser) {
+        this.replacedUser = replacedUser;
     }
 }

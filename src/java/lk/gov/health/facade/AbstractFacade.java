@@ -75,6 +75,12 @@ public abstract class AbstractFacade<T> {
         TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
         return qry.getResultList();
     }
+    
+    public List<T> findBySQL(String temSQL ,int maxRecords) {
+        TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
+        qry.setMaxResults(maxRecords);
+        return qry.getResultList();
+    }
 
     public List<T> findBySQL(String temSQL, Map<String, Date> parameters) {
         TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form enctype="multipart/form-data">
+            <p:growl ></p:growl>
+            <h:outputLabel value="Patient Images" ></h:outputLabel>
+            <h:panelGrid columns="2" >
+                <h:outputText value="Topic"/>
+                <h:inputText  value="#{circularController.circular.topic}" />
+                <h:outputText value="Contents"/>
+                <h:inputText  value="#{circularController.circular.contents}" />
+                 <h:outputText value="Select File"/>
+                <p:fileUpload value="#{circularController.file}" mode="simple"/>
+                <h:commandButton value="Save Without Image AAA" action="#{circularController.saveCircular()}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
