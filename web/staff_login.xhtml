@@ -23,7 +23,7 @@
                                     <p:commandButton  rendered="#{sessionController.circularAdder}"  value="Add Circulars" ajax="false" action="#{circularController.toAddNewCircular()}" ></p:commandButton>
                                     <p:commandButton   rendered="#{sessionController.circularEditor}"   value="Edit Circulars" ajax="false" action="select_circulars" ></p:commandButton>
                                    <p:commandButton  rendered="#{sessionController.admin}"  value="Add Keyword" ajax="false" action="addKeyword" ></p:commandButton>
-                                    
+                                   <p:commandButton rendered="#{sessionController.circularEditor}" value="Replace Circular" ajax="false" action="replace_circular"></p:commandButton> 
                                 </p:panelGrid>
                             </h:form>
                         </td>
