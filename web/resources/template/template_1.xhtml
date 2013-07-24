@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      >
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -11,25 +12,23 @@
         <title>Facelets Template</title>
     </h:head>
 
-    <h:outputStylesheet value="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Archivo+Narrow:400,700" />
     <h:outputStylesheet library="css" name="default.css" />
 
 
     <h:body>
-
+        <h:form>
         <div id="logo" class="container">
             <h1><a href="#">Doubtless</a></h1>
         </div>
         <div id="menu-wrapper">
             <div id="menu" class="container">
                 <ul>
-                    <li class="current_page_item"><a href="#">Homepage</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Photos</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Links</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li class="current_page_item"><h:commandLink value="Home Page" action="index" /></li>
+                    <li><h:commandLink value="Staff Login"  action ="staff_login"/></li>
+                    <li><h:commandLink  value ="About us" action="about_us"/></li>
+                    <li><h:commandLink  value ="Contact us" action="contact_us"/></li>
+		
+                    
                 </ul>
             </div>
         </div>
@@ -85,7 +84,7 @@
             <p>Copyright (c) 2013 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>. </p>
         </div>
 
-
+        </h:form>
     </h:body>
 
 </html>
