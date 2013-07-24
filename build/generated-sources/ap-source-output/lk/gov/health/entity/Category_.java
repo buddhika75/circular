@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import lk.gov.health.entity.Category;
 import lk.gov.health.entity.WebUser;
 
-@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-06-24T10:17:48")
+@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-07-24T11:13:17")
 @StaticMetamodel(Category.class)
 public class Category_ { 
 
@@ -18,9 +18,9 @@ public class Category_ {
     public static volatile SingularAttribute<Category, Long> id;
     public static volatile SingularAttribute<Category, Double> dblValue;
     public static volatile SingularAttribute<Category, Integer> orderNo;
+    public static volatile SingularAttribute<Category, Long> longValue;
     public static volatile SingularAttribute<Category, String> description;
     public static volatile SingularAttribute<Category, Date> createdAt;
-    public static volatile SingularAttribute<Category, Long> longValue;
     public static volatile SingularAttribute<Category, String> name;
     public static volatile SingularAttribute<Category, WebUser> retirer;
     public static volatile SingularAttribute<Category, String> retireComments;
