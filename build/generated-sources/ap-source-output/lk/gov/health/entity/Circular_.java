@@ -12,7 +12,7 @@ import lk.gov.health.entity.Person;
 import lk.gov.health.entity.SigningAuthority;
 import lk.gov.health.entity.WebUser;
 
-@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-07-24T10:42:07")
+@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-07-24T11:13:17")
 @StaticMetamodel(Circular.class)
 public class Circular_ { 
 
@@ -40,8 +40,8 @@ public class Circular_ {
     public static volatile SingularAttribute<Circular, SigningAuthority> signingAuthority;
     public static volatile SingularAttribute<Circular, String> code;
     public static volatile SingularAttribute<Circular, String> originatingFileNo;
-    public static volatile SingularAttribute<Circular, Circular> replaceBy;
     public static volatile SingularAttribute<Circular, Boolean> replaced;
+    public static volatile SingularAttribute<Circular, Circular> replaceBy;
     public static volatile SingularAttribute<Circular, Category> category;
     public static volatile SingularAttribute<Circular, String> fileName;
     public static volatile SingularAttribute<Circular, Date> retiredAt;
