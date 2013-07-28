@@ -12,7 +12,7 @@ import lk.gov.health.entity.Person;
 import lk.gov.health.entity.SigningAuthority;
 import lk.gov.health.entity.WebUser;
 
-@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-06-19T15:38:16")
+@Generated(value="EclipseLink-2.3.2.v20111125-r10461", date="2013-06-24T10:17:48")
 @StaticMetamodel(Circular.class)
 public class Circular_ { 
 

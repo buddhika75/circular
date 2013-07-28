@@ -17,7 +17,7 @@
 
                                     <h:outputLabel value="Search" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
-                                        <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
+                                        <f:ajax execute="txtSearch" render="tblCir" event="keyup" />
                                     </h:inputText>
 
                                     <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
