@@ -294,7 +294,7 @@ public class CircularController implements Serializable {
             
         }
         System.out.println("SQL is " + sql);
-        circulars = getCircularFacade().findBySQL(sql);
+        circulars = getCircularFacade().findBySQL(sql, 10);
         return circulars;
     }
 

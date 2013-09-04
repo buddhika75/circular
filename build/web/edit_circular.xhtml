@@ -1,87 +1,77 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
-    <body>
-
-        <ui:composition template="./resources/template/template_1.xhtml">
-
-            <ui:define name="content">
-
-                <p:growl ></p:growl>
-                <h:outputLabel value="Patient Images" ></h:outputLabel>
-
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        
+        
                 <h:form>
-                    <h:panelGrid columns="2" >
-                        <h:outputText value="Circular Number"/>
-                        <h:inputText  id="txtNo" value="#{circularController.circular.name}" >
-                            <f:ajax event="blur" execute="txtNo" render="txtNo" />
+
+                    <div>
+                        <h:outputLabel value="Search" ></h:outputLabel>
+                        <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
+                            <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
                         </h:inputText>
-                        <h:outputText value="Topic"/>
-                        <h:inputText id="txtTopic" value="#{circularController.circular.topic}" >
-                            <f:ajax event="blur" execute="txtTopic" render="txtTopic" />
-                        </h:inputText>
-                        <h:outputText value="Internal"/>
-                        <h:selectBooleanCheckbox id="chkIn" value="#{circularController.circular.internal}" >
-                            <f:ajax event="blur" execute="chkIn" render="chkIn" />
-                        </h:selectBooleanCheckbox>
-                        <h:outputText value="Administrative Division"/>
-                        <h:selectOneListbox id="cmbAd" size="1" value="#{circularController.circular.administrativeDivision}" >
-                            <f:selectItem itemLabel="Please select an administrative division"/>
-                            <f:selectItems value="#{administrativeDivisionController.items}" var="ad" itemLabel="#{ad.name}" itemValue="#{ad}" />
-                            <f:ajax event="blur" execute="cmbAd" render="cmbAd" />
-                        </h:selectOneListbox>
-                        <h:outputText value="Originating File Number"/>
-                        <h:inputText  id="cmbNo" value="#{circularController.circular.originatingFileNo}" >
-                            <f:ajax event="blur" execute="cmbNo" render="cmbNo" />
-                        </h:inputText>
-                        <h:outputText value="Signing Authority"/>
-                        <h:selectOneListbox id="cmbSa" value="#{circularController.circular.signingAuthority}" size="1" >
-                            <f:selectItem itemLabel="Please select the signing authority"/>
-                            <f:selectItems value="#{signingAuthorityController.items}" var="sa" itemLabel="#{sa.name}" itemValue="#{sa}" />
-                            <f:ajax event="blur" execute="cmbSa" render="cmbSa" />
-                        </h:selectOneListbox>
-                        <h:outputLabel value="Circular Date" ></h:outputLabel>
-                        <p:calendar id="calDate" value="#{circularController.circular.circularDate}" pattern="dd MMMM yyyy" >
-                            <f:ajax event="select" execute="calDate" render="calDate" />
-                        </p:calendar>
-                        <h:outputLabel value="Language" ></h:outputLabel>
-                        <h:selectOneListbox  id="cmbLan"  size="1"  value="#{circularController.circular.circularLanguage}"  >
-                            <f:selectItem itemLabel="Please select the language" />
-                            <f:selectItem itemLabel="Sinhala" itemValue="Sinhala" />
-                            <f:ajax event="blur" execute="cmbLan calDate" render="cmbLan" />
-                            <f:selectItem itemLabel="Tamil" itemValue="Tamil" />
-                            <f:selectItem itemLabel="English" itemValue="English" />
-                        </h:selectOneListbox>
-                        <h:outputLabel value="Keywords" ></h:outputLabel>
-                        <h:inputText  id="txtKeys"  value="#{circularController.circular.keywords}" maxlength="255" >
-                            <f:ajax event="blur" execute="txtKeys calDate" render="txtKeys" />
-                        </h:inputText>
-                        <h:outputLabel value="Contents" ></h:outputLabel>
-                        <h:inputTextarea id="txtContents" value="#{circularController.circular.contents}" >
-                            <f:ajax event="blur" execute="txtContents calDate" render="txtContents" />
-                        </h:inputTextarea>
-                    </h:panelGrid>
+                    </div>
+
+                    <div>
+
+
+                        <p:dataTable id="tblCir" value="#{circularController.circulars}" var="cir"  >
+                            <f:facet name="header" >
+                                Circulars to Edit
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header" >
+                                    Circular Date
+                                </f:facet>
+                                <h:outputLabel value="#{cir.circularDate}" >
+                                    <f:convertDateTime pattern="yyyy MMMM dd" />
+                                
+                                </h:outputLabel>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header" >
+                                    Circular Number
+                                </f:facet>
+                                <h:outputLabel value="#{cir.circularNumber}" >
+                                </h:outputLabel>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header" >
+                                    Topic
+                                </f:facet>
+                                <h:outputLabel value="#{cir.topic}" >
+                                </h:outputLabel>
+                            </p:column>
+
+                             <p:column>
+                                <f:facet name="header" >
+                                    Action
+                                </f:facet>
+                                <h:commandLink value="Edit" action="edit_circular" >
+                                    <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
+                                </h:commandLink>
+                            </p:column>
+
+
+                        </p:dataTable>
+
+                    </div>
+
                 </h:form>
 
-                <h:form enctype="multipart/form-data">
-                    <h:panelGrid columns="2" >
-                        <p:fileUpload value="#{circularController.file}" mode="simple" />
-                        <h:commandButton value="Save" action="#{circularController.saveCircular()}"/>
-                    </h:panelGrid>
-                </h:form>
-
-
-                <p:media value="#{circularController.scCircular}" width="100%" height="900px" player="pdf">  
-                    Your browser can't display pdf, Please update browser or plug-in.
-                </p:media>  
-
-            </ui:define>
-        </ui:composition>
-
-    </body>
+        
+        
+    </h:body>
 </html>
+

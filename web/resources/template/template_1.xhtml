@@ -5,7 +5,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
           
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      >
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,7 +18,7 @@
     <h:outputStylesheet library="css" name="default.css" />
 
 
-    <h:body>
+    <h:body style="min-width: 100%;">
         <h:form>
         <div id="logo" class="container">
             <h1><a href="#">Circulars</a></h1>
@@ -44,10 +45,10 @@
 
        
 
-        <div id="content">
+            <div id="content" style="min-width: 100%;">
 
 
-                <h:panelGroup rendered ="#{sessionController.logged}" >
+                <h:panelGroup rendered ="#{sessionController.logged}" style="min-width: 100%;" >
                     <ui:insert name="content"   >
                     </ui:insert>
 

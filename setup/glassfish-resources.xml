@@ -34,4 +34,5 @@
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="dsCi" object-type="user" pool-name="derby_net_c_cPool"/>
+    <jdbc-resource enabled="true" jndi-name="Circular" object-type="user" pool-name="derby_net_circular_circularPool"/>
 </resources>
