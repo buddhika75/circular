@@ -59,7 +59,7 @@
                         </h:selectOneListbox>
                         <h:outputLabel value="Keywords" ></h:outputLabel>
                         <h:inputText  id="txtKeys"  value="#{circularController.circular.keywords}" maxlength="255" >
-                            <f:ajax event="blur" execute="txtKeys calDate" render="txtKeys" />
+                            <p:autoComplete converter="keyWordControllerConverter"  value="#{circularController.keyWords}" completeMethod="#{keyWordController.completePlayer}" var="kv" itemLabel="#{kv.name}" itemValue="#{kv}"  multiple="true"/>
                         </h:inputText>
                         <h:outputLabel value="Contents" ></h:outputLabel>
                         <h:inputTextarea id="txtContents" value="#{circularController.circular.contents}" >
