@@ -1,45 +1,54 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
+          
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
+      >
+
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet library="css" name="maincss.css" />
-        <title>#{labels.topic}</title>
+        <link href="./../css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../css/tableLayout.css" rel="stylesheet" type="text/css" />
+        <title>Facelets Template</title>
     </h:head>
 
-    <h:body >
-        <p:growl autoUpdate="true"/>
+    <h:outputStylesheet library="css" name="default.css" />
 
-        <div id="container">
-            <h:form>
 
-                <div id="nav-main">
-                    <ul>
-                        <li><h:commandLink action="index" value ="Home" ></h:commandLink>  </li>
-                        <ui:repeat value="#{administrativeDivisionController.items}" var="addiv" >
+    <h:body style="min-width: 100%;">
+        <h:form>
+        <div id="logo" class="container">
+            <h1><a href="#">Circulars</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <ul>
+                    <li class="current_page_item"><h:commandLink value="Home Page" action="index" /></li>
+                    <li><h:commandLink value="Staff Login"  action ="staff_login"/></li>
+                    
+                    <ui:repeat value="#{administrativeDivisionController.items}" var="addiv" >
                             <h:commandLink action="#{circularController.toDivisionalCirculars()}" value ="#{addiv.name}" >
                                 <f:setPropertyActionListener value="#{addiv}" target="#{circularController.division}" />
                             </h:commandLink>
                         </ui:repeat>
-                        <li><h:commandLink value="Staff Login"  action ="staff_login" ></h:commandLink>  </li>
-                        <li><h:commandLink  value ="About us" action="about_us" ></h:commandLink>  </li>
-                        <li><h:commandLink  value ="Contact us" action="contact_us"></h:commandLink>  </li>
-                    </ul>
-                    <br />
-                </div>
+                    
+                    <li><h:commandLink  value ="About us" action="about_us"/></li>
+                    <li><h:commandLink  value ="Contact us" action="contact_us"/></li>
+		
+                    
+                </ul>
+            </div>
+        </div>
+
+       
+
+            <div id="content" style="min-width: 100%;">
 
 
-            </h:form>
-
-            <div id="content">
-
-
-                <h:panelGroup rendered ="#{sessionController.logged}" >
+                <h:panelGroup rendered ="#{sessionController.logged}" style="min-width: 100%;" >
                     <ui:insert name="content"   >
                     </ui:insert>
 
@@ -81,18 +90,12 @@
 
             </div>
 
-            <div id="nav-supp">
-                <h:form>
-                    <h:outputLabel  value="You are logged as #{sessionController.loggedUser.webUserPerson.name}&nbsp;(#{sessionController.loggedUser.role.name})."  rendered ="#{sessionController.logged}" ></h:outputLabel><h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
-                    <h:outputLabel  value="Please login to continue."  rendered ="#{!sessionController.logged}" ></h:outputLabel>
-                </h:form>
 
-                Copyright © 2013 | All Rights Reserved  
-            </div>
+        <div id="footer" class="container">
+            <p>Copyright (c) 2013 Ministry Of Health. All rights reserved. Design by <a href="http://www.health.gov.lk" rel="nofollow">health.gov.lk</a>. </p>
         </div>
 
-
-
+        </h:form>
     </h:body>
 
 </html>

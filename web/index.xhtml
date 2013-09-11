@@ -8,12 +8,12 @@
     <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
     <body>
         <ui:composition template="./resources/template/template_1.xhtml">
-            <ui:define name="content">
+            <ui:define name="login">
                 <h:form>
-                    <table>
+                    <table  style="min-width: 100%!important; padding: 5px;" >
                         <tr valign="top">
-                            <td rowspan="2" style="width:70%;">
-                                <p:panel header="Circulars" >
+                            <td rowspan="2" style="width:70%; padding: 5px;">
+                                <p:panel header="Circulars" style="width: 100%" >
 
                                     <h:outputLabel value="Search" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
@@ -64,60 +64,37 @@
                                     </p:dataTable>
                                 </p:panel>
                             </td>                  
-                            <td style="width: 30%">
-                                <p:panel header="Popular Circulars" >
-                                    <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                Circular Date
-                                            </f:facet>
-                                            <h:outputLabel value="#{c1.circularDate}" >
-                                                <f:convertDateTime pattern="yyyy MMMM dd" />
-                                            </h:outputLabel>
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                Circular Number
-                                            </f:facet>
-                                            #{c1.name}
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                Topic
-                                            </f:facet>
-                                            #{c1.topic}
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:panel>
-                            </td>
-                         </tr>                           
-                        <tr>
-                            <td style="width: 30%">
+                            <td style="width: 30%; padding: 5px;">
                                     <p:panel header="Resent Circulars">
                                     <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
+                                        
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Circular Date
-                                            </f:facet>
-                                            <h:outputLabel value="#{c.circularDate}" >
-                                                <f:convertDateTime pattern="yyyy MMMM dd" />
-                                            </h:outputLabel>
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                Circular Number
-                                            </f:facet>
-                                            #{c.name}
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                Topic
+                                                Resent Circulars
                                             </f:facet>
                                             #{c.topic}
                                         </p:column>
                                     </p:dataTable>
                                 </p:panel>
                                 </td>
+                         </tr>                           
+                        <tr>
+                            
+                            <td style="width: 30%; padding: 5px; " >
+                                <p:panel header="" >
+                                    <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
+                                        
+                                        <p:column style="width: 50px">
+                                            <f:facet name="header" >
+                                                Popular Circulars
+                                            </f:facet>
+                                            #{c1.topic}
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </td>
+                            
+                            
                             </tr>
                     </table>
                  </h:form>
