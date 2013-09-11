@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
-    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_circular_circularPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
-        <property name="serverName" value="localhost"/>
-        <property name="portNumber" value="1527"/>
-        <property name="databaseName" value="circular"/>
-        <property name="User" value="circular"/>
-        <property name="Password" value="circular"/>
-        <property name="URL" value="jdbc:derby://localhost:1527/circular"/>
-        <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
-    </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="dsCircular" object-type="user" pool-name="derby_net_circular_circularPool"/>
     <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_Circular_NeoPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
         <property name="serverName" value="localhost"/>
         <property name="portNumber" value="1527"/>
@@ -20,19 +10,5 @@
         <property name="URL" value="jdbc:derby://localhost:1527/Circular"/>
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="c" object-type="user" pool-name="derby_net_Circular_NeoPool"/>
-    <jdbc-resource enabled="true" jndi-name="dsC" object-type="user" pool-name="derby_net_circular_circularPool"/>
-    <jdbc-resource enabled="true" jndi-name="cir" object-type="user" pool-name="derby_net_Circular_NeoPool"/>
-    <jdbc-resource enabled="true" jndi-name="fdf" object-type="user" pool-name="derby_net_Circular_NeoPool"/>
-    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_c_cPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
-        <property name="serverName" value="localhost"/>
-        <property name="portNumber" value="1527"/>
-        <property name="databaseName" value="c"/>
-        <property name="User" value="c"/>
-        <property name="Password" value="c"/>
-        <property name="URL" value="jdbc:derby://localhost:1527/c"/>
-        <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
-    </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="dsCi" object-type="user" pool-name="derby_net_c_cPool"/>
-    <jdbc-resource enabled="true" jndi-name="Circular" object-type="user" pool-name="derby_net_circular_circularPool"/>
+    <jdbc-resource enabled="true" jndi-name="dsC" object-type="user" pool-name="derby_net_Circular_NeoPool"/>
 </resources>
