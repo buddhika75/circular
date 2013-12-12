@@ -7,7 +7,9 @@ package lk.gov.health.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +43,9 @@ public class CircularKeyword implements Serializable {
     WebUser retirer;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     Date retiredAt;
-    @ManyToOne
+    
+   
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     Circular circular;
     
     
