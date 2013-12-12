@@ -71,7 +71,63 @@
             </ui:define>
 
             <ui:define name="login">
-                Division Circulars
+
+                <h:form>
+
+                    <div>
+                        <h:outputLabel value="Search" ></h:outputLabel>
+                        <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
+                            <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
+                        </h:inputText>
+                    </div>
+
+                    <div>
+
+
+                        <p:dataTable id="tblCir" value="#{circularController.divCirculars}" var="cir"  >
+                            <f:facet name="header" >
+                                Circulars of  #{circularController.division.name}
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header" >
+                                    Circular Date
+                                </f:facet>
+                                <h:outputLabel value="#{cir.circularDate}" >
+                                    <f:convertDateTime pattern="yyyy MMMM dd" />
+                                </h:outputLabel>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header" >
+                                    Circular Number
+                                </f:facet>
+                                <h:outputLabel value="#{cir.circularNumber}" >
+                                </h:outputLabel>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header" >
+                                    Topic
+                                </f:facet>
+                                <h:outputLabel value="#{cir.topic}" >
+                                </h:outputLabel>
+                            </p:column>
+
+                             <p:column>
+                                <f:facet name="header" >
+                                    Action
+                                </f:facet>
+                                <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
+                                    <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
+                                </h:commandLink>
+                            </p:column>
+
+
+                        </p:dataTable>
+
+                    </div>
+
+                </h:form>
             </ui:define>
 
         </ui:composition>

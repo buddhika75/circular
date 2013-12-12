@@ -13,9 +13,12 @@
 
         <h:form>
             <p:panel header="Creating a new user" rendered="#{sessionController.admin}">
+                
                 <p:panelGrid columns="2" >
                     <h:outputLabel value="Name" />
+                    
                     <h:inputText value="#{sessionController.newPersonName}" />
+                    
                     <h:outputLabel value="Telephone" />
                     <h:inputText value="#{sessionController.telNo}" />
                     <h:outputLabel value="Email" />
@@ -38,6 +41,7 @@
                 </p:panelGrid>
                 <h:commandButton id="btnReg" class="pdButton" type="submit" value="Register" action="#{sessionController.registeUser}" />
                 <p:messages globalOnly="true"  ></p:messages>
+                
             </p:panel>
         </h:form>
 

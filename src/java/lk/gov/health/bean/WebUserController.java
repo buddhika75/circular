@@ -32,7 +32,7 @@ import javax.faces.convert.FacesConverter;
 @ManagedBean
 @SessionScoped
 public final class WebUserController implements Serializable {
-
+    
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
     @EJB
@@ -43,21 +43,37 @@ public final class WebUserController implements Serializable {
     List<WebUser> searchItems;
     private WebUser current;
     String selectText = "";
-
+    String language;
+    
+    public String getLanguage() {
+        if (language == null || language.equals("")) {
+            language = "en";
+        }
+        return language;
+    }
+    
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+    
+    public void changeLocale(String loc) {
+        language = loc;
+    }
+    
     public WebUserController() {
     }
-
+    
     public List<WebUser> getItems() {
         if (items == null) {
             items = getFacade().findBySQL("Select d From WebUser d");
         }
         return items;
     }
-
+    
     public void setItems(List<WebUser> items) {
         this.items = items;
     }
-
+    
     public WebUser getCurrent() {
         if (current == null) {
             current = new WebUser();
@@ -68,15 +84,15 @@ public final class WebUserController implements Serializable {
         }
         return current;
     }
-
+    
     public void setCurrent(WebUser current) {
         this.current = current;
     }
-
+    
     private WebUserFacade getFacade() {
         return ejbFacade;
     }
-
+    
     public WebUser searchItem(String itemName, boolean createNewIfNotPresent) {
         WebUser searchedItem = null;
         List<WebUser> temItems;
@@ -92,21 +108,21 @@ public final class WebUserController implements Serializable {
         }
         return searchedItem;
     }
-
+    
     private void recreateModel() {
         items = null;
     }
-
+    
     public void prepareAdd() {
         current = new WebUser();
     }
-
+    
     public void saveSelected() {
-        if(current==null){
+        if (current == null) {
             UtilityController.addErrorMessage("Nothing to save");
             return;
         }
-        if (current.getId()==null || current.getId()== 0) {
+        if (current.getId() == null || current.getId() == 0) {
             getFacade().edit(current);
             UtilityController.addSuccessMessage(new MessageController().getValue("savedOldSuccessfully"));
         } else {
@@ -118,37 +134,37 @@ public final class WebUserController implements Serializable {
         recreateModel();
         selectText = "";
     }
-
-        public List<WebUser> getToApproveUsers() {
+    
+    public List<WebUser> getToApproveUsers() {
         String temSQL;
         temSQL = "SELECT u FROM WebUser u WHERE u.retired=false AND u.activated=false";
         return getEjbFacade().findBySQL(temSQL);
     }
-
+    
     public SessionController getSessionController() {
         return sessionController;
     }
-
+    
     public void setSessionController(SessionController sessionController) {
         this.sessionController = sessionController;
     }
-
+    
     public WebUserFacade getEjbFacade() {
         return ejbFacade;
     }
-
+    
     public void setEjbFacade(WebUserFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
     }
-
+    
     public WebUserRoleFacade getRoleFacade() {
         return roleFacade;
     }
-
+    
     public void setRoleFacade(WebUserRoleFacade roleFacade) {
         this.roleFacade = roleFacade;
     }
-
+    
     public List<WebUser> getSearchItems() {
         if (searchItems == null) {
             if (selectText.equals("")) {
@@ -165,12 +181,10 @@ public final class WebUserController implements Serializable {
         }
         return searchItems;
     }
-
+    
     public void setSearchItems(List<WebUser> searchItems) {
         this.searchItems = searchItems;
     }
-
-        
     
     public void delete() {
         if (current != null) {
@@ -186,19 +200,18 @@ public final class WebUserController implements Serializable {
         getItems();
         current = null;
     }
-
+    
     public String getSelectText() {
         return selectText;
     }
-
+    
     public void setSelectText(String selectText) {
         this.selectText = selectText;
     }
-
-
+    
     @FacesConverter(forClass = WebUser.class)
     public static class WebUserControllerConverter implements Converter {
-
+        
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -207,19 +220,19 @@ public final class WebUserController implements Serializable {
                     getValue(facesContext.getELContext(), null, "webUserController");
             return controller.ejbFacade.find(getKey(value));
         }
-
+        
         java.lang.Long getKey(String value) {
             java.lang.Long key;
             key = Long.valueOf(value);
             return key;
         }
-
+        
         String getStringKey(java.lang.Long value) {
             StringBuffer sb = new StringBuffer();
             sb.append(value);
             return sb.toString();
         }
-
+        
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;

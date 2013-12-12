@@ -1,10 +1,4 @@
-/* 
-    Document   : newCascadeStyleSheet
-    Created on : Oct 8, 2013, 10:44:18 PM
-    Author     : Neo
-    Description:
-        Purpose of the stylesheet follows.
-*/
+/*Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com*/
 
 html{
     min-height: 100%;
@@ -13,15 +7,15 @@ body	{
     font-family : "Lucida Grande", "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
     font-size : 70%;
     text-align : center;
-    color : #6c6c6c;
-    background: #2372DE  repeat;
+    color : #888;
+    background: #40211C url(image/bg.jpg);
     background-repeat: no-repeat;
     padding-top : 1em;
 }
 
 .jsfbutton{
-    color : #00bff3 ;
-    background: #40211C url(image/bg01.jpg);
+    color : 00bff3 ;
+    background: #40211C url(image/bg.jpg);
     padding: 5px;
     margin: 5px;
     min-width: 130px;
@@ -39,8 +33,6 @@ body	{
     -webkit-filter:  saturate(2);
     font-weight: bolder;
 }
-
-
 
 h1, h2, h3  {
     padding : 0.5em 0;
@@ -87,29 +79,6 @@ ul {
     list-style-type : disc;
     padding : 0.5em 0;
 }
-
-sapn.ul{
-	list-style-type:none;
-	margin:0;
-	padding:0;
-
-}
-
-span.a:link,span.a:visited{
-    display:block;
-	font-weight: bold;
-    color: white;
-    background-color: lightskyblue;
-    width: 150px;
-    text-align: center;
-    padding: 4px;
-    text-decoration: none;
-}
-
-span.a:hover,span.a:active{
-    background-color: royalblue;
-}
-
 li {
     list-style-type : none;
 }
@@ -117,21 +86,20 @@ img, img a {
     border : none;
 }
 #container {
-    width : 100%;
+    width : 98%;
     margin : 0 auto;
     text-align : left;
-    border-top-style: none;
+    border-top-style: solid;
     border-top-color: #FFFFFF;
     border-top-width: 10px;
 }
 #content  {
     float : left;
-    width : 98%;
+    width : 100%;
     min-height: 400px;
-    margin:auto;
+    margin: 0 auto;
     border-top : 1px solid #cfcfcf;
-    background-color: #ffffff;
-    padding: 1% 1% 1% 1%;
+    background-color: #DE7D5C;
 }
 #content-left  {
     display : inline;
@@ -178,7 +146,7 @@ img, img a {
 #nav-main  {
     float : left;
     width : 100%;
-    background : #2372DE url(image/bg01.png);
+    background : url(image/header.jpg);
     border-bottom : 1px solid #a6aba4;
     border-top-width: 1px;
     border-top-style: solid;
@@ -202,26 +170,23 @@ img, img a {
     color : #fff;
 }
 #nav-main a:hover {
-    color : #333;
-    text-decoration: none;
+    color : #fff;
+    text-decoration: underline;
 }
 #nav-main a:active, #nav-main a:focus {
-    color : #333;
-    text-decoration : #a6aba4;
+    color : #fff;
+    text-decoration : underline;
 }
 #nav-supp  {
     display : inline;
     float : left;
-    
-    margin : 0% 0% 0% 1%;
+    width : 696px;
+    margin : 0 0 0 34px;
     border-top : 1px solid #cfcfcf;
-    color: #fff;
-    text-align: left;
 }
 #nav-supp a {
     padding-right : 20px;
     text-decoration : none;
-    color: #fff;
 }
 #nav-supp ul {
     list-style : none;
@@ -229,10 +194,6 @@ img, img a {
 }
 #nav-supp li {
     display : inline;
-}
-#nav-supp a:hover{
-    text-decoration: none;
-    color: #333;
 }
 h1{
     color:#fff;
@@ -244,8 +205,6 @@ h1{
 }
 
 #loginbox{
-    margin-top: 25px;
-    margin-left:25px;  
     max-width: 330px;
 }
 
@@ -264,45 +223,3 @@ h1{
 .alignTop tbody {
     vertical-align: top!important;
 }
-
-#footerLanguage{
-    
-    margin-left:900px;
-    color: #fff;
-    text-decoration: none;
-    
-    
-}
-
-#footerLanguage a{
-    word-spacing: 2em;
-    text-decoration: none;
-    color: #fff;
-    padding: 4px;
-}
-
-#footerLanguage a:hover{
-    
-    color: #333;
-}
-
-#datatablePopular{
-    position: absolute;
-    left:650px;
-    top: 400px;
-    
-}
-
-#datatableRecent{
-    position: absolute;
-    left:650px;
-    top: 20px;
-    
-}
-
-#datatablecircular{
-    position: relative;
-    
-   
-}
-
