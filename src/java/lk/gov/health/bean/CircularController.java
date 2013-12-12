@@ -20,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import lk.gov.health.entity.AdministrativeDivision;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
@@ -68,7 +69,7 @@ public class CircularController implements Serializable {
     List<Circular> resentCirculars;
     List<Circular> divCirculars;
     private List<KeyWord> keyWords;
-    Circular division;
+    AdministrativeDivision division;
     String strSearch;
 
     public Circular getOldCircular() {
@@ -116,9 +117,9 @@ public class CircularController implements Serializable {
     public List<Circular> getDivCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
-            sql = "select c from Circular c where c.retired = false and c.circular.id = " + getDivision().getId() + " order by c.name";
+            sql = "select c from Circular c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + " order by c.name";
         } else {
-            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c where c.retired = false and c.circular.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.administrativeDivision c where c.retired = false and c.administrativeDivision.id = " + getDivision().getId() + "  and k.retired = false and " + searchStringFromText() + " ) order by c1.name";
         }
         System.out.println("SQL is " + sql);
         divCirculars = getCircularFacade().findBySQL(sql);
@@ -129,11 +130,11 @@ public class CircularController implements Serializable {
         this.divCirculars = divCirculars;
     }
 
-    public Circular getDivision() {
+    public AdministrativeDivision getDivision() {
         return division;
     }
 
-    public void setDivision(Circular division) {
+    public void setDivision(AdministrativeDivision division) {
         this.division = division;
     }
 
