@@ -13,7 +13,7 @@
             <ui:define name="content">
 
                 <p:growl ></p:growl>
-                
+
 
                 <h:form>
                     <h:panelGrid columns="2" >
@@ -58,18 +58,28 @@
                             <f:selectItem itemLabel="English" itemValue="English" />
                         </h:selectOneListbox>
                         <h:outputLabel value="Keywords" ></h:outputLabel>
-                        <p:autoComplete converter="keyWordControllerConverter"  value="#{circularController.keyWords}" completeMethod="#{keyWordController.completePlayer}" var="kv" itemLabel="#{kv.name}" itemValue="#{kv}"  multiple="true"/>
+                        <h:panelGroup >
+                            <p:autoComplete id="ackw" converter="keyWordControllerConverter" value="#{circularController.keyWord}" completeMethod="#{keyWordController.completePlayer}" var="kv" itemLabel="#{kv.name}" itemValue="#{kv}"  >
+                            </p:autoComplete>
+                            <p:commandButton id="btnKva" process="btnKva :#{p:component('ackw')}" update="kwt ackw" value="Add Keyword" action="#{circularController.addKeywordToCircular}" >
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <h:outputLabel value="" ></h:outputLabel>
+                        <p:dataTable id="kwt" value="#{circularController.circular.circularKeywords}" var="ckv" >
+                            <p:column >
+                                <h:outputLabel id="txtKwn" value="#{ckv.keyWord.name}" />
+                            </p:column>
+                            <p:column >
+                                <p:commandButton id="btnRem"  ajax="false"  value="Remove" action="#{circularController.removeCkw}" >
+                                    <f:setPropertyActionListener value="#{ckv}" target="#{circularController.circularKeyword}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
                         <h:outputLabel value="Contents" ></h:outputLabel>
                         <h:inputTextarea id="txtContents" value="#{circularController.circular.contents}" >
                             <f:ajax event="blur" execute="txtContents calDate" render="txtContents" />
                         </h:inputTextarea>
-                    </h:panelGrid>
-                </h:form>
-
-                <h:form enctype="multipart/form-data">
-                    <h:panelGrid columns="2" >
-                        <p:fileUpload value="#{circularController.file}" mode="simple" />
-                        <h:commandButton value="Save" action="#{circularController.saveCircular()}"/>
+                        <p:commandButton ajax="false" value="Save" action="#{circularController.editCircular}" ></p:commandButton>
                     </h:panelGrid>
                 </h:form>
 

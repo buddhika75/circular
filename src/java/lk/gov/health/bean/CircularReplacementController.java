@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import lk.gov.health.entity.AdministrativeDivision;
+import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularReplacement;
 import lk.gov.health.entity.CircularKeyword;
 import lk.gov.health.entity.Person;
@@ -33,6 +34,7 @@ import org.apache.commons.io.IOUtils;
 @ManagedBean
 @SessionScoped
 public class CircularReplacementController implements Serializable {
+    
 
     StreamedContent scCircular;
     StreamedContent scCircularById;
@@ -51,6 +53,8 @@ public class CircularReplacementController implements Serializable {
     List<CircularReplacement> divCirculars;
     AdministrativeDivision division;
     String strSearch;
+    
+    
 
     public SessionController getSessionController() {
         return sessionController;
@@ -279,6 +283,8 @@ public class CircularReplacementController implements Serializable {
         }
 
     }
+
+    
 
    
 }

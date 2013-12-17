@@ -29,6 +29,7 @@ import lk.gov.health.entity.KeyWord;
 import lk.gov.health.facade.CategoryFacade;
 import lk.gov.health.facade.CircularFacade;
 import lk.gov.health.facade.CircularKeywordFacade;
+import lk.gov.health.facade.CircularReplacementFacade;
 import lk.gov.health.facade.KeyWordFacade;
 import lk.gov.health.facade.SingleKeyWordFacade;
 import org.apache.commons.io.IOUtils;
@@ -54,6 +55,8 @@ public class CircularController implements Serializable {
     SingleKeyWordFacade skFacade;
     @EJB
     private KeyWordFacade keyFacade;
+    @EJB
+    CircularReplacementFacade replaceCirFacade;
     @ManagedProperty(value = "#{sessionController}")
     SessionController sessionController;
     Person person;
@@ -71,6 +74,10 @@ public class CircularController implements Serializable {
     private List<KeyWord> keyWords;
     AdministrativeDivision division;
     String strSearch;
+    private Circular newCir;
+    private Circular oldCir;
+    
+    
 
     public Circular getOldCircular() {
         return oldCircular;
@@ -463,8 +470,27 @@ public class CircularController implements Serializable {
         this.keyWords = keyWords;
 
     }
+
+    public Circular getNewCir() {
+        return newCir;
+    }
+
+    public void setNewCir(Circular newCir) {
+        this.newCir = newCir;
+    }
+
+    public Circular getOldCir() {
+        return oldCir;
+    }
+
+    public void setOldCir(Circular oldCir) {
+        this.oldCir = oldCir;
+    }
     
-    
+    public void replaceCircular(){
+         
+         
+    }
     
     
     @FacesConverter(forClass = Circular.class)
