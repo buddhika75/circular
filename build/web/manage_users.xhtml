@@ -42,7 +42,8 @@
 
 
                         <h:panelGroup>
-                            <h:commandButton value="Save" action="#{userApproveController.saveUser}"></h:commandButton>
+                            <h:commandButton value="Save" action="#{webUserController.saveSelected()}"></h:commandButton>
+                            <h:commandButton value="Delete" action="#{webUserController.delete}"></h:commandButton>
                         </h:panelGroup>
 
 

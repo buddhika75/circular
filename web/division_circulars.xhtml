@@ -13,7 +13,7 @@
             <ui:define name="content">
 
                 <h:form>
-
+                    <p:panel header="Circulars of #{circularController.division.name}">
                     <div>
                         <h:outputLabel value="Search" ></h:outputLabel>
                         <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
@@ -24,10 +24,8 @@
                     <div>
 
 
-                        <p:dataTable id="tblCir" value="#{circularController.divCirculars}" var="cir"  >
-                            <f:facet name="header" >
-                                Circulars of  #{circularController.division.name}
-                            </f:facet>
+                        <p:dataTable id="tblCir" value="#{circularController.divCirculars}" var="cir">
+                           
                             <p:column>
                                 <f:facet name="header" >
                                     Circular Date
@@ -66,7 +64,7 @@
                         </p:dataTable>
 
                     </div>
-
+                        </p:panel>
                 </h:form>
             </ui:define>
 

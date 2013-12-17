@@ -12,9 +12,24 @@
 
             <ui:define name="content">
                 <h:form>
+                    
+                    
+                    <p:panel header="select a replace circular" style="width: 180px;position: absolute;margin-left:200px">
+                        <h:panelGrid columns="1" >
 
-                    <h:panelGrid columns="3" >
+                            <h:selectOneListbox id="newCircular" value="#{circularController.newCircular}">
 
+                                <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.name}" itemValue="#{nc}"></f:selectItems>
+                                <f:ajax execute="newCircular" render="newC" event="click"></f:ajax>
+
+                            </h:selectOneListbox>
+
+                            <h:outputLabel id="newC" value="This is #{circularController.newCircular.name}"></h:outputLabel>
+                            <h:commandButton value="Replace circular" type="submit" action="#{circularController.replaceCircular()}"/>
+                        </h:panelGrid>                    
+                      </p:panel>
+                    
+                    <p:panel header="select an old circular" style="width: 180px;position: absolute">
                         <h:panelGrid columns="1" >
                             <h:inputText id ="txtoc" value="#{circularController.txtOldCircilar}"   >
                                 <f:ajax execute="txtoc" render="cmbOldCircular" event="keyup"/>
@@ -28,28 +43,32 @@
                             </h:selectOneListbox>
 
 
-
                         </h:panelGrid>                    
-
+                        </p:panel>
+                    
                         <h:panelGrid columns="1" >
-
-                            <h:selectOneListbox id="newCircular" value="#{circularController.newCircular}">
-
-                                <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.name}" itemValue="#{nc}"></f:selectItems>
-                                <f:ajax execute="newCircular" render="newC" event="click"></f:ajax>
-
-                            </h:selectOneListbox>
-
-                            <h:outputLabel id="newC" value="This is #{circularController.newCircular.name}"></h:outputLabel>
+                            
 
                         </h:panelGrid>                    
 
-                        <h:panelGrid columns="1" >
-                            <p:commandButton value="Replace circular" type="submit" />
-
-                        </h:panelGrid>                    
-
-                    </h:panelGrid>
+                    <p:dataTable value="#{circularController.circularReplacements}" var="c" style="margin-top: 180px;width: 300px">
+                            <p:column>
+                                <f:facet name="header">
+                                    Old Circular
+                                </f:facet>
+                                #{c.replacedCircular.name}
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    Replace Circulars
+                                </f:facet>
+                                #{c.newCircular.name}
+                                
+                            </p:column>
+                        </p:dataTable>
+                        
+                        
 
                 </h:form>
 

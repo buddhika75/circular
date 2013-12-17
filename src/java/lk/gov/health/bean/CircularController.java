@@ -24,6 +24,7 @@ import lk.gov.health.entity.AdministrativeDivision;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.Circular;
 import lk.gov.health.entity.CircularKeyword;
+import lk.gov.health.entity.CircularReplacement;
 import lk.gov.health.entity.Person;
 import lk.gov.health.entity.KeyWord;
 import lk.gov.health.facade.CategoryFacade;
@@ -78,6 +79,19 @@ public class CircularController implements Serializable {
     private Circular oldCir;
     
     
+List<CircularReplacement> circularReplacements;
+
+    public List<CircularReplacement> getCircularReplacements() {
+        if(circularReplacements==null){
+            circularReplacements = getReplaceCirFacade().findAll();
+        }
+        return circularReplacements;
+    }
+
+    public void setCircularReplacements(List<CircularReplacement> circularReplacements) {
+        this.circularReplacements = circularReplacements;
+    }
+
 
     public Circular getOldCircular() {
         return oldCircular;
@@ -488,9 +502,27 @@ public class CircularController implements Serializable {
     }
     
     public void replaceCircular(){
-         
+        CircularReplacement rep=new CircularReplacement();
+        if(newCircular==null || oldCircular==null){
+            UtilityController.addErrorMessage("Please Select Circulars");
+            return;
+        }
+        rep.setReplacedCircular(oldCircular);
+        rep.setNewCircular(newCircular);
+        getReplaceCirFacade().create(rep);
+        circularReplacements=null;
+        UtilityController.addSuccessMessage("Added");
          
     }
+
+    public CircularReplacementFacade getReplaceCirFacade() {
+        return replaceCirFacade;
+    }
+
+    public void setReplaceCirFacade(CircularReplacementFacade replaceCirFacade) {
+        this.replaceCirFacade = replaceCirFacade;
+    }
+    
     
     
     @FacesConverter(forClass = Circular.class)

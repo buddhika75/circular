@@ -335,9 +335,18 @@ public class SessionController  implements Serializable {
         
         uFacade.create(user);
         UtilityController.addSuccessMessage("New User Registered.");
+        
+        user=null;
+        person=null;
+        newPersonName="";
+        newPassword="";
+        telNo="";
+        email="";
+        newUserName="";
+        
         return "";
     }
-
+    
     public String changePassword() {
         WebUser user = loggedUser;
         if (!SecurityController.matchPassword(passord, user.getWebUserPassword())) {
