@@ -12,6 +12,7 @@ import org.primefaces.model.StreamedContent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
@@ -257,6 +258,18 @@ List<CircularReplacement> circularReplacements;
         }
         System.out.println("return circular " + circular.getFileName() + " of " + circular.getFileType());
         return circular;
+    }
+    
+    public void deleteCircular(){
+        if(circular !=null){
+            circular.setRetired(true);
+            circular.setRetiredAt(Calendar.getInstance().getTime());
+            circular.setRetirer(sessionController.loggedUser);
+            circularFacade.edit(circular);
+            UtilityController.addSuccessMessage("Delete Successful");            
+        }else{
+            UtilityController.addErrorMessage("Select a Circular");
+        }
     }
 
     

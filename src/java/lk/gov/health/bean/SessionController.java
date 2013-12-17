@@ -285,14 +285,7 @@ public class SessionController  implements Serializable {
         return result;
     }
     
-    /*public boolean chknullUsername(String newUserName){
-        boolean flag=false;
-        if(newUserName==null){
-            flag=true;
-        }
-        return flag;
-        
-    }*/
+  
 
     public String registeUser() {
 //        if (!telNoOk()) {
@@ -300,10 +293,10 @@ public class SessionController  implements Serializable {
 //            return "";
 //        }
 
-        /*if(!chknullUsername(newUserName)){
+        if(newUserName==null || userName.trim().equals("")){
             UtilityController.addErrorMessage("Please Enter a User Name");
             return "";
-        }*/
+        }
         
         if (!userNameAvailable(newUserName)) {
             UtilityController.addErrorMessage("User name already exists. Plese enter another user name");
