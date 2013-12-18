@@ -32,7 +32,7 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-       public void create(T entity) {
+    public void create(T entity) {
         getEntityManager().persist(entity);
     }
 
@@ -75,8 +75,8 @@ public abstract class AbstractFacade<T> {
         TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
         return qry.getResultList();
     }
-    
-    public List<T> findBySQL(String temSQL ,int maxRecords) {
+
+    public List<T> findBySQL(String temSQL, int maxRecords) {
         TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
         qry.setMaxResults(maxRecords);
         return qry.getResultList();
@@ -88,10 +88,16 @@ public abstract class AbstractFacade<T> {
         Iterator it = s.iterator();
         while (it.hasNext()) {
             Map.Entry m = (Map.Entry) it.next();
-            Date pVal = (Date) m.getValue();
-            String pPara = (String) m.getKey();
-            qry.setParameter(pPara, pVal, TemporalType.DATE);
-            System.out.println("Parameter " + pPara + "\tVal" + pVal);
+
+            if (m.getValue() instanceof Date) {
+                Date pVal = (Date) m.getValue();
+                String pPara = (String) m.getKey();
+                qry.setParameter(pPara, pVal, TemporalType.DATE);
+            } else {
+                Object pVal =  m.getValue();
+                String pPara = (String) m.getKey();
+                qry.setParameter(pPara, pVal);
+            }
         }
         return qry.getResultList();
     }
@@ -230,7 +236,7 @@ public abstract class AbstractFacade<T> {
             return 0.0;
         }
     }
-    
+
     public List<String> findString(String strJQL) {
         Query q = getEntityManager().createQuery(strJQL);
         try {
@@ -240,7 +246,7 @@ public abstract class AbstractFacade<T> {
             return null;
         }
     }
-    
+
     public Double findAggregateDbl(String temSQL, Map<String, Date> parameters) {
         TypedQuery<Double> qry = getEntityManager().createQuery(temSQL, Double.class);
         Set s = parameters.entrySet();
@@ -259,7 +265,4 @@ public abstract class AbstractFacade<T> {
             return 0.0;
         }
     }
-    
-    
-
 }

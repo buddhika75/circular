@@ -25,7 +25,13 @@
                         <ul>
                             <li><h:commandLink action="index" value ="#{labels.home}" ></h:commandLink>  </li>
                             <ui:repeat value="#{administrativeDivisionController.items}" var="addiv" >
-                                <h:commandLink action="#{circularController.toDivisionalCirculars()}" value ="#{addiv.name}" >
+                                <h:commandLink rendered="#{webUserController.language eq 'en'}" action="#{circularController.toDivisionalCirculars()}" value ="#{addiv.name}" >
+                                    <f:setPropertyActionListener value="#{addiv}" target="#{circularController.division}" />
+                                </h:commandLink>
+                                <h:commandLink rendered="#{webUserController.language eq 'si'}" action="#{circularController.toDivisionalCirculars()}" value ="#{addiv.sname}" >
+                                    <f:setPropertyActionListener value="#{addiv}" target="#{circularController.division}" />
+                                </h:commandLink>
+                                <h:commandLink rendered="#{webUserController.language eq 'ta'}" action="#{circularController.toDivisionalCirculars()}" value ="#{addiv.tname}" >
                                     <f:setPropertyActionListener value="#{addiv}" target="#{circularController.division}" />
                                 </h:commandLink>
                             </ui:repeat>

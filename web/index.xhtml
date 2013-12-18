@@ -6,10 +6,10 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
     <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
-    
+
     <body>
         <ui:composition template="./resources/template/template_1.xhtml">
-           <ui:define name="login">
+            <ui:define name="login">
                 <h:form>
                     <table>
                         <tr valign="top">
@@ -32,9 +32,13 @@
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
+                                                
                                                 Circular Number
                                             </f:facet>
-                                            #{c.name}
+                                            <h:commandLink value="#{c.name}" action="#{circularController.toViewCircular()}" >
+                                                        <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
+                                                    </h:commandLink>
+                                            
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
@@ -54,11 +58,27 @@
                                             </f:facet>
                                             #{c.signingAuthority.name}
                                         </p:column>
+
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Replaced Circular
+                                            </f:facet>
+                                            <p:dataTable value="#{circularController.replacedBy(c)}" var="rcx">
+                                                <p:column style="width: 100px">
+                                                    <h:commandLink value="#{rcx.newCircular.name}" action="#{circularController.toViewCircular()}" >
+                                                        <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
+                                                    </h:commandLink>
+
+                                        </p:column>
+
+                                            </p:dataTable>
+                                        </p:column>
+
                                         <p:column style="width: 50px;">
                                             <f:facet name="header" >
-                                              Action  
+                                                Action  
                                             </f:facet>
-                                            
+
                                             <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
                                                 <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
                                             </h:commandLink>
@@ -92,10 +112,10 @@
                                     </p:dataTable>
                                 </p:panel>
                             </td>
-                         </tr>                           
+                        </tr>                           
                         <tr>
                             <td style="width: 30%">
-                                    <p:panel header="Resent Circulars">
+                                <p:panel header="Resent Circulars">
                                     <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
@@ -119,12 +139,12 @@
                                         </p:column>
                                     </p:dataTable>
                                 </p:panel>
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                     </table>
-                 </h:form>
+                </h:form>
             </ui:define>
-            
+
             <ui:define name="content">
                 <h:form>
                     <table>
@@ -172,9 +192,9 @@
                                         </p:column>
                                         <p:column style="width: 50px;">
                                             <f:facet name="header" >
-                                              Action  
+                                                Action  
                                             </f:facet>
-                                            
+
                                             <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
                                                 <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
                                             </h:commandLink>
@@ -208,10 +228,10 @@
                                     </p:dataTable>
                                 </p:panel>
                             </td>
-                         </tr>                           
+                        </tr>                           
                         <tr>
                             <td style="width: 30%">
-                                    <p:panel header="Resent Circulars">
+                                <p:panel header="Resent Circulars">
                                     <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
@@ -235,12 +255,12 @@
                                         </p:column>
                                     </p:dataTable>
                                 </p:panel>
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                     </table>
-                 </h:form>
+                </h:form>
             </ui:define>
-            
+
         </ui:composition>
-   </body>
+    </body>
 </html>

@@ -13,7 +13,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -49,7 +51,6 @@ public class CircularController implements Serializable {
     private UploadedFile file;
     @EJB
     CircularFacade circularFacade;
-    
     @EJB
     CategoryFacade catFacade;
     @EJB
@@ -74,20 +75,17 @@ public class CircularController implements Serializable {
     List<Circular> popularCircular;
     List<Circular> resentCirculars;
     List<Circular> divCirculars;
-    private List<Circular> items=null;
+    private List<Circular> items = null;
     private List<KeyWord> keyWords;
     AdministrativeDivision division;
     String strSearch;
     private Circular newCir;
     private Circular oldCir;
     private Circular current;
-    
-    
-    
-List<CircularReplacement> circularReplacements;
+    List<CircularReplacement> circularReplacements;
 
     public List<CircularReplacement> getCircularReplacements() {
-        if(circularReplacements==null){
+        if (circularReplacements == null) {
             String sql;
             sql = "select r From CircularReplacement r order by r.id desc";
             circularReplacements = getReplaceCirFacade().findBySQL(sql, 10);
@@ -98,7 +96,6 @@ List<CircularReplacement> circularReplacements;
     public void setCircularReplacements(List<CircularReplacement> circularReplacements) {
         this.circularReplacements = circularReplacements;
     }
-
 
     public Circular getOldCircular() {
         return oldCircular;
@@ -115,8 +112,6 @@ List<CircularReplacement> circularReplacements;
     public void setNewCircular(Circular newCircular) {
         this.newCircular = newCircular;
     }
-    
-    
 
     public SingleKeyWordFacade getSkFacade() {
         return skFacade;
@@ -218,11 +213,11 @@ List<CircularReplacement> circularReplacements;
         }
     }
 
-    public String toAddNewCircular(){
+    public String toAddNewCircular() {
         setCircular(new Circular());
         return "add_circular";
     }
-    
+
     public String toViewCircular() {
         return "circular";
     }
@@ -265,27 +260,25 @@ List<CircularReplacement> circularReplacements;
         System.out.println("return circular " + circular.getFileName() + " of " + circular.getFileType());
         return circular;
     }
-    
+
     private void recreateModel() {
         items = null;
     }
-    
-    public void delete(){
-        if(current !=null){
+
+    public void delete() {
+        if (current != null) {
             current.setRetired(true);
             current.setRetiredAt(Calendar.getInstance().getTime());
             current.setRetirer(sessionController.loggedUser);
             getCircularFacade().edit(current);
-            UtilityController.addSuccessMessage("Delete Successful");            
-        }else{
+            UtilityController.addSuccessMessage("Delete Successful");
+        } else {
             UtilityController.addErrorMessage("Select a Circular");
         }
         recreateModel();
         getItems();
-        circular=null;
+        circular = null;
     }
-
-    
 
     public void setCircular(Circular circular) {
         System.out.println("setting circular");
@@ -318,7 +311,6 @@ List<CircularReplacement> circularReplacements;
         return temStr;
     }
 
-    
     public String searchStringFromOldText() {
         String temStr = " (";
         String[] splited = txtOldCircilar.split("\\s+");
@@ -332,22 +324,29 @@ List<CircularReplacement> circularReplacements;
         return temStr;
     }
 
-    
     public List<Circular> getCirculars() {
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
             sql = "select c from Circular c where c.retired = false order by c.id desc";
         } else {
             sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyWord w where c.retired = false and k.retired = false and " + searchStringFromText() + " ) order by c1.id desc";
-            
+
         }
         System.out.println("SQL is " + sql);
         circulars = getCircularFacade().findBySQL(sql, 10);
         return circulars;
     }
 
-    
-    
+    public List<CircularReplacement> replacedBy(Circular original) {
+        String s;
+        s = "Select r From CircularReplacement r where r.retired=false and r.replacedCircular=:rc";
+
+        Map m = new HashMap();
+        m.put("rc", original);
+
+        return getReplaceCirFacade().findBySQL(s, m);
+    }
+
     public void setCirculars(List<Circular> circulars) {
         this.circulars = circulars;
     }
@@ -462,13 +461,13 @@ List<CircularReplacement> circularReplacements;
     }
 
     public List<Circular> getLstOldCirculars() {
-        
+
         String sql;
         if (getTxtOldCircilar() == null || getTxtOldCircilar().trim().equals("")) {
             sql = "select c from Circular c where c.retired = false order by c.id desc";
         } else {
             sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyWord w where c.retired = false and k.retired = false and " + searchStringFromOldText() + " ) order by c1.id desc";
-            
+
         }
         System.out.println("SQL is " + sql);
         circulars = getCircularFacade().findBySQL(sql);
@@ -481,7 +480,7 @@ List<CircularReplacement> circularReplacements;
     }
 
     public String getTxtNewCircular() {
-       
+
         return txtNewCircular;
     }
 
@@ -526,23 +525,23 @@ List<CircularReplacement> circularReplacements;
     public void setOldCir(Circular oldCir) {
         this.oldCir = oldCir;
     }
-    
-    public void replaceCircular(){
-        CircularReplacement rep=new CircularReplacement();
-        if(newCircular.equals(oldCircular)){
+
+    public void replaceCircular() {
+        CircularReplacement rep = new CircularReplacement();
+        if (newCircular.equals(oldCircular)) {
             UtilityController.addErrorMessage("You Have Select Same Circulars");
             return;
         }
-        if(newCircular==null || oldCircular==null){
+        if (newCircular == null || oldCircular == null) {
             UtilityController.addErrorMessage("Please Select Circulars");
             return;
         }
         rep.setReplacedCircular(oldCircular);
         rep.setNewCircular(newCircular);
         getReplaceCirFacade().create(rep);
-        circularReplacements=null;
+        circularReplacements = null;
         UtilityController.addSuccessMessage("Added");
-         
+
     }
 
     public CircularReplacementFacade getReplaceCirFacade() {
@@ -554,7 +553,7 @@ List<CircularReplacement> circularReplacements;
     }
 
     public List<Circular> getItems() {
-        if(items==null || items.isEmpty()){
+        if (items == null || items.isEmpty()) {
             items = circularFacade.findBySQL("Select d From Circular d where d.retired=false order by d.name");
         }
         return items;
@@ -571,7 +570,7 @@ List<CircularReplacement> circularReplacements;
         }
         System.out.println("current is " + current.toString());
         return current;
-        
+
     }
 
     public void setCurrent(Circular current) {
@@ -582,7 +581,6 @@ List<CircularReplacement> circularReplacements;
         return scCircularById;
     }
 
-       
     @FacesConverter(forClass = Circular.class)
     public static class CircularControllerConverter implements Converter {
 
@@ -622,5 +620,4 @@ List<CircularReplacement> circularReplacements;
             }
         }
     }
-    
 }
