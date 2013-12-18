@@ -88,7 +88,9 @@ List<CircularReplacement> circularReplacements;
 
     public List<CircularReplacement> getCircularReplacements() {
         if(circularReplacements==null){
-            circularReplacements = getReplaceCirFacade().findAll();
+            String sql;
+            sql = "select r From CircularReplacement r order by r.id desc";
+            circularReplacements = getReplaceCirFacade().findBySQL(sql, 10);
         }
         return circularReplacements;
     }
@@ -489,7 +491,7 @@ List<CircularReplacement> circularReplacements;
 
     public List<Circular> getLstNewCirculars() {
         String sql;
-        sql = "Select c from Circular c";
+        sql = "Select c from Circular c where c.retired=false";
         lstNewCirculars = getCircularFacade().findBySQL(sql);
         return lstNewCirculars;
     }
@@ -527,6 +529,10 @@ List<CircularReplacement> circularReplacements;
     
     public void replaceCircular(){
         CircularReplacement rep=new CircularReplacement();
+        if(newCircular.equals(oldCircular)){
+            UtilityController.addErrorMessage("You Have Select Same Circulars");
+            return;
+        }
         if(newCircular==null || oldCircular==null){
             UtilityController.addErrorMessage("Please Select Circulars");
             return;
