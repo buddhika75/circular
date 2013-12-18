@@ -62,8 +62,8 @@
                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
                                 </h:commandLink>
                                  
-                                 <h:commandLink value="Delete">
-                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.deleteCircular()}"/>
+                                 <h:commandLink value="Delete" action="#{circularController.delete()}">
+                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.current}"/>
                                  </h:commandLink> 
                             </p:column>
 

@@ -45,10 +45,11 @@ import org.apache.commons.io.IOUtils;
 public class CircularController implements Serializable {
 
     StreamedContent scCircular;
-    StreamedContent scCircularById;
+    private StreamedContent scCircularById;
     private UploadedFile file;
     @EJB
     CircularFacade circularFacade;
+    
     @EJB
     CategoryFacade catFacade;
     @EJB
@@ -73,11 +74,14 @@ public class CircularController implements Serializable {
     List<Circular> popularCircular;
     List<Circular> resentCirculars;
     List<Circular> divCirculars;
+    private List<Circular> items=null;
     private List<KeyWord> keyWords;
     AdministrativeDivision division;
     String strSearch;
     private Circular newCir;
     private Circular oldCir;
+    private Circular current;
+    
     
     
 List<CircularReplacement> circularReplacements;
@@ -260,16 +264,23 @@ List<CircularReplacement> circularReplacements;
         return circular;
     }
     
-    public void deleteCircular(){
-        if(circular !=null){
-            circular.setRetired(true);
-            circular.setRetiredAt(Calendar.getInstance().getTime());
-            circular.setRetirer(sessionController.loggedUser);
-            circularFacade.edit(circular);
+    private void recreateModel() {
+        items = null;
+    }
+    
+    public void delete(){
+        if(current !=null){
+            current.setRetired(true);
+            current.setRetiredAt(Calendar.getInstance().getTime());
+            current.setRetirer(sessionController.loggedUser);
+            getCircularFacade().edit(current);
             UtilityController.addSuccessMessage("Delete Successful");            
         }else{
             UtilityController.addErrorMessage("Select a Circular");
         }
+        recreateModel();
+        getItems();
+        circular=null;
     }
 
     
@@ -535,9 +546,37 @@ List<CircularReplacement> circularReplacements;
     public void setReplaceCirFacade(CircularReplacementFacade replaceCirFacade) {
         this.replaceCirFacade = replaceCirFacade;
     }
-    
-    
-    
+
+    public List<Circular> getItems() {
+        if(items==null || items.isEmpty()){
+            items = circularFacade.findBySQL("Select d From Circular d where d.retired=false order by d.name");
+        }
+        return items;
+    }
+
+    public void setItems(List<Circular> items) {
+        this.items = items;
+    }
+
+    public Circular getCurrent() {
+        System.out.println("getting current");
+        if (current == null) {
+            current = new Circular();
+        }
+        System.out.println("current is " + current.toString());
+        return current;
+        
+    }
+
+    public void setCurrent(Circular current) {
+        this.current = current;
+    }
+
+    public StreamedContent getScCircularById() {
+        return scCircularById;
+    }
+
+       
     @FacesConverter(forClass = Circular.class)
     public static class CircularControllerConverter implements Converter {
 

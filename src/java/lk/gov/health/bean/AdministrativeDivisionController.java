@@ -137,9 +137,9 @@ public final class AdministrativeDivisionController implements Serializable {
             current.setRetiredAt(Calendar.getInstance().getTime());
             current.setRetirer(sessionController.loggedUser);
             getFacade().edit(current);
-            UtilityController.addSuccessMessage(new MessageController().getValue("deleteSuccessful"));
+            UtilityController.addSuccessMessage(new MessageController().getValue("delete Successful"));
         } else {
-            UtilityController.addErrorMessage(new MessageController().getValue("nothingToDelete"));
+            UtilityController.addErrorMessage(new MessageController().getValue("nothing To Delete"));
         }
         recreateModel();
         getItems();

@@ -19,7 +19,11 @@ body	{
     padding: 0;
     
 }
-
+.allboxes{
+    background: rgba(255, 255, 255, 0.66);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;
+    z-index: 0;
+}
 .jsfbutton{
     color : #00bff3 ;
     background: #40211C ;
