@@ -288,12 +288,29 @@ public class SessionController  implements Serializable {
   
 
     public String registeUser() {
-//        if (!telNoOk()) {
-//            JsfUtil.addErrorMessage("Telephone number in correct, Please enter a valid phone number");
-//            return "";
-//        }
-
-        if(newUserName==null || userName.trim().equals("")){
+        
+        
+        if(newPersonName==null || newPersonName.trim().equals("")){
+            UtilityController.addErrorMessage("Please Enter Name");
+            return "";
+        }
+        
+        if(telNo==null || telNo.trim().equals("")){
+            UtilityController.addErrorMessage("Please Enter a Telephone Number");
+            return "";
+        }
+        
+        if (!telNoOk()) {
+            UtilityController.addErrorMessage("Telephone number in correct, Please enter a valid phone number");
+            return "";
+        }
+        
+        if(email==null || email.trim().equals("")){
+            UtilityController.addErrorMessage("Please Enter an Email");
+            return "";
+        }
+        
+        if(newUserName==null || newUserName.trim().equals("")){
             UtilityController.addErrorMessage("Please Enter a User Name");
             return "";
         }
@@ -302,6 +319,12 @@ public class SessionController  implements Serializable {
             UtilityController.addErrorMessage("User name already exists. Plese enter another user name");
             return "";
         }
+        
+        if(newPassword==null || newPassword.trim().equals("")){
+            UtilityController.addErrorMessage("Please Enter a Password");
+            return "";
+        }
+        
         if (!newPassword.equals(newPasswordConfirm)) {
             UtilityController.addErrorMessage("Password and Re-entered password are not matching");
             return "";
@@ -368,6 +391,17 @@ public class SessionController  implements Serializable {
         }
         return available;
     }
+    
+     /*public Boolean userNamePersonAvailable(String personName) {
+        Boolean available = true;
+        List<WebUser> allUsers = getFacede().findAll();
+        for (WebUser w : allUsers) {
+            if (personName.toLowerCase().equals(SecurityController.decrypt(w.getName()).toLowerCase())) {
+                available = false;
+            }
+        }
+        return available;
+    }*/
 
     private boolean isFirstVisit() {
         if (getFacede().count() <= 0) {

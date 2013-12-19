@@ -6,7 +6,11 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
     <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
-
+    <style type="text/css">
+        .clo{
+    border: none;
+    }
+    </style>
     <body>
         <ui:composition template="./resources/template/template_1.xhtml">
             <ui:define name="login">
@@ -63,15 +67,15 @@
                                             <f:facet name="header" >
                                                 Replaced Circular
                                             </f:facet>
-                                            <p:dataTable value="#{circularController.replacedBy(c)}" var="rcx">
-                                                <p:column style="width: 100px">
+                                            <h:dataTable value="#{circularController.replacedBy(c)}" var="rcx" styleClass="clo">
+                                                <h:column>
                                                     <h:commandLink value="#{rcx.newCircular.name}" action="#{circularController.toViewCircular()}" >
                                                         <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
                                                     </h:commandLink>
 
-                                        </p:column>
+                                        </h:column>
 
-                                            </p:dataTable>
+                                            </h:dataTable>
                                         </p:column>
 
                                         <p:column style="width: 50px;">
@@ -168,9 +172,13 @@
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
+                                                
                                                 Circular Number
                                             </f:facet>
-                                            #{c.name}
+                                            <h:commandLink value="#{c.name}" action="#{circularController.toViewCircular()}" >
+                                                        <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
+                                                    </h:commandLink>
+                                            
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
@@ -190,6 +198,22 @@
                                             </f:facet>
                                             #{c.signingAuthority.name}
                                         </p:column>
+
+                                        <p:column style="width: 100px;">
+                                            <f:facet name="header" >
+                                                Replaced Circular
+                                            </f:facet>
+                                            <h:dataTable value="#{circularController.replacedBy(c)}" var="rcx" styleClass="clo">
+                                                <h:column>
+                                                    <h:commandLink value="#{rcx.newCircular.name}" action="#{circularController.toViewCircular()}" >
+                                                        <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
+                                                    </h:commandLink>
+
+                                        </h:column>
+
+                                            </h:dataTable>
+                                        </p:column>
+
                                         <p:column style="width: 50px;">
                                             <f:facet name="header" >
                                                 Action  

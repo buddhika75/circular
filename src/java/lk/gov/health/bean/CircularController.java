@@ -369,6 +369,11 @@ public class CircularController implements Serializable {
 
     public String saveCircular() {
         InputStream in;
+        /*if(){
+            UtilityController.addErrorMessage("Please Enter Circular Number");
+            return "";
+        }*/
+        
         if (file == null) {
             if (circular.getId() == null || circular.getId() == 0) {
                 UtilityController.addErrorMessage("Please upload an image");
@@ -532,7 +537,7 @@ public class CircularController implements Serializable {
             UtilityController.addErrorMessage("You Have Select Same Circulars");
             return;
         }
-        if (newCircular == null || oldCircular == null) {
+        if (newCircular==null || oldCircular==null) {
             UtilityController.addErrorMessage("Please Select Circulars");
             return;
         }

@@ -113,7 +113,6 @@ public final class AdministrativeDivisionController implements Serializable {
         current = new AdministrativeDivision();
         System.out.println("current is " + getCurrent().toString());
     }
-
     public void saveSelected() {
         if (current == null) {
             UtilityController.addSuccessMessage(new MessageController().getValue("nothingToSave"));

@@ -14,33 +14,61 @@
         <h:form>
             <p:panel header="Creating a new user" rendered="#{sessionController.admin}">
                 
-                <p:panelGrid columns="2" >
-                    <h:outputLabel value="Name" />
+                <table>
+                    <tr>
+                        <td><h:outputLabel value="Name"/></td>
+                        <td><h:inputText value="#{sessionController.newPersonName}"/></td>
+                    </tr>
+                    <tr></tr>
                     
-                    <h:inputText value="#{sessionController.newPersonName}" />
+                    <tr>
+                        <td><h:outputLabel value="Telephone" /></td>
+                        <td><h:inputText value="#{sessionController.telNo}" /></td>
+                    </tr>
+                    <tr></tr>
                     
-                    <h:outputLabel value="Telephone" />
-                    <h:inputText value="#{sessionController.telNo}" />
-                    <h:outputLabel value="Email" />
-                    <h:inputText value="#{sessionController.email}" />
-
-                    <h:outputLabel value="Role" />
-                    <h:selectOneListbox id="cmnSysAdminList" rendered="#{sessionController.admin}"  value="#{sessionController.role}" >
+                    <tr>
+                        <td><h:outputLabel value="Email" /></td>
+                        <td><h:inputText value="#{sessionController.email}" /></td>
+                    </tr>
+                    <tr></tr>
+                    
+                    <tr>
+                        <td><h:outputLabel value="Role" /></td>
+                        <td><h:selectOneMenu id="cmnSysAdminList" rendered="#{sessionController.admin}"  value="#{sessionController.role}" >
                         <f:selectItems value="#{webUserRoleController.items}" var="adminRole" itemLabel="#{adminRole.name}" itemValue="#{adminRole}"  />
-                    </h:selectOneListbox>
-
-                    <h:outputLabel value="User name (Case Insensitive)" />
-                    <h:inputText value="#{sessionController.newUserName}" />
-
-                    <h:outputLabel value="Password (Case sensitive)" />
-                    <h:inputSecret value="#{sessionController.newPassword}" />
-
-                    <h:outputLabel value="Re-enter password" />
-                    <h:inputSecret value="#{sessionController.newPasswordConfirm}" />
-
-                </p:panelGrid>
-                <h:commandButton id="btnReg" type="submit" value="Register" action="#{sessionController.registeUser}" />
-                <h:commandButton value="Reset" type="reset"/>
+                    </h:selectOneMenu></td>
+                    </tr>
+                    <tr></tr>
+                    
+                    <tr>
+                        <td><h:outputLabel value="User name (Case Insensitive)" /></td>
+                        <td><h:inputText value="#{sessionController.newUserName}" /></td>
+                    </tr>
+                    <tr></tr>
+                    
+                    <tr>
+                        <td><h:outputLabel value="Password (Case sensitive)" /></td>
+                        <td><h:inputSecret value="#{sessionController.newPassword}" /></td>
+                    </tr>
+                    <tr></tr>
+                    
+                    <tr>
+                        <td><h:outputLabel value="Re-enter password" /></td>
+                        <td><h:inputSecret value="#{sessionController.newPasswordConfirm}" /></td>
+                    </tr>
+                    <tr></tr>
+                    
+                    <tr>
+                        <td></td>
+                        <td><h:commandButton id="btnReg" type="submit" value="Register" action="#{sessionController.registeUser}" />
+                        <h:commandButton value="Reset" type="reset"/></td>
+                    </tr>
+                    
+                </table>
+                <h:panelGrid columns="2">              
+                </h:panelGrid>
+                               
                 <p:messages globalOnly="true"  ></p:messages>
                 
             </p:panel>

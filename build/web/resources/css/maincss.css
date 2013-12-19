@@ -38,7 +38,9 @@ body	{
     height: 400px;
 }
 
-
+.clo{
+    border: none;
+}
 .jsfbutton:hover{
 
     -webkit-filter:  saturate(2);
