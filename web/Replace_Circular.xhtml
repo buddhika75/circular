@@ -17,7 +17,7 @@
                     <p:panel header="select a replace circular" style="width: 180px;position: absolute;margin-left:200px">
                         <h:panelGrid columns="1" >
 
-                            <h:selectOneListbox id="newCircular" value="#{circularController.newCircular}">
+                            <h:selectOneListbox id="newCircular" value="#{circularController.newCircular}" required="true" requiredMessage="Select Circular">
 
                                 <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.name}" itemValue="#{nc}"></f:selectItems>
                                 <f:ajax execute="newCircular" render="newC" event="click"></f:ajax>

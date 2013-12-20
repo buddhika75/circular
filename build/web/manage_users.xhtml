@@ -22,7 +22,7 @@
 
                     <h:panelGrid id="gpSelect" columns="1" >
                         <h:outputLabel class="pdPageText" value="Users"  />
-                        <h:selectOneListbox class="pdDropDownList" value="#{webUserController.current}" size="5" >
+                        <h:selectOneListbox class="pdDropDownList" value="#{webUserController.current}" size="5" required="true" requiredMessage="Please Select Person Name">
                             <f:selectItems value="#{webUserController.items}" var="users" itemValue="#{users}" itemLabel="#{users.webUserPerson.name}" />
                             <f:ajax event="change" render="gpDetail" execute="gpSelect"/>
                         </h:selectOneListbox>

@@ -369,7 +369,7 @@ public class CircularController implements Serializable {
 
     public String saveCircular() {
         InputStream in;
-        /*if(){
+       /*if(getCircular().getCircularNumber()==null|| getCircular().getCircularNumber()=="" ){
             UtilityController.addErrorMessage("Please Enter Circular Number");
             return "";
         }*/
@@ -405,7 +405,6 @@ public class CircularController implements Serializable {
             System.out.println("Error " + e.getMessage());
             return "";
         }
-
     }
 
     private void addKeyWords() {
