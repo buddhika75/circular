@@ -16,7 +16,7 @@ import lk.gov.health.data.CircularLanguage;
  */
 @Entity
 public class Circular implements Serializable {
-    @OneToMany(mappedBy = "circular",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "circular",cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     private List<CircularKeyword> circularKeywords;
 
     private static final long serialVersionUID = 1L;

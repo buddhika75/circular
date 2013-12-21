@@ -45,7 +45,7 @@ public class CircularKeyword implements Serializable {
     Date retiredAt;
     
    
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     Circular circular;
     
     

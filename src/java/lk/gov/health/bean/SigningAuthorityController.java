@@ -111,14 +111,28 @@ public final class SigningAuthorityController implements Serializable {
         System.out.println("current is " + getCurrent().toString());
     }
 
+    private boolean check() {
+        String sql = "Select s from SigningAuthority s where s.retired=false and "+ " upper(s.name)='" + getCurrent().getName().toUpperCase().trim() + "'";
+       List<SigningAuthority> list=ejbFacade.findBySQL(sql);
+        if (!list.isEmpty()) {
+            System.err.println("Size"+list.size());
+            return true;
+        }
+        return false;
+    }
+    
     public void saveSelected() {
         if (current == null) {
-            UtilityController.addSuccessMessage(new MessageController().getValue("nothingToSave"));
+            UtilityController.addSuccessMessage(new MessageController().getValue("nothing To Save"));
             return;
         } else if (current.getId() != null && current.getId() != 0) {
             getFacade().edit(current);
-            UtilityController.addSuccessMessage(new MessageController().getValue("savedOldSuccessfully"));
+            UtilityController.addSuccessMessage(new MessageController().getValue("saved Old Successfully"));
         } else {
+            if (check()) {
+            UtilityController.addErrorMessage(" This Signing Authority is Already Exists");
+            return;
+            }
             current.setCreatedAt(Calendar.getInstance().getTime());
             current.setCreater(sessionController.loggedUser);
             getFacade().create(current);

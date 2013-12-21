@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Add Keywords</title>
     </h:head>
@@ -20,7 +21,7 @@
                    Keyword
                     </th>
                 <th>
-                    counter
+                    
                 </th> 
                     <th >
                         <h:outputLabel></h:outputLabel>
@@ -28,13 +29,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <h:inputTextarea style="height: 100px; width: 250px;" value="#{keyWordController.bulkKeyword}"></h:inputTextarea>  
+                        <h:inputTextarea style="height: 100px; width: 250px;" value="#{keyWordController.bulkKeyword}" required="true" requiredMessage="Enter Keywords">
+                        </h:inputTextarea>  
                     </td>
                     
                 </tr>
                 <tr>
                     <td align="right">
-                        <h:commandButton value="Save Data" action="#{keyWordController.saveBulkKeyWord()}" ></h:commandButton>
+                        <h:commandButton value="Save Data" action="#{keyWordController.saveBulkKeyWord()}"></h:commandButton>
                     </td>
                 </tr>
                 

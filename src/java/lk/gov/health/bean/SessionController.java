@@ -285,7 +285,16 @@ public class SessionController  implements Serializable {
         return result;
     }
     
-  
+  /*public Boolean personNameAvailable(String personName) {
+        Boolean available = true;
+        List<WebUser> allUsers = getFacede().findAll();
+        for (WebUser w : allUsers) {
+            if (userName.toLowerCase().equals(SecurityController.decrypt(w.getName()).toLowerCase())) {
+                available = false;
+            }
+        }
+        return available;
+    }*/
 
     public String registeUser() {
         

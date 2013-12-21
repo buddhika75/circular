@@ -366,7 +366,17 @@ public class CircularController implements Serializable {
     public void setPerson(Person person) {
         this.person = person;
     }
-
+    
+    private boolean check(){
+       String sql = "Select s from Circular s where s.retired=false and " + " upper(s.circularnumber)='" + getCircular().getCircularNumber().toUpperCase().trim() + "'";
+       circulars=getCircularFacade().findBySQL(sql);
+        if (!circulars.isEmpty()) {
+            //System.err.println("Size"+circulars.size());
+            return true;
+        }
+        return false;
+    }
+    
     public String saveCircular() {
         InputStream in;
        /*if(getCircular().getCircularNumber()==null|| getCircular().getCircularNumber()=="" ){
@@ -374,6 +384,11 @@ public class CircularController implements Serializable {
             return "";
         }*/
         
+        /*if(check()){
+            UtilityController.addErrorMessage("Circular Number already Exist");
+            return "";
+        }*/
+                
         if (file == null) {
             if (circular.getId() == null || circular.getId() == 0) {
                 UtilityController.addErrorMessage("Please upload an image");

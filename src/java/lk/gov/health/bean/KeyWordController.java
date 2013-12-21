@@ -233,6 +233,7 @@ public final class KeyWordController implements Serializable {
 
             }
             setBulkKeyword(" ");
+            
         }
     }
 

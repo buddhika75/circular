@@ -61,11 +61,11 @@
                         <h:panelGrid id="gpDetail" columns="1">
                             <h:panelGrid id="gpDetailText" columns="2">
                                 <h:outputText id="lblName" value="#{labels.administrativeDivision}" ></h:outputText>
-                                <h:inputText id="txtName" value="#{administrativeDivisionController.current.name}" ></h:inputText>
+                                <h:inputText id="txtName" value="#{administrativeDivisionController.current.name}" required="true" requiredMessage="Enter Division Name"></h:inputText>
                                 <h:outputText id="lblNameS" value="#{labels.administrativeDivisionS}" ></h:outputText>
-                                <h:inputText id="txtNameS" value="#{administrativeDivisionController.current.sname}" ></h:inputText>
+                                <h:inputText id="txtNameS" value="#{administrativeDivisionController.current.sname}" required="true" requiredMessage="Enter Division Name in Sinhala"></h:inputText>
                                 <h:outputText id="lblNameT" value="#{labels.administrativeDivisionT}" ></h:outputText>
-                                <h:inputText id="txtNameT" value="#{administrativeDivisionController.current.tname}" ></h:inputText>
+                                <h:inputText id="txtNameT" value="#{administrativeDivisionController.current.tname}" required="true" requiredMessage="Enter Division Name in Tamil"></h:inputText>
 
 
                             </h:panelGrid>

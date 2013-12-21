@@ -17,7 +17,7 @@
                     <p:panel header="select a replace circular" style="width: 180px;position: absolute;margin-left:200px">
                         <h:panelGrid columns="1" >
 
-                            <h:selectOneListbox id="newCircular" value="#{circularController.newCircular}" required="true" requiredMessage="Select Circular">
+                            <h:selectOneListbox id="newCircular" value="#{circularController.newCircular}" required="true" requiredMessage="Select Circular" size="5">
 
                                 <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.name}" itemValue="#{nc}"></f:selectItems>
                                 <f:ajax execute="newCircular" render="newC" event="click"></f:ajax>
@@ -37,7 +37,7 @@
 
                             <h:outputLabel id="lblOldC" value="Selected old circular is #{circularController.oldCircular.name}" />
 
-                            <h:selectOneListbox id="cmbOldCircular"  value="#{circularController.oldCircular}" >
+                            <h:selectOneListbox id="cmbOldCircular"  value="#{circularController.oldCircular}" size="5">
                                 <f:selectItems value="#{circularController.lstOldCirculars}" var="oc" itemLabel="#{oc.name}" itemValue="#{oc}" />
                                 <f:ajax execute="cmbOldCircular" render="lblOldC" event="click" />
                             </h:selectOneListbox>

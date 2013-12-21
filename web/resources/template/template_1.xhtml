@@ -58,7 +58,7 @@
                         <ui:insert name="login"   >
 
 
-                            <p:panel header="Please login" id="loginbox" style="background: rgba(255, 255, 255, 0.66);
+                            <p:panel header="#{labels.Please_login}" id="loginbox" style="background: rgba(255, 255, 255, 0.66);
                                 box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                                 <h:panelGrid columns="2" >
                                     <h:panelGroup >
@@ -95,8 +95,8 @@
 
                 <div id="nav-supp">
                     <h:form>
-                        <h:outputLabel  value="You are logged as #{sessionController.loggedUser.webUserPerson.name}&nbsp;&nbsp;&nbsp;(#{sessionController.loggedUser.role.name})."  rendered ="#{sessionController.logged}" ></h:outputLabel><h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
-                        <h:outputLabel  value="Please login to continue."  rendered ="#{!sessionController.logged}" ></h:outputLabel>
+                        <h:outputLabel  value="#{labels.You_are_logged_as} #{sessionController.loggedUser.webUserPerson.name}&nbsp;&nbsp;&nbsp;(#{sessionController.loggedUser.role.name})."  rendered ="#{sessionController.logged}" ></h:outputLabel><h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
+                        <h:outputLabel  value="#{labels.Please_login_to_continue}"  rendered ="#{!sessionController.logged}" ></h:outputLabel>
 
                         </h:form>
                         Copyright © 2013 | All Rights Reserved
@@ -105,7 +105,7 @@
                 <div id="footerLanguage">
                         <h:form>
                             
-                            Please Select Language
+                            #{labels.Please_Select_Language}
                             <h:commandLink rendered="#{webUserController.language ne 'si'}" value="Sinhala" action="#{webUserController.changeLocale('si')}" ></h:commandLink>
                             <h:commandLink rendered="#{webUserController.language ne 'en'}"  value="English" action="#{webUserController.changeLocale('en')}" ></h:commandLink>
                             <h:commandLink  rendered="#{webUserController.language ne 'ta'}" value="Tamil" action="#{webUserController.changeLocale('ta')}" ></h:commandLink>

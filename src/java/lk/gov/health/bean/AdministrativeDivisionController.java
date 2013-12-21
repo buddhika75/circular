@@ -113,14 +113,35 @@ public final class AdministrativeDivisionController implements Serializable {
         current = new AdministrativeDivision();
         System.out.println("current is " + getCurrent().toString());
     }
+    
+    private boolean check() {
+        String sql = "Select s from AdministrativeDivision s where s.retired=false and "+ " upper(s.name)='" + getCurrent().getName().toUpperCase().trim() + "'";
+       List<AdministrativeDivision> list=ejbFacade.findBySQL(sql);
+        if (!list.isEmpty()) {
+            System.err.println("Size"+list.size());
+            return true;
+        }
+        return false;
+    }
+    
     public void saveSelected() {
+        
+        /*if (check()) {
+            UtilityController.addErrorMessage(" This Administrative Division Already Exists  ");
+            return;
+        }*/
+        
         if (current == null) {
-            UtilityController.addSuccessMessage(new MessageController().getValue("nothingToSave"));
+            UtilityController.addSuccessMessage(new MessageController().getValue("nothing To Save"));
             return;
         } else if (current.getId() != null && current.getId() != 0) {
             getFacade().edit(current);
             UtilityController.addSuccessMessage(new MessageController().getValue("savedOldSuccessfully"));
         } else {
+            if (check()) {
+            UtilityController.addErrorMessage(" This Administrative Division is Already Exists  ");
+            return;
+        }
             current.setCreatedAt(Calendar.getInstance().getTime());
             current.setCreater(sessionController.loggedUser);
             getFacade().create(current);
@@ -128,6 +149,8 @@ public final class AdministrativeDivisionController implements Serializable {
         }
         recreateModel();
         getItems();
+        setCurrent(new AdministrativeDivision());
+        //setCurrent(current=null);
     }
 
     public void delete() {

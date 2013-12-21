@@ -61,11 +61,11 @@
                         <h:panelGrid id="gpDetail" columns="1">
                             <h:panelGrid id="gpDetailText" columns="2">
                                 <h:outputText id="lblName" value="#{labels.signingAuthority}" ></h:outputText>
-                                <h:inputText id="txtName" value="#{signingAuthorityController.current.name}" ></h:inputText>
+                                <h:inputText id="txtName" value="#{signingAuthorityController.current.name}" required="true" requiredMessage="Enter Signing Authority in English"></h:inputText>
                                 <h:outputText id="lblNameS" value="#{labels.signingAuthorityS}" ></h:outputText>
-                                <h:inputText id="txtNameS" value="#{signingAuthorityController.current.sname}" ></h:inputText>
+                                <h:inputText id="txtNameS" value="#{signingAuthorityController.current.sname}" required="true" requiredMessage="Enter Signing Authority in Sinhala"></h:inputText>
                                 <h:outputText id="lblNameT" value="#{labels.signingAuthorityT}" ></h:outputText>
-                                <h:inputText id="txtNameT" value="#{signingAuthorityController.current.tname}" ></h:inputText>
+                                <h:inputText id="txtNameT" value="#{signingAuthorityController.current.tname}" required="true" requiredMessage="Enter Signing Authority in Tamil"></h:inputText>
                             
                             
                             
