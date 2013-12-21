@@ -95,20 +95,20 @@
 
                 <div id="nav-supp">
                     <h:form>
-                        <h:outputLabel  value="#{labels.You_are_logged_as} #{sessionController.loggedUser.webUserPerson.name}&nbsp;&nbsp;&nbsp;(#{sessionController.loggedUser.role.name})."  rendered ="#{sessionController.logged}" ></h:outputLabel><h:commandLink value="Logout" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
+                        <h:outputLabel  value="#{labels.You_are_logged_as} #{sessionController.loggedUser.webUserPerson.name}&nbsp;&nbsp;&nbsp;(#{sessionController.loggedUser.role.name})."  rendered ="#{sessionController.logged}" ></h:outputLabel><h:commandLink value="#{labels.logout}" action="#{sessionController.logout}"  rendered ="#{sessionController.logged}" ></h:commandLink>
                         <h:outputLabel  value="#{labels.Please_login_to_continue}"  rendered ="#{!sessionController.logged}" ></h:outputLabel>
 
                         </h:form>
-                        Copyright © 2013 | All Rights Reserved
+                        #{labels.Copyright_2013_All_Rights_Reserved}
                  </div>
                 
                 <div id="footerLanguage">
                         <h:form>
                             
                             #{labels.Please_Select_Language}
-                            <h:commandLink rendered="#{webUserController.language ne 'si'}" value="Sinhala" action="#{webUserController.changeLocale('si')}" ></h:commandLink>
-                            <h:commandLink rendered="#{webUserController.language ne 'en'}"  value="English" action="#{webUserController.changeLocale('en')}" ></h:commandLink>
-                            <h:commandLink  rendered="#{webUserController.language ne 'ta'}" value="Tamil" action="#{webUserController.changeLocale('ta')}" ></h:commandLink>
+                            <h:commandLink rendered="#{webUserController.language ne 'si'}" value="#{labels.Sinhala}" action="#{webUserController.changeLocale('si')}" ></h:commandLink>
+                            <h:commandLink rendered="#{webUserController.language ne 'en'}"  value="#{labels.English}" action="#{webUserController.changeLocale('en')}" ></h:commandLink>
+                            <h:commandLink  rendered="#{webUserController.language ne 'ta'}" value="#{labels.Tamil}" action="#{webUserController.changeLocale('ta')}" ></h:commandLink>
                         
                         </h:form>
                         
