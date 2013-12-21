@@ -21,7 +21,7 @@
                                 <f:ajax execute="txtnc" render="cmbNewCircular" event="keyup"/>
                             </h:inputText>
                             
-                            <h:selectOneListbox id="cmbNewCircular" value="#{circularController.newCircular.name}" required="true" requiredMessage="Select Circular" size="5">
+                            <h:selectOneListbox id="cmbNewCircular" value="#{circularController.newCircular}" required="true" requiredMessage="Select Circular" size="5">
 
                                 <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.name}" itemValue="#{nc}"></f:selectItems>
                                 <f:ajax execute="cmbNewCircular" render="newC" event="click"></f:ajax>

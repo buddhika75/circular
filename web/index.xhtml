@@ -39,8 +39,8 @@
                                                 
                                                 Circular Number
                                             </f:facet>
-                                            <h:commandLink value="#{c.name}" action="#{circularController.toViewCircular()}" >
-                                                        <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
+                                            <h:commandLink value="#{c.circularNumber}" action="#{circularController.toViewCircular()}" >
+                                                <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
                                                     </h:commandLink>
                                             
                                         </p:column>
@@ -175,8 +175,8 @@
                                                 
                                                 Circular Number
                                             </f:facet>
-                                            <h:commandLink value="#{c.name}" action="#{circularController.toViewCircular()}" >
-                                                        <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
+                                            <h:commandLink value="#{c.circularNumber}" action="#{circularController.toViewCircular()}" >
+                                                <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
                                                     </h:commandLink>
                                             
                                         </p:column>
