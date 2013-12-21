@@ -507,13 +507,28 @@ public class CircularController implements Serializable {
         this.txtNewCircular = txtNewCircular;
     }
 
-    public List<Circular> getLstNewCirculars() {
+    /*public List<Circular> getLstNewCirculars() {
         String sql;
         sql = "Select c from Circular c where c.retired=false";
         lstNewCirculars = getCircularFacade().findBySQL(sql);
         return lstNewCirculars;
-    }
+    }*/
 
+    public List<Circular> getLstNewCirculars() {
+
+        String sql;
+        if (getTxtNewCircular() == null || getTxtNewCircular().trim().equals("")) {
+            sql = "select c from Circular c where c.retired = false order by c.id desc";
+        } else {
+            sql = "select c1 from Circular c1 where c1.id in (select distinct c.id from CircularKeyword k join k.circular c join k.keyWord w where c.retired = false and k.retired = false and " + searchStringFromOldText() + " ) order by c1.id desc";
+
+        }
+        System.out.println("SQL is " + sql);
+        //circulars = getCircularFacade().findBySQL(sql);
+        lstNewCirculars = getCircularFacade().findBySQL(sql);
+        return lstNewCirculars;
+    }
+    
     public void setLstNewCirculars(List<Circular> lstNewCirculars) {
         this.lstNewCirculars = lstNewCirculars;
     }
