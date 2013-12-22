@@ -18,7 +18,8 @@
                     <table>
                         <tr valign="top">
                             <td rowspan="2" style="width:50%;">
-                                <p:panel header="#{labels.circular}" >
+                                <p:panel header="#{labels.circular}" style="background: rgba(255, 255, 255, 0.66);
+                                 box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
 
                                     <h:outputLabel value="#{labels.search_circular}" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
@@ -81,7 +82,8 @@
                                 </p:panel>
                             </td>                  
                             <td style="width: 30%">
-                                <p:panel header="#{labels.PopularCirculars}" >
+                                <p:panel header="#{labels.PopularCirculars}" style="background: rgba(255, 255, 255, 0.66);
+                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                                     <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
                                         <p:column style=" width: 50px">
                                             <f:facet name="header" >
@@ -109,7 +111,8 @@
                         </tr>                           
                         <tr>
                             <td style="width: 30%">
-                                <p:panel header="#{labels.ResentCirculars}">
+                                <p:panel header="#{labels.ResentCirculars}" style="background: rgba(255, 255, 255, 0.66);
+                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                                     <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
@@ -144,7 +147,8 @@
                     <table>
                         <tr valign="top">
                             <td rowspan="2" style="width:50%;">
-                                <p:panel header="#{labels.circular}" >
+                                <p:panel header="#{labels.circular}" style="background: rgba(255, 255, 255, 0.66);
+                                 box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
 
                                     <h:outputLabel value="#{labels.search_circular}" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
@@ -207,7 +211,8 @@
                                 </p:panel>
                             </td>                  
                             <td style="width: 30%">
-                                <p:panel header="#{labels.PopularCirculars}" >
+                                <p:panel header="#{labels.PopularCirculars}" style="background: rgba(255, 255, 255, 0.66);
+                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                                     <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
                                         <p:column style=" width: 50px">
                                             <f:facet name="header" >
@@ -235,7 +240,8 @@
                         </tr>                           
                         <tr>
                             <td style="width: 30%">
-                                <p:panel header="#{labels.ResentCirculars}">
+                                <p:panel header="#{labels.ResentCirculars}" style="background: rgba(255, 255, 255, 0.66);
+                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                                     <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >

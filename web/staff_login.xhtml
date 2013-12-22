@@ -6,9 +6,7 @@
       xmlns:h="http://java.sun.com/jsf/html">
 
     <style type="text/css">
-        .commandButton{
-            font: 100px;
-        }
+
     </style>
     
     <body>
@@ -20,16 +18,16 @@
                     <tr>
                         <td width="300px" >
                             <h:form>
-                                <p:panelGrid columns="1" style="padding: 10px;" >
+                                <p:panelGrid columns="1">
 
-                                    <p:commandButton  rendered="#{sessionController.admin}"  value="Register New User" ajax="false" action="register_user" ></p:commandButton>
-                                    <p:commandButton  rendered="#{sessionController.admin}" value="Manage Users" ajax="false" action="manage_users" ></p:commandButton>
-                                    <p:commandButton rendered="#{sessionController.admin}" value="Manage Administrative Divisions" ajax="false" action="administrative_division" ></p:commandButton>
-                                    <p:commandButton rendered="#{sessionController.admin}"  value="Manage Signing Authorities" ajax="false" action="signing_authority" ></p:commandButton>
-                                    <p:commandButton  rendered="#{sessionController.circularAdder}"  value="Add Circulars" ajax="false" action="#{circularController.toAddNewCircular()}" ></p:commandButton>
-                                    <p:commandButton   rendered="#{sessionController.circularEditor}"   value="Edit Circulars" ajax="false" action="select_circulars" ></p:commandButton>
-                                   <p:commandButton  rendered="#{sessionController.admin}"  value="Add Keyword" ajax="false" action="addKeyword" ></p:commandButton>
-                                   <p:commandButton rendered="#{sessionController.circularEditor}" value="Replace Circular" ajax="false" action="replace_circular"></p:commandButton> 
+                                    <p:commandButton  rendered="#{sessionController.admin}"  value="#{labels.RegisterNewUser}" ajax="false" action="register_user" ></p:commandButton>
+                                    <p:commandButton  rendered="#{sessionController.admin}" value="#{labels.ManageUsers}" ajax="false" action="manage_users" ></p:commandButton>
+                                    <p:commandButton rendered="#{sessionController.admin}" value="#{labels.ManageAdministrativeDivisions}" ajax="false" action="administrative_division" ></p:commandButton>
+                                    <p:commandButton rendered="#{sessionController.admin}"  value="#{labels.ManageSigningAuthorities}" ajax="false" action="signing_authority" ></p:commandButton>
+                                    <p:commandButton  rendered="#{sessionController.circularAdder}"  value="#{labels.AddCirculars}" ajax="false" action="#{circularController.toAddNewCircular()}" ></p:commandButton>
+                                    <p:commandButton   rendered="#{sessionController.circularEditor}"   value="#{labels.EditCirculars}" ajax="false" action="select_circulars" ></p:commandButton>
+                                    <p:commandButton  rendered="#{sessionController.admin}"  value="#{labels.AddKeyword}" ajax="false" action="addKeyword" ></p:commandButton>
+                                    <p:commandButton rendered="#{sessionController.circularEditor}" value="#{labels.ReplaceCircular1}" ajax="false" action="replace_circular"></p:commandButton> 
                                 </p:panelGrid>
                             </h:form>
                         </td>

@@ -2,7 +2,8 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
     
     <h:head>
@@ -12,8 +13,9 @@
         
         <ui:composition template="./resources/template/template_1.xhtml">
             <ui:define name="login">
-            
-                <table align="center" bgcolor="#ffffff" frame="border">
+                <p:panel header="#{labels.AboutUs}" style="background: rgba(255, 255, 255, 0.66);
+                 box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
+                <table align="center">
                 
                 <tr height="15px"></tr>
                 <tr><th>Guidance And Super Vision</th></tr>
@@ -95,10 +97,13 @@
                 
                 
             </table>
+                </p:panel>
             </ui:define>
             
             <ui:define name="content">
-            
+                
+                <p:panel header="#{labels.AboutUs}" style="background: rgba(255, 255, 255, 0.66);
+                 box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                 <table align="center" bgcolor="#ffffff" frame="border">
                 
                 <tr height="15px"></tr>
@@ -181,6 +186,7 @@
                 
                 
             </table>
+                </p:panel>
             </ui:define>
             
 </ui:composition>

@@ -11,7 +11,7 @@ html{
 }
 body	{
     font-family : "Verdana", "Helvetica","Arial","sans-serif","Lucida Grande", "Lucida Sans Unicode";
-    font-size : 70%;
+    font-size : 12px;
     text-align : center;
     color : #6c6c6c;
     background: #2372DE  url(image/bg01.png)repeat;
@@ -192,7 +192,6 @@ img, img a {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;
     z-index: 1;
     height:60px;
-    font-size: 14px;
     font-family: Arial, sans-serif;
     position: fixed;
 }
@@ -208,7 +207,7 @@ img, img a {
 #nav-main a {
     float : left;
     padding : 10px;
-    font-size : 12px;
+    font-size : 16px;
     text-decoration : none;
     color : #fff;
 }

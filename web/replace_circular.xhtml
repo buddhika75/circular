@@ -14,13 +14,16 @@
                 <h:form>
                     
                     
-                    <p:panel header="#{labels.selectReplaceCircular}" style="width: 180px;position: absolute;margin-left:200px">
-                        <h:panelGrid columns="1" >
-                            
-                            <h:inputText id ="txtnc" value="#{circularController.txtNewCircular}"   >
+                    <p:panel header="#{labels.selectReplaceCircular}" style="width: 25%;position: absolute;margin-left:350px;
+                             background: rgba(255, 255, 255, 0.66);box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
+                        <h:panelGrid columns="2" >
+                            <h:outputLabel value="#{labels.search}"/>
+                            <h:inputText id ="txtnc" value="#{circularController.txtNewCircular}">
                                 <f:ajax execute="txtnc" render="cmbNewCircular" event="keyup"/>
                             </h:inputText>
-                            
+                            <h:outputLabel/>
+                            <h:outputLabel id="newC" value="#{labels.SelectedReplacedCircularis} #{circularController.newCircular.circularNumber}"></h:outputLabel>
+                            <h:outputLabel/>
                             <h:selectOneListbox id="cmbNewCircular" value="#{circularController.newCircular}" required="true" requiredMessage="Select Circular" size="5">
 
                                 <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.circularNumber}" itemValue="#{nc}"></f:selectItems>
@@ -28,25 +31,27 @@
 
                             </h:selectOneListbox>
 
-                            <h:outputLabel id="newC" value="#{labels.SelectedReplacedCircularis} #{circularController.newCircular.circularNumber}"></h:outputLabel>
+                            <h:outputLabel/>
                             <h:commandButton value="#{labels.ReplaceCirculars}" type="submit" action="#{circularController.replaceCircular()}"/>
                         </h:panelGrid>                    
                       </p:panel>
                     
-                    <p:panel header="#{labels.selectanoldcircular}" style="width: 180px;position: absolute">
-                        <h:panelGrid columns="1" >
+                    <p:panel header="#{labels.selectanoldcircular}" style="width: 25%;position: absolute;min-height: 217px;
+                             background: rgba(255, 255, 255, 0.66);box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
+                        <h:panelGrid columns="2" >
+                            <h:outputLabel value="#{labels.search}"/>
                             <h:inputText id ="txtoc" value="#{circularController.txtOldCircilar}"   >
                                 <f:ajax execute="txtoc" render="cmbOldCircular" event="keyup"/>
                             </h:inputText>
-
+                            <h:outputLabel/>
                             <h:outputLabel id="lblOldC" value="#{labels.Selectedoldcircularis} #{circularController.oldCircular.circularNumber}" />
-
+                            
+                            <h:outputLabel/>
                             <h:selectOneListbox id="cmbOldCircular"  value="#{circularController.oldCircular}" size="5">
                                 <f:selectItems value="#{circularController.lstOldCirculars}" var="oc" itemLabel="#{oc.circularNumber}" itemValue="#{oc}" />
                                 <f:ajax execute="cmbOldCircular" render="lblOldC" event="click" />
                             </h:selectOneListbox>
-
-
+                           
                         </h:panelGrid>                    
                         </p:panel>
                     
@@ -54,8 +59,9 @@
                             
 
                         </h:panelGrid>                    
-
-                    <p:dataTable value="#{circularController.circularReplacements}" var="c" style="margin-top: 180px;width: 300px">
+                    <p:panel header="#{labels.ReplacedCircular}" style="background: rgba(255, 255, 255, 0.66);
+                     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;margin-top: 230px;width: 330px">
+                    <p:dataTable value="#{circularController.circularReplacements}" var="c">
                             <p:column>
                                 <f:facet name="header">
                                     #{labels.OldCircular}
@@ -71,7 +77,7 @@
                                 
                             </p:column>
                         </p:dataTable>
-                        
+                    </p:panel>
                         
 
                 </h:form>

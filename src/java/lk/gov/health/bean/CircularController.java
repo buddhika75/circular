@@ -448,7 +448,7 @@ public class CircularController implements Serializable {
         for (KeyWord keyWord : getKeyWords()) {
             CircularKeyword ck = new CircularKeyword();
             ck.setKeyWord(keyWord);
-            ck.setCircular(circular);
+            ck.setCircular(getCircular());
             ckFacade.create(ck);
         }
         setKeyWords(new ArrayList<KeyWord>());

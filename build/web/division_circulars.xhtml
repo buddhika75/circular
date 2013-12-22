@@ -13,7 +13,8 @@
             <ui:define name="content">
 
                 <h:form>
-                    <p:panel header="Circulars of #{circularController.division.name}">
+                    <p:panel header="Circulars of #{circularController.division.name}" style="background: rgba(255, 255, 255, 0.66);
+                             box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;width: 50%">
                     <div>
                         <h:outputLabel value="#{labels.search}" ></h:outputLabel>
                         <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
@@ -34,15 +35,25 @@
                                     <f:convertDateTime pattern="yyyy MMMM dd" />
                                 </h:outputLabel>
                             </p:column>
-
+                            
                             <p:column>
+                             <f:facet name="header" >
+                             #{labels.CircularNumber}
+                             </f:facet>
+                                <h:commandLink value="#{cir.name}" action="#{circularController.toViewCircular()}" >
+                             <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
+                             </h:commandLink>
+                             </p:column>
+
+                            <!--<p:column>
                                 <f:facet name="header" >
                                     #{labels.CircularNumber}
                                 </f:facet>
                                 <h:outputLabel value="#{cir.name}" >
                                 </h:outputLabel>
                             </p:column>
-
+                            -->
+                            
                             <p:column>
                                 <f:facet name="header" >
                                     #{labels.Topic}
@@ -50,15 +61,30 @@
                                 <h:outputLabel value="#{cir.topic}" >
                                 </h:outputLabel>
                             </p:column>
+                            
+                            <p:column>
+                                            <f:facet name="header" >
+                                                #{labels.ReplacedCircular}
+                                            </f:facet>
+                                            <h:dataTable value="#{circularController.replacedBy(c)}" var="rcx" styleClass="clo">
+                                                <h:column>
+                                                    <h:commandLink value="#{rcx.newCircular.circularNumber}" action="#{circularController.toViewCircular()}" >
+                                                        <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
+                                                    </h:commandLink>
 
-                             <p:column>
+                                        </h:column>
+
+                                            </h:dataTable>
+                                        </p:column>
+
+                             <!--<p:column>
                                 <f:facet name="header" >
                                     #{labels.Action}
                                 </f:facet>
                                 <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
                                 </h:commandLink>
-                            </p:column>
+                            </p:column>-->
 
 
                         </p:dataTable>
@@ -71,7 +97,8 @@
             <ui:define name="login">
 
                 <h:form>
-                    <p:panel header="Circulars of #{circularController.division.name}">
+                    <p:panel header="Circulars of #{circularController.division.name}" style="background: rgba(255, 255, 255, 0.66);
+                             box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;width: 50%">
                     <div>
                         <h:outputLabel value="#{labels.search}" ></h:outputLabel>
                         <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
@@ -92,15 +119,25 @@
                                     <f:convertDateTime pattern="yyyy MMMM dd" />
                                 </h:outputLabel>
                             </p:column>
-
+                            
                             <p:column>
+                             <f:facet name="header" >
+                             #{labels.CircularNumber}
+                             </f:facet>
+                                <h:commandLink value="#{cir.name}" action="#{circularController.toViewCircular()}" >
+                             <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
+                             </h:commandLink>
+                             </p:column>
+
+                            <!--<p:column>
                                 <f:facet name="header" >
                                     #{labels.CircularNumber}
                                 </f:facet>
                                 <h:outputLabel value="#{cir.name}" >
                                 </h:outputLabel>
                             </p:column>
-
+                            -->
+                            
                             <p:column>
                                 <f:facet name="header" >
                                     #{labels.Topic}
@@ -108,15 +145,30 @@
                                 <h:outputLabel value="#{cir.topic}" >
                                 </h:outputLabel>
                             </p:column>
+                            
+                            <p:column>
+                                            <f:facet name="header" >
+                                                #{labels.ReplacedCircular}
+                                            </f:facet>
+                                            <h:dataTable value="#{circularController.replacedBy(c)}" var="rcx" styleClass="clo">
+                                                <h:column>
+                                                    <h:commandLink value="#{rcx.newCircular.circularNumber}" action="#{circularController.toViewCircular()}" >
+                                                        <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
+                                                    </h:commandLink>
 
-                             <p:column>
+                                        </h:column>
+
+                                            </h:dataTable>
+                                        </p:column>
+
+                             <!--<p:column>
                                 <f:facet name="header" >
                                     #{labels.Action}
                                 </f:facet>
                                 <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
                                 </h:commandLink>
-                            </p:column>
+                            </p:column>-->
 
 
                         </p:dataTable>

@@ -16,7 +16,8 @@
                 
 
                 <h:form>
-                    
+                    <p:panel header="#{labels.EditCirculars}" style="background: rgba(255, 255, 255, 0.66);
+                     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;width: 55%;">
                     <table>
                         <tr>
                             <td><h:outputText value="#{labels.CircularNumber}"/></td>
@@ -111,7 +112,7 @@
                             <td><h:commandButton value="#{labels.save}" action="#{circularController.saveCircular()}"/></td>
                         </tr>
                     </table>
-                  
+                    </p:panel>
                 </h:form>
 
                 <h:form enctype="multipart/form-data">
