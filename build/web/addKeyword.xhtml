@@ -12,13 +12,13 @@
         <ui:composition template="./resources/template/template_1.xhtml">
 
             <ui:define name="content">
-                <p:panel header="Add Keyword" >
+                <p:panel header="#{labels.AddKeyword}" >
         <h:form>
             
             <table>
                 <tr>
                     <th align="left">
-                   Keyword
+                   #{labels.Keywords}
                     </th>
                 <th>
                     
@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <h:commandButton value="Save Data" action="#{keyWordController.saveBulkKeyWord()}"></h:commandButton>
+                        <h:commandButton value="#{labels.save}" action="#{keyWordController.saveBulkKeyWord()}"></h:commandButton>
                     </td>
                 </tr>
                 

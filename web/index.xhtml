@@ -18,9 +18,9 @@
                     <table>
                         <tr valign="top">
                             <td rowspan="2" style="width:50%;">
-                                <p:panel header="Circulars" >
+                                <p:panel header="#{labels.circular}" >
 
-                                    <h:outputLabel value="Search" ></h:outputLabel>
+                                    <h:outputLabel value="#{labels.search_circular}" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
                                         <f:ajax execute="txtSearch" render="tblCir" event="keyup" />
                                     </h:inputText>
@@ -28,7 +28,7 @@
                                     <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
                                         <p:column style=" width: 100px;">
                                             <f:facet name="header" >
-                                                Circular Date
+                                                #{labels.CircularDate}
                                             </f:facet>
                                             <h:outputLabel value="#{c.circularDate}" >
                                                 <f:convertDateTime pattern="yyyy MMMM dd" />
@@ -36,8 +36,7 @@
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                
-                                                Circular Number
+                                                #{labels.CircularNumber}
                                             </f:facet>
                                             <h:commandLink value="#{c.circularNumber}" action="#{circularController.toViewCircular()}" >
                                                 <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
@@ -46,30 +45,30 @@
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Topic
+                                                #{labels.Topic}
                                             </f:facet>
                                             #{c.topic}
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Administrative Division
+                                                #{labels.AdministrativeDivision}
                                             </f:facet>
                                             #{c.administrativeDivision.name}
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Singing Authority
+                                                #{labels.SigningAuthority}
                                             </f:facet>
                                             #{c.signingAuthority.name}
                                         </p:column>
 
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Replaced Circular
+                                                #{labels.ReplacedCircular}
                                             </f:facet>
                                             <h:dataTable value="#{circularController.replacedBy(c)}" var="rcx" styleClass="clo">
                                                 <h:column>
-                                                    <h:commandLink value="#{rcx.newCircular.name}" action="#{circularController.toViewCircular()}" >
+                                                    <h:commandLink value="#{rcx.newCircular.circularNumber}" action="#{circularController.toViewCircular()}" >
                                                         <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
                                                     </h:commandLink>
 
@@ -77,25 +76,16 @@
 
                                             </h:dataTable>
                                         </p:column>
-
-                                        <p:column style="width: 50px;">
-                                            <f:facet name="header" >
-                                                Action  
-                                            </f:facet>
-
-                                            <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
-                                                <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
-                                            </h:commandLink>
-                                        </p:column>
+                                        
                                     </p:dataTable>
                                 </p:panel>
                             </td>                  
                             <td style="width: 30%">
-                                <p:panel header="Popular Circulars" >
+                                <p:panel header="#{labels.PopularCirculars}" >
                                     <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
                                         <p:column style=" width: 50px">
                                             <f:facet name="header" >
-                                                Circular Date
+                                                #{labels.CircularDate}
                                             </f:facet>
                                             <h:outputLabel value="#{c1.circularDate}" >
                                                 <f:convertDateTime pattern="yyyy MMMM dd" />
@@ -103,13 +93,13 @@
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Circular Number
+                                                #{labels.CircularNumber}
                                             </f:facet>
-                                            #{c1.name}
+                                            #{c1.circularNumber}
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Topic
+                                                #{labels.Topic}
                                             </f:facet>
                                             #{c1.topic}
                                         </p:column>
@@ -119,11 +109,11 @@
                         </tr>                           
                         <tr>
                             <td style="width: 30%">
-                                <p:panel header="Resent Circulars">
+                                <p:panel header="#{labels.ResentCirculars}">
                                     <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Circular Date
+                                                #{labels.CircularDate}
                                             </f:facet>
                                             <h:outputLabel value="#{c.circularDate}" >
                                                 <f:convertDateTime pattern="yyyy MMMM dd" />
@@ -131,13 +121,13 @@
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Circular Number
+                                                #{labels.CircularNumber}
                                             </f:facet>
-                                            #{c.name}
+                                            #{c.circularNumber}
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Topic
+                                                #{labels.Topic}
                                             </f:facet>
                                             #{c.topic}
                                         </p:column>
@@ -154,9 +144,9 @@
                     <table>
                         <tr valign="top">
                             <td rowspan="2" style="width:50%;">
-                                <p:panel header="Circulars" >
+                                <p:panel header="#{labels.circular}" >
 
-                                    <h:outputLabel value="Search" ></h:outputLabel>
+                                    <h:outputLabel value="#{labels.search_circular}" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
                                         <f:ajax execute="txtSearch" render="tblCir" event="keyup" />
                                     </h:inputText>
@@ -164,7 +154,7 @@
                                     <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
                                         <p:column style=" width: 100px;">
                                             <f:facet name="header" >
-                                                Circular Date
+                                                #{labels.CircularDate}
                                             </f:facet>
                                             <h:outputLabel value="#{c.circularDate}" >
                                                 <f:convertDateTime pattern="yyyy MMMM dd" />
@@ -172,8 +162,7 @@
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                
-                                                Circular Number
+                                                #{labels.CircularNumber}
                                             </f:facet>
                                             <h:commandLink value="#{c.circularNumber}" action="#{circularController.toViewCircular()}" >
                                                 <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
@@ -182,30 +171,30 @@
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Topic
+                                                #{labels.Topic}
                                             </f:facet>
                                             #{c.topic}
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Administrative Division
+                                                #{labels.AdministrativeDivision}
                                             </f:facet>
                                             #{c.administrativeDivision.name}
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Singing Authority
+                                                #{labels.SigningAuthority}
                                             </f:facet>
                                             #{c.signingAuthority.name}
                                         </p:column>
 
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
-                                                Replaced Circular
+                                                #{labels.ReplacedCircular}
                                             </f:facet>
                                             <h:dataTable value="#{circularController.replacedBy(c)}" var="rcx" styleClass="clo">
                                                 <h:column>
-                                                    <h:commandLink value="#{rcx.newCircular.name}" action="#{circularController.toViewCircular()}" >
+                                                    <h:commandLink value="#{rcx.newCircular.circularNumber}" action="#{circularController.toViewCircular()}" >
                                                         <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
                                                     </h:commandLink>
 
@@ -213,25 +202,16 @@
 
                                             </h:dataTable>
                                         </p:column>
-
-                                        <p:column style="width: 50px;">
-                                            <f:facet name="header" >
-                                                Action  
-                                            </f:facet>
-
-                                            <h:commandLink value="View" action="#{circularController.toViewCircular()}" >
-                                                <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
-                                            </h:commandLink>
-                                        </p:column>
+                                        
                                     </p:dataTable>
                                 </p:panel>
                             </td>                  
                             <td style="width: 30%">
-                                <p:panel header="Popular Circulars" >
+                                <p:panel header="#{labels.PopularCirculars}" >
                                     <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
                                         <p:column style=" width: 50px">
                                             <f:facet name="header" >
-                                                Circular Date
+                                                #{labels.CircularDate}
                                             </f:facet>
                                             <h:outputLabel value="#{c1.circularDate}" >
                                                 <f:convertDateTime pattern="yyyy MMMM dd" />
@@ -239,13 +219,13 @@
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Circular Number
+                                                #{labels.CircularNumber}
                                             </f:facet>
-                                            #{c1.name}
+                                            #{c1.circularNumber}
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Topic
+                                                #{labels.Topic}
                                             </f:facet>
                                             #{c1.topic}
                                         </p:column>
@@ -255,11 +235,11 @@
                         </tr>                           
                         <tr>
                             <td style="width: 30%">
-                                <p:panel header="Resent Circulars">
+                                <p:panel header="#{labels.ResentCirculars}">
                                     <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Circular Date
+                                                #{labels.CircularDate}
                                             </f:facet>
                                             <h:outputLabel value="#{c.circularDate}" >
                                                 <f:convertDateTime pattern="yyyy MMMM dd" />
@@ -267,13 +247,13 @@
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Circular Number
+                                                #{labels.CircularNumber}
                                             </f:facet>
-                                            #{c.name}
+                                            #{c.circularNumber}
                                         </p:column>
                                         <p:column style="width: 50px">
                                             <f:facet name="header" >
-                                                Topic
+                                                #{labels.Topic}
                                             </f:facet>
                                             #{c.topic}
                                         </p:column>

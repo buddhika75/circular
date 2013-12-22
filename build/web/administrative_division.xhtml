@@ -25,7 +25,7 @@
 
                             <h:panelGrid id="gpSelectText" columns="2" >
 
-                                <h:outputText id="lblSelect" value="#{labels.administrativeDivision}" >
+                                <h:outputText id="lblSelect" value="#{labels.search}" >
                                 </h:outputText>
 
                                 <h:inputText id="txtSelect" value="#{administrativeDivisionController.selectText}"  style="min-width: 200px" >
@@ -47,7 +47,7 @@
                             </h:panelGrid>
 
                             <h:panelGrid id="gpSelectButtons" columns="2"  >
-                                <h:commandButton  id="btnAdd" value="#{labels.add}" action="#{administrativeDivisionController.prepareAdd}" styleClass="buttons" >
+                                <h:commandButton  id="btnAdd" value="#{labels.addNew}" action="#{administrativeDivisionController.prepareAdd}" styleClass="buttons" >
                                     <f:ajax render="@form" execute="@all" >                                
                                     </f:ajax>
                                 </h:commandButton>
@@ -60,7 +60,7 @@
                     <h:panelGroup>
                         <h:panelGrid id="gpDetail" columns="1">
                             <h:panelGrid id="gpDetailText" columns="2">
-                                <h:outputText id="lblName" value="#{labels.administrativeDivision}" ></h:outputText>
+                                <h:outputText id="lblName" value="#{labels.administrativeDivisionE}" ></h:outputText>
                                 <h:inputText id="txtName" value="#{administrativeDivisionController.current.name}" required="true" requiredMessage="Enter Division Name"></h:inputText>
                                 <h:outputText id="lblNameS" value="#{labels.administrativeDivisionS}" ></h:outputText>
                                 <h:inputText id="txtNameS" value="#{administrativeDivisionController.current.sname}" required="true" requiredMessage="Enter Division Name in Sinhala"></h:inputText>

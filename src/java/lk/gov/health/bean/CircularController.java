@@ -401,11 +401,6 @@ public class CircularController implements Serializable {
          return "";
          }*/
 
-        if (check()) {
-            UtilityController.addErrorMessage("Circular Number already Exist");
-            return "";
-        }
-
         /*if (!circularNumAvailable(circular.getCircularNumber())) {
          UtilityController.addErrorMessage("Circular Number already exists. Plese enter another user name");
          return "";
@@ -429,6 +424,10 @@ public class CircularController implements Serializable {
             in = file.getInputstream();
             circular.setBaImage(IOUtils.toByteArray(in));
             if (circular.getId() == null || circular.getId() == 0) {
+                if (check()) {
+                    UtilityController.addErrorMessage("Circular Number already Exist");
+                    return "";
+                }
                 circularFacade.create(circular);
                 UtilityController.addSuccessMessage("New File Saved");
             } else {
@@ -591,7 +590,17 @@ public class CircularController implements Serializable {
 
         return false;
     }
-
+    
+    private boolean checkrep() {
+        String sql = "Select s from CircularReplacement s where s.retired=false and " + " upper(s.replacedCircular)='" + getCircular().getCircularNumber().toUpperCase().trim() + "'";
+        CircularReplacement tmp = replaceCirFacade.findFirstBySQL(sql);
+        if (tmp!=null) {
+            System.err.println("Size" + tmp.getReplacedCircular());
+            return true;
+        }
+        return false;
+    }
+    
     public void replaceCircular() {
         CircularReplacement rep = new CircularReplacement();
         if (newCircular.equals(oldCircular)) {
@@ -603,6 +612,11 @@ public class CircularController implements Serializable {
          UtilityController.addErrorMessage(" This Replacement is Already Exists  ");
          return;
          }*/
+        
+        /*if (checkrep()) {
+            UtilityController.addErrorMessage(" This Replacement is Already Exists  ");
+            return;
+        }*/
 
         if (newCircular == null || oldCircular == null) {
             UtilityController.addErrorMessage("Please Select Circulars");

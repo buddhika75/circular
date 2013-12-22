@@ -13,9 +13,9 @@
             <ui:define name="content">
 
                 <h:form>
-
+                    <p:panel header="#{labels.circular}" >
                     <div>
-                        <h:outputLabel value="Search" ></h:outputLabel>
+                        <h:outputLabel value="#{labels.search}" ></h:outputLabel>
                         <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
                             <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
                         </h:inputText>
@@ -25,12 +25,10 @@
 
 
                         <p:dataTable id="tblCir" value="#{circularController.circulars}" var="cir"  >
-                            <f:facet name="header" >
-                                Circulars to Edit
-                            </f:facet>
+                            
                             <p:column>
                                 <f:facet name="header" >
-                                    Circular Date
+                                    #{labels.CircularDate}
                                 </f:facet>
                                 <h:outputLabel value="#{cir.circularDate}" >
                                     <f:convertDateTime pattern="yyyy MMMM dd" />
@@ -40,7 +38,7 @@
 
                             <p:column>
                                 <f:facet name="header" >
-                                    Circular Number
+                                    #{labels.CircularNumber}
                                 </f:facet>
                                 <h:outputLabel value="#{cir.circularNumber}" >
                                 </h:outputLabel>
@@ -48,7 +46,7 @@
 
                             <p:column>
                                 <f:facet name="header" >
-                                    Topic
+                                    #{labels.Topic}
                                 </f:facet>
                                 <h:outputLabel value="#{cir.topic}" >
                                 </h:outputLabel>
@@ -56,13 +54,13 @@
 
                              <p:column>
                                 <f:facet name="header" >
-                                    Action
+                                    #{labels.Action}
                                 </f:facet>
-                                <h:commandLink value="Edit" action="edit_circular" >
+                                 <h:commandLink value="#{labels.Edit}" action="edit_circular" >
                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
                                 </h:commandLink>
-                                 
-                                 <h:commandLink value="Delete" action="#{circularController.delete()}">
+                                 &nbsp;&nbsp;&nbsp;
+                                 <h:commandLink value="#{labels.delete}" action="#{circularController.delete()}">
                                      <f:setPropertyActionListener value="#{cir}" target="#{circularController.current}"/>
                                  </h:commandLink> 
                             </p:column>
@@ -71,7 +69,7 @@
                         </p:dataTable>
 
                     </div>
-
+</p:panel>
                 </h:form>
             </ui:define>
 

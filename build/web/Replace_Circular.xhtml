@@ -14,7 +14,7 @@
                 <h:form>
                     
                     
-                    <p:panel header="select a replace circular" style="width: 180px;position: absolute;margin-left:200px">
+                    <p:panel header="#{labels.selectReplaceCircular}" style="width: 180px;position: absolute;margin-left:200px">
                         <h:panelGrid columns="1" >
                             
                             <h:inputText id ="txtnc" value="#{circularController.txtNewCircular}"   >
@@ -23,26 +23,26 @@
                             
                             <h:selectOneListbox id="cmbNewCircular" value="#{circularController.newCircular}" required="true" requiredMessage="Select Circular" size="5">
 
-                                <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.name}" itemValue="#{nc}"></f:selectItems>
+                                <f:selectItems value="#{circularController.lstNewCirculars}" var="nc" itemLabel="#{nc.circularNumber}" itemValue="#{nc}"></f:selectItems>
                                 <f:ajax execute="cmbNewCircular" render="newC" event="click"></f:ajax>
 
                             </h:selectOneListbox>
 
-                            <h:outputLabel id="newC" value="This is #{circularController.newCircular.name}"></h:outputLabel>
-                            <h:commandButton value="Replace circular" type="submit" action="#{circularController.replaceCircular()}"/>
+                            <h:outputLabel id="newC" value="#{labels.SelectedReplacedCircularis} #{circularController.newCircular.circularNumber}"></h:outputLabel>
+                            <h:commandButton value="#{labels.ReplaceCirculars}" type="submit" action="#{circularController.replaceCircular()}"/>
                         </h:panelGrid>                    
                       </p:panel>
                     
-                    <p:panel header="select an old circular" style="width: 180px;position: absolute">
+                    <p:panel header="#{labels.selectanoldcircular}" style="width: 180px;position: absolute">
                         <h:panelGrid columns="1" >
                             <h:inputText id ="txtoc" value="#{circularController.txtOldCircilar}"   >
                                 <f:ajax execute="txtoc" render="cmbOldCircular" event="keyup"/>
                             </h:inputText>
 
-                            <h:outputLabel id="lblOldC" value="Selected old circular is #{circularController.oldCircular.name}" />
+                            <h:outputLabel id="lblOldC" value="#{labels.Selectedoldcircularis} #{circularController.oldCircular.circularNumber}" />
 
                             <h:selectOneListbox id="cmbOldCircular"  value="#{circularController.oldCircular}" size="5">
-                                <f:selectItems value="#{circularController.lstOldCirculars}" var="oc" itemLabel="#{oc.name}" itemValue="#{oc}" />
+                                <f:selectItems value="#{circularController.lstOldCirculars}" var="oc" itemLabel="#{oc.circularNumber}" itemValue="#{oc}" />
                                 <f:ajax execute="cmbOldCircular" render="lblOldC" event="click" />
                             </h:selectOneListbox>
 
@@ -58,16 +58,16 @@
                     <p:dataTable value="#{circularController.circularReplacements}" var="c" style="margin-top: 180px;width: 300px">
                             <p:column>
                                 <f:facet name="header">
-                                    Old Circular
+                                    #{labels.OldCircular}
                                 </f:facet>
-                                #{c.replacedCircular.name}
+                                #{c.replacedCircular.circularNumber}
                             </p:column>
                             
                             <p:column>
                                 <f:facet name="header">
-                                    Replace Circulars
+                                    #{labels.ReplaceCirculars}
                                 </f:facet>
-                                #{c.newCircular.name}
+                                #{c.newCircular.circularNumber}
                                 
                             </p:column>
                         </p:dataTable>

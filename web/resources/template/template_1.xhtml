@@ -15,7 +15,7 @@
 
     <h:body >
          
-            <f:view locale="#{webUserController.language}"> 
+        <f:view locale="#{webUserController.language}"> 
             <p:growl autoUpdate="true"/>
 
             <div id="container">
@@ -58,8 +58,7 @@
                         <ui:insert name="login"   >
 
 
-                            <p:panel header="#{labels.Please_login}" id="loginbox" style="background: rgba(255, 255, 255, 0.66);
-                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
+                            <p:panel header="#{labels.Please_login}" id="loginbox" style="background: rgba(255, 255, 255, 0.66);box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                                 <h:panelGrid columns="2" >
                                     <h:panelGroup >
                                         <h:graphicImage  library="image" name="lock.png" />

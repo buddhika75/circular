@@ -12,29 +12,29 @@
         <p:growl autoUpdate="true"/>
 
         <h:form>
-            <p:panel header="Creating a new user" rendered="#{sessionController.admin}">
+            <p:panel header="#{labels.Creating_a_new_user}" rendered="#{sessionController.admin}" style="width: 30%;background: rgba(255, 255, 255, 0.66);box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                 
                 <table>
                     <tr>
-                        <td><h:outputLabel value="Name"/></td>
+                        <td><h:outputLabel value="#{labels.Name}"/></td>
                         <td><h:inputText value="#{sessionController.newPersonName}"/></td>
                     </tr>
                     <tr></tr>
                     
                     <tr>
-                        <td><h:outputLabel value="Telephone" /></td>
+                        <td><h:outputLabel value="#{labels.Mobile_phone}" /></td>
                         <td><h:inputText value="#{sessionController.telNo}" /></td>
                     </tr>
                     <tr></tr>
                     
                     <tr>
-                        <td><h:outputLabel value="Email" /></td>
+                        <td><h:outputLabel value="#{labels.Email}" /></td>
                         <td><h:inputText value="#{sessionController.email}" /></td>
                     </tr>
                     <tr></tr>
                     
                     <tr>
-                        <td><h:outputLabel value="Role" /></td>
+                        <td><h:outputLabel value="#{labels.Role}" /></td>
                         <td><h:selectOneMenu id="cmnSysAdminList" rendered="#{sessionController.admin}"  value="#{sessionController.role}" >
                         <f:selectItems value="#{webUserRoleController.items}" var="adminRole" itemLabel="#{adminRole.name}" itemValue="#{adminRole}"  />
                     </h:selectOneMenu></td>
@@ -42,27 +42,27 @@
                     <tr></tr>
                     
                     <tr>
-                        <td><h:outputLabel value="User name (Case Insensitive)" /></td>
+                        <td><h:outputLabel value="#{labels.User_name_Case_Insensitive}" /></td>
                         <td><h:inputText value="#{sessionController.newUserName}" /></td>
                     </tr>
                     <tr></tr>
                     
                     <tr>
-                        <td><h:outputLabel value="Password (Case sensitive)" /></td>
+                        <td><h:outputLabel value="#{labels.Password_Case_sensitive}" /></td>
                         <td><h:inputSecret value="#{sessionController.newPassword}" /></td>
                     </tr>
                     <tr></tr>
                     
                     <tr>
-                        <td><h:outputLabel value="Re-enter password" /></td>
+                        <td><h:outputLabel value="#{labels.Re_enter_password}" /></td>
                         <td><h:inputSecret value="#{sessionController.newPasswordConfirm}" /></td>
                     </tr>
                     <tr></tr>
                     
                     <tr>
                         <td></td>
-                        <td><h:commandButton id="btnReg" type="submit" value="Register" action="#{sessionController.registeUser}" />
-                        <h:commandButton value="Reset" type="reset"/></td>
+                        <td><h:commandButton id="btnReg" type="submit" value="#{labels.Register}" action="#{sessionController.registeUser}" />
+                            <h:commandButton value="#{labels.Reset}" type="reset"/></td>
                     </tr>
                     
                 </table>

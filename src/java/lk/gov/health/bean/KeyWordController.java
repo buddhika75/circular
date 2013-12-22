@@ -221,7 +221,26 @@ public final class KeyWordController implements Serializable {
         this.bulkKeyword = bulkKeyword;
     }
 
+    private boolean check() {
+        String sql = "Select s from KeyWord s where s.retired=false and " + " upper(s.bulkKeyword)='" + getCurrent().getName().toUpperCase().trim() + "'";
+       List<KeyWord> list=getKeyFacade().findBySQL(sql);
+        if (!list.isEmpty()) {
+            System.err.println("Size"+list.size());
+            return true;
+        }
+
+
+
+        return false;
+    }
+    
     public void saveBulkKeyWord() {
+        
+        /*if (check()) {
+            UtilityController.addErrorMessage(" This Keyword is Already Exists  ");
+            return;
+        }*/
+        
         List<String> kws = Arrays.asList(bulkKeyword.split("\\s+"));
         for (String kw : kws) {
             KeyWord keyWord;
