@@ -40,7 +40,7 @@
                              <f:facet name="header" >
                              #{labels.CircularNumber}
                              </f:facet>
-                                <h:commandLink value="#{cir.name}" action="#{circularController.toViewCircular()}" >
+                                <h:commandLink value="#{cir.circularNumber}" action="#{circularController.toViewCircular()}" >
                              <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
                              </h:commandLink>
                              </p:column>
@@ -66,7 +66,7 @@
                                             <f:facet name="header" >
                                                 #{labels.ReplacedCircular}
                                             </f:facet>
-                                            <h:dataTable value="#{circularController.replacedBy(c)}" var="rcx" styleClass="clo">
+                                <h:dataTable value="#{circularController.replacedBy(cir)}" var="rcx" styleClass="clo">
                                                 <h:column>
                                                     <h:commandLink value="#{rcx.newCircular.circularNumber}" action="#{circularController.toViewCircular()}" >
                                                         <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
