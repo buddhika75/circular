@@ -22,14 +22,12 @@
                         <tr>
                             <td><h:outputText value="#{labels.CircularNumber}"/></td>
                             <td><h:inputText  id="txtNo" value="#{circularController.circular.circularNumber}" required="true" requiredMessage="Enter Circular Number" >
-                            <f:ajax event="blur" execute="txtNo" render="txtNo" />
                             </h:inputText></td>
                         </tr>
                         
                         <tr>
                             <td><h:outputText value="#{labels.Topic}"/></td>
                             <td><h:inputText id="txtTopic" value="#{circularController.circular.topic}" required="true" requiredMessage="Enter a Topic">
-                            <f:ajax event="blur" execute="txtTopic" render="txtTopic" />
                             </h:inputText></td>
                         </tr>
                         
@@ -37,14 +35,12 @@
                         <tr>
                             <td><h:outputText value="#{labels.Internal}"/></td>
                             <td><h:selectBooleanCheckbox id="chkIn" value="#{circularController.circular.internal}" >
-                            <f:ajax event="blur" execute="chkIn" render="chkIn" />
-                                </h:selectBooleanCheckbox></td>
+                            </h:selectBooleanCheckbox></td>
                         </tr>
                         
                         <tr>
                             <td><h:outputText value="#{labels.CircularLetter}"/></td>
                             <td><h:selectBooleanCheckbox id="chkCl" value="#{circularController.circular.circularLetter}">
-                            <f:ajax event="blur" execute="chkCl" render="chkCl"></f:ajax>
                             </h:selectBooleanCheckbox></td>
                         </tr>
                         
@@ -53,14 +49,12 @@
                             <td><h:selectOneListbox id="cmbAd" size="1" value="#{circularController.circular.administrativeDivision}" required="true" requiredMessage="Please Select a Division">
                             <f:selectItem itemLabel="Please select an administrative division"/>
                             <f:selectItems value="#{administrativeDivisionController.items}" var="ad" itemLabel="#{ad.name}" itemValue="#{ad}" />
-                            <f:ajax event="blur" execute="cmbAd" render="cmbAd" />
                             </h:selectOneListbox></td>
                         </tr>
                             
                         <tr>
                             <td><h:outputText value="#{labels.OriginatingFileNumber}"/></td>
                             <td><h:inputText  id="cmbNo" value="#{circularController.circular.originatingFileNo}" required="true" requiredMessage="Enter Organizing File Number">
-                            <f:ajax event="blur" execute="cmbNo" render="cmbNo" />
                             </h:inputText></td>
                         </tr>
                         
@@ -69,14 +63,12 @@
                             <td><h:selectOneListbox id="cmbSa" value="#{circularController.circular.signingAuthority}" size="1" required="true" requiredMessage="Select Signinng Authority">
                             <f:selectItem itemLabel="Please select the signing authority"/>
                             <f:selectItems value="#{signingAuthorityController.items}" var="sa" itemLabel="#{sa.name}" itemValue="#{sa}" />
-                            <f:ajax event="blur" execute="cmbSa" render="cmbSa" />
                             </h:selectOneListbox></td>
                         </tr>
                         
                         <tr>
                             <td><h:outputLabel value="#{labels.CircularDate}" ></h:outputLabel></td>
                             <td><p:calendar id="calDate" value="#{circularController.circular.circularDate}" pattern="dd MMMM yyyy" required="true" requiredMessage="Enter a Date">
-                            <f:ajax event="select" execute="calDate" render="calDate" />
                             </p:calendar></td>
                         </tr>
                         
@@ -85,7 +77,6 @@
                             <td><h:selectOneListbox  id="cmbLan"  size="1"  value="#{circularController.circular.circularLanguage}"  required="true" requiredMessage="Please Select a Language">
                                     <f:selectItem itemLabel="#{labels.Please_Select_Language}" />
                                     <f:selectItem itemLabel="#{labels.Sinhala}" itemValue="Sinhala" />
-                            <f:ajax event="blur" execute="cmbLan calDate" render="cmbLan" />
                             <f:selectItem itemLabel="#{labels.Tamil}" itemValue="Tamil" />
                             <f:selectItem itemLabel="#{labels.English}" itemValue="English" />
                             </h:selectOneListbox></td>
@@ -100,7 +91,6 @@
                         <tr>
                             <td><h:outputLabel value="#{labels.Contents}" ></h:outputLabel></td>
                             <td><h:inputTextarea id="txtContents" value="#{circularController.circular.contents}" required="true" requiredMessage="Enter Content">
-                            <f:ajax event="blur" execute="txtContents calDate" render="txtContents" />
                             </h:inputTextarea></td>
                         </tr>
                         
