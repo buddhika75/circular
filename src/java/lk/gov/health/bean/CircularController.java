@@ -437,7 +437,7 @@ public class CircularController implements Serializable {
             addKeyWords();
             setCircular(new Circular());
             return "";
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error " + e.getMessage());
             return "";
         }
