@@ -14,8 +14,8 @@
                 <h:form>
                     
                     
-                    <p:panel header="#{labels.selectReplaceCircular}" style="width: 25%;position: absolute;margin-left:350px;
-                             background: rgba(255, 255, 255, 0.66);box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
+                    <p:panel header="#{labels.selectReplaceCircular}" style="width: 25%;position: absolute;margin-left:435px;
+                             min-height: 217px; background: rgba(255, 255, 255, 0.66);box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
                         <h:panelGrid columns="2" >
                             <h:outputLabel value="#{labels.search}"/>
                             <h:inputText id ="txtnc" value="#{circularController.txtNewCircular}">
@@ -47,7 +47,7 @@
                             <h:outputLabel id="lblOldC" value="#{labels.Selectedoldcircularis} #{circularController.oldCircular.circularNumber}" />
                             
                             <h:outputLabel/>
-                            <h:selectOneListbox id="cmbOldCircular"  value="#{circularController.oldCircular}" size="5">
+                            <h:selectOneListbox id="cmbOldCircular"  value="#{circularController.oldCircular.name}" size="5">
                                 <f:selectItems value="#{circularController.lstOldCirculars}" var="oc" itemLabel="#{oc.circularNumber}" itemValue="#{oc}" />
                                 <f:ajax execute="cmbOldCircular" render="lblOldC" event="click" />
                             </h:selectOneListbox>
