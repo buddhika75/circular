@@ -14,63 +14,66 @@
 
                 <h:form>
                     <p:panel header="#{labels.circular}" style="background: rgba(255, 255, 255, 0.66);
-                     box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;width: 65%;">
-                    <div>
-                        <h:outputLabel value="#{labels.search}" ></h:outputLabel>
-                        <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
-                            <f:ajax execute="txtSearch" render="tblCir" event="keydown" />
-                        </h:inputText>
-                    </div>
+                             box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;width: 65%;">
+                        <div>
+                            <h:outputLabel value="#{labels.search}" ></h:outputLabel>
+                            <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
+                                <!--<f:ajax execute="txtSearch" render="tblCir" event="keydown" />-->
+                            </h:inputText>
+                            <p:commandButton ajax="false" 
+                                             action="#{circularController.fillCirculars()}"  
+                                             value="Search"></p:commandButton>
+                        </div>
 
-                    <div>
-
-
-                        <p:dataTable id="tblCir" value="#{circularController.circulars}" var="cir"  >
-                            
-                            <p:column>
-                                <f:facet name="header" >
-                                    #{labels.CircularDate}
-                                </f:facet>
-                                <h:outputLabel value="#{cir.circularDate}" >
-                                    <f:convertDateTime pattern="yyyy MMMM dd" />
-                                
-                                </h:outputLabel>
-                            </p:column>
-
-                            <p:column>
-                                <f:facet name="header" >
-                                    #{labels.CircularNumber}
-                                </f:facet>
-                                <h:outputLabel value="#{cir.circularNumber}" >
-                                </h:outputLabel>
-                            </p:column>
-
-                            <p:column>
-                                <f:facet name="header" >
-                                    #{labels.Topic}
-                                </f:facet>
-                                <h:outputLabel value="#{cir.topic}" >
-                                </h:outputLabel>
-                            </p:column>
-
-                             <p:column>
-                                <f:facet name="header" >
-                                    #{labels.Action}
-                                </f:facet>
-                                 <h:commandLink value="#{labels.Edit}" action="edit_circular" >
-                                    <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
-                                </h:commandLink>
-                                 &nbsp;&nbsp;&nbsp;
-                                 <h:commandLink value="#{labels.delete}" action="#{circularController.delete()}">
-                                     <f:setPropertyActionListener value="#{cir}" target="#{circularController.current}"/>
-                                 </h:commandLink> 
-                            </p:column>
+                        <div>
 
 
-                        </p:dataTable>
+                            <p:dataTable id="tblCir" value="#{circularController.circulars}" var="cir"  >
 
-                    </div>
-</p:panel>
+                                <p:column>
+                                    <f:facet name="header" >
+                                        #{labels.CircularDate}
+                                    </f:facet>
+                                    <h:outputLabel value="#{cir.circularDate}" >
+                                        <f:convertDateTime pattern="yyyy MMMM dd" />
+
+                                    </h:outputLabel>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header" >
+                                        #{labels.CircularNumber}
+                                    </f:facet>
+                                    <h:outputLabel value="#{cir.circularNumber}" >
+                                    </h:outputLabel>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header" >
+                                        #{labels.Topic}
+                                    </f:facet>
+                                    <h:outputLabel value="#{cir.topic}" >
+                                    </h:outputLabel>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header" >
+                                        #{labels.Action}
+                                    </f:facet>
+                                    <h:commandLink value="#{labels.Edit}" action="edit_circular" >
+                                        <f:setPropertyActionListener value="#{cir}" target="#{circularController.circular}"/>
+                                    </h:commandLink>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <h:commandLink value="#{labels.delete}" action="#{circularController.delete()}">
+                                        <f:setPropertyActionListener value="#{cir}" target="#{circularController.current}"/>
+                                    </h:commandLink> 
+                                </p:column>
+
+
+                            </p:dataTable>
+
+                        </div>
+                    </p:panel>
                 </h:form>
             </ui:define>
 

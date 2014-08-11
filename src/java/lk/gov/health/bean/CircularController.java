@@ -324,7 +324,7 @@ public class CircularController implements Serializable {
         return temStr;
     }
 
-    public List<Circular> getCirculars() {
+    public void fillCirculars(){
         String sql;
         if (strSearch == null || strSearch.trim().equals("")) {
             sql = "select c from Circular c where c.retired = false order by c.id desc";
@@ -334,6 +334,9 @@ public class CircularController implements Serializable {
         }
         System.out.println("SQL is " + sql);
         circulars = getCircularFacade().findBySQL(sql, 10);
+    }
+    
+    public List<Circular> getCirculars() {
         return circulars;
     }
 
@@ -369,14 +372,13 @@ public class CircularController implements Serializable {
 
     private boolean check() {
         //   HashMap hm=new HashMap();
-        
-        /*if(getCircular().getCircularNumber()==null){
-            return false;
-        }*/
 
+        /*if(getCircular().getCircularNumber()==null){
+         return false;
+         }*/
         String sql = "Select s from Circular s where s.retired=false and " + " upper(s.circularNumber)='" + getCircular().getCircularNumber().toUpperCase().trim() + "'";
         Circular tmp = getCircularFacade().findFirstBySQL(sql);
-        if (tmp!=null) {
+        if (tmp != null) {
             System.err.println("Size" + tmp.getCircularNumber());
             return true;
         }
@@ -405,7 +407,6 @@ public class CircularController implements Serializable {
          UtilityController.addErrorMessage("Circular Number already exists. Plese enter another user name");
          return "";
          }*/
-
         if (file == null) {
             if (circular.getId() == null || circular.getId() == 0) {
                 UtilityController.addErrorMessage("Please upload an image");
@@ -440,6 +441,20 @@ public class CircularController implements Serializable {
         } catch (IOException e) {
             System.out.println("Error " + e.getMessage());
             return "";
+        }
+    }
+
+    public String saveCircularDetails() {
+        System.out.println("circular = " + circular);
+        if (circular.getId() == null || circular.getId() == 0) {
+            circularFacade.create(circular);
+            UtilityController.addSuccessMessage("Saved");
+            return "";
+        } else {
+            circularFacade.edit(circular);
+            UtilityController.addSuccessMessage("Changes Saved");
+            return "";
+
         }
     }
 
@@ -590,17 +605,17 @@ public class CircularController implements Serializable {
 
         return false;
     }
-    
+
     private boolean checkrep() {
         String sql = "Select s from CircularReplacement s where s.retired=false and " + " upper(s.replacedCircular)='" + getCircular().getCircularNumber().toUpperCase().trim() + "'";
         CircularReplacement tmp = replaceCirFacade.findFirstBySQL(sql);
-        if (tmp!=null) {
+        if (tmp != null) {
             System.err.println("Size" + tmp.getReplacedCircular());
             return true;
         }
         return false;
     }
-    
+
     public void replaceCircular() {
         CircularReplacement rep = new CircularReplacement();
         if (newCircular.equals(oldCircular)) {
@@ -612,12 +627,10 @@ public class CircularController implements Serializable {
          UtilityController.addErrorMessage(" This Replacement is Already Exists  ");
          return;
          }*/
-        
         /*if (checkrep()) {
-            UtilityController.addErrorMessage(" This Replacement is Already Exists  ");
-            return;
-        }*/
-
+         UtilityController.addErrorMessage(" This Replacement is Already Exists  ");
+         return;
+         }*/
         if (newCircular == null || oldCircular == null) {
             UtilityController.addErrorMessage("Please Select Circulars");
             return;

@@ -8,8 +8,8 @@
     <!--Author : Dr. M H B Ariyaratne, MO(Health Information), buddhika.ari@gmail.com-->
     <style type="text/css">
         .clo{
-    border: none;
-    }
+            border: none;
+        }
     </style>
     <body>
         <ui:composition template="./resources/template/template_1.xhtml">
@@ -19,14 +19,20 @@
                         <tr valign="top">
                             <td rowspan="2" style="width:50%;">
                                 <p:panel header="#{labels.circular}" style="background: rgba(255, 255, 255, 0.66);
-                                 box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
+                                         box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
 
                                     <h:outputLabel value="#{labels.search_circular}" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
-                                        <f:ajax execute="txtSearch" render="tblCir" event="keyup" />
+                                        <!--<f:ajax execute="txtSearch" render="tblCir" event="keyup" />-->
                                     </h:inputText>
 
-                                    <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
+                                    <p:commandButton ajax="false" 
+                                                     action="#{circularController.fillCirculars()}"  
+                                                     value="Search"></p:commandButton>
+                                    
+                                    <p:dataTable id="tblCir" 
+                                                 value="#{circularController.circulars}" 
+                                                 var="c">
                                         <p:column style=" width: 100px;">
                                             <f:facet name="header" >
                                                 #{labels.CircularDate}
@@ -40,9 +46,9 @@
                                                 #{labels.CircularNumber}
                                             </f:facet>
                                             <h:commandLink value="#{c.circularNumber}" action="#{circularController.toViewCircular()}" >
-                                                <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
-                                                    </h:commandLink>
-                                            
+                                                <f:setPropertyActionListener value="#{c}" target="#{circularController.circular}"/>
+                                            </h:commandLink>
+
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
@@ -73,71 +79,15 @@
                                                         <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
                                                     </h:commandLink>
 
-                                        </h:column>
+                                                </h:column>
 
                                             </h:dataTable>
                                         </p:column>
-                                        
+
                                     </p:dataTable>
                                 </p:panel>
                             </td>                  
-                            <td style="width: 30%">
-                                <p:panel header="#{labels.PopularCirculars}" style="background: rgba(255, 255, 255, 0.66);
-                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
-                                    <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
-                                        <p:column style=" width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularDate}
-                                            </f:facet>
-                                            <h:outputLabel value="#{c1.circularDate}" >
-                                                <f:convertDateTime pattern="yyyy MMMM dd" />
-                                            </h:outputLabel>
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularNumber}
-                                            </f:facet>
-                                            #{c1.circularNumber}
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.Topic}
-                                            </f:facet>
-                                            #{c1.topic}
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:panel>
-                            </td>
-                        </tr>                           
-                        <tr>
-                            <td style="width: 30%">
-                                <p:panel header="#{labels.ResentCirculars}" style="background: rgba(255, 255, 255, 0.66);
-                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
-                                    <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularDate}
-                                            </f:facet>
-                                            <h:outputLabel value="#{c.circularDate}" >
-                                                <f:convertDateTime pattern="yyyy MMMM dd" />
-                                            </h:outputLabel>
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularNumber}
-                                            </f:facet>
-                                            #{c.circularNumber}
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.Topic}
-                                            </f:facet>
-                                            #{c.topic}
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:panel>
-                            </td>
-                        </tr>
+                        </tr> 
                     </table>
                 </h:form>
             </ui:define>
@@ -148,13 +98,15 @@
                         <tr valign="top">
                             <td rowspan="2" style="width:50%;">
                                 <p:panel header="#{labels.circular}" style="background: rgba(255, 255, 255, 0.66);
-                                 box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
+                                         box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
 
                                     <h:outputLabel value="#{labels.search_circular}" ></h:outputLabel>
                                     <h:inputText id="txtSearch" value="#{circularController.strSearch}" >
-                                        <f:ajax execute="txtSearch" render="tblCir" event="keyup" />
+                                        <!--<f:ajax execute="txtSearch" render="tblCir" event="keyup" />-->
                                     </h:inputText>
-
+                                    <p:commandButton ajax="false" 
+                                                     action="#{circularController.fillCirculars()}"  
+                                                     value="Search"></p:commandButton>
                                     <p:dataTable id="tblCir" value="#{circularController.circulars}" var="c">
                                         <p:column style=" width: 100px;">
                                             <f:facet name="header" >
@@ -170,8 +122,8 @@
                                             </f:facet>
                                             <h:commandLink value="#{c.circularNumber}" action="#{circularController.toViewCircular()}" >
                                                 <f:setPropertyActionListener value="#{c}" target="#{circularController.circular.circularNumber}"/>
-                                                    </h:commandLink>
-                                            
+                                            </h:commandLink>
+
                                         </p:column>
                                         <p:column style="width: 100px;">
                                             <f:facet name="header" >
@@ -202,71 +154,15 @@
                                                         <f:setPropertyActionListener value="#{rcx.newCircular}" target="#{circularController.circular}"/>
                                                     </h:commandLink>
 
-                                        </h:column>
+                                                </h:column>
 
                                             </h:dataTable>
                                         </p:column>
-                                        
+
                                     </p:dataTable>
                                 </p:panel>
                             </td>                  
-                            <td style="width: 30%">
-                                <p:panel header="#{labels.PopularCirculars}" style="background: rgba(255, 255, 255, 0.66);
-                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
-                                    <p:dataTable id="tblPopCir" value="#{circularController.popularCircular}" var="c1">
-                                        <p:column style=" width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularDate}
-                                            </f:facet>
-                                            <h:outputLabel value="#{c1.circularDate}" >
-                                                <f:convertDateTime pattern="yyyy MMMM dd" />
-                                            </h:outputLabel>
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularNumber}
-                                            </f:facet>
-                                            #{c1.circularNumber}
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.Topic}
-                                            </f:facet>
-                                            #{c1.topic}
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:panel>
-                            </td>
                         </tr>                           
-                        <tr>
-                            <td style="width: 30%">
-                                <p:panel header="#{labels.ResentCirculars}" style="background: rgba(255, 255, 255, 0.66);
-                                box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 18px;z-index: 1;">
-                                    <p:dataTable id="tblResCir" value="#{circularController.resentCirculars}" var="c">
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularDate}
-                                            </f:facet>
-                                            <h:outputLabel value="#{c.circularDate}" >
-                                                <f:convertDateTime pattern="yyyy MMMM dd" />
-                                            </h:outputLabel>
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.CircularNumber}
-                                            </f:facet>
-                                            #{c.circularNumber}
-                                        </p:column>
-                                        <p:column style="width: 50px">
-                                            <f:facet name="header" >
-                                                #{labels.Topic}
-                                            </f:facet>
-                                            #{c.topic}
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:panel>
-                            </td>
-                        </tr>
                     </table>
                 </h:form>
             </ui:define>
