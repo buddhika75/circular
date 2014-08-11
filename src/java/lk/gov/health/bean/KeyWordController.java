@@ -144,9 +144,6 @@ public final class KeyWordController implements Serializable {
 
     public List<KeyWord> completePlayer(String query) {
         List<KeyWord> suggestions = getKeyWordFacade().findBySQL("select k from KeyWord k where lower(k.name) like '%" + query.toLowerCase() + "%'");
-
-
-
         return suggestions;
     }
 

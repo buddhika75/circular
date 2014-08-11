@@ -449,13 +449,13 @@ public class CircularController implements Serializable {
         if (circular.getId() == null || circular.getId() == 0) {
             circularFacade.create(circular);
             UtilityController.addSuccessMessage("Saved");
-            return "";
+            addKeyWords();
         } else {
             circularFacade.edit(circular);
             UtilityController.addSuccessMessage("Changes Saved");
-            return "";
-
+            addKeyWords();
         }
+        return "";
     }
 
     private void addKeyWords() {
